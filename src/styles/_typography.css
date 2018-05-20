@@ -64,6 +64,6 @@ p, span, blockquote, a, button {
 .quoteText {
   font-size: var(--font-size-quote);
   font-style: italic;
-  color: var(--color-body);
+  color: var(--color-reading);
   /* letter spacing, line height? */
 }

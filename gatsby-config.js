@@ -15,13 +15,14 @@ module.exports = {
       },
     },
     'gatsby-transformer-remark',
-    {
-      resolve: `gatsby-plugin-postcss-sass`,
-      options: {
-        postCssPlugins: [
-          require('postcss-cssnext')
-        ]
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-postcss-sass`,
+    //   options: {
+    //     postCssPlugins: [
+    //       require('postcss-cssnext')(),
+    //       require('postcss-nesting')()
+    //     ]
+    //   },
+    // },
   ],
 }
