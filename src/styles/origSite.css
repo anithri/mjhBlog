@@ -1,0 +1,21 @@
+
+html,
+body,
+#___gatsby,
+.max {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: var(--color-body-bg);
+}
+
+#___gatsby {
+  background-image: url('../images/lace-background.png');
+  background-position: bottom right;
+  background-size: cover;
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}

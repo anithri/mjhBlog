@@ -3,30 +3,48 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 
 import Header from '../components/header'
-import './index.css'
+import '../styles/site.css'
 
-const Layout = ({ children, data }) => (
-  <div>
-    <Helmet
-      title={data.site.siteMetadata.title}
-      meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' },
-      ]}
-    />
-    <Header siteTitle={data.site.siteMetadata.title} />
-    <div
-      style={{
-        margin: '0 auto',
-        maxWidth: 960,
-        padding: '0px 1.0875rem 1.45rem',
-        paddingTop: 0,
-      }}
-    >
+const Nav = ({ pages }) => {
+  const links = pages.map(({ title, slug }) => {
+    return (
+      <li key={`pageNav-${slug}`}>{title}</li>
+    )
+  })
+  return (
+    <nav>
+      <ul>
+        {links}
+      </ul>
+    </nav>
+  )
+}
+
+const Footer = () => (<footer key="pageFooter">The Footer</footer>)
+
+const Layout = ({ children, data }) => {
+  console.log(data)
+  const { homeUrl, host } = data.site.siteMetadata
+  const { siteTitle, keywords, description, pages } = data.contentfulSiteData
+
+  return (
+    <article>
+      <Helmet
+        key="pageHelmet"
+        defaultTitle={siteTitle}
+        titleTemplate={`${siteTitle} - %s`}
+        meta={[
+          { name: 'description', content: description },
+          { name: 'keywords', content: keywords.join(',') },
+        ]}
+      />
+      <Header key="pageHeader" {...{ siteTitle, homeUrl, host }} />
+      <Nav key="pageNav" pages={pages} />
       {children()}
-    </div>
-  </div>
-)
+      <Footer />
+    </article>
+  )
+}
 
 Layout.propTypes = {
   children: PropTypes.func,
@@ -38,7 +56,17 @@ export const query = graphql`
   query SiteTitleQuery {
     site {
       siteMetadata {
+        homeUrl
+        host
+      }
+    }
+    contentfulSiteData(current: {eq: "current"}) {
+      siteTitle
+      keywords
+      description
+      pages {
         title
+        slug
       }
     }
   }

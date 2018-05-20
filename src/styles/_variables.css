@@ -1,0 +1,40 @@
+/*
+
+    VARIABLES
+
+body text Arial 12 (7,70,247)
+page quote Arial Italix 16
+
+Title Cambria 44
+      Headers 22
+
+      (28,255,66)
+Banner color 0,122,192
+reading background 255,255,153
+
+page background 193,226,247
+
+
+
+*/
+
+@custom-media --breakpoint-not-small screen and (min-width: 30em);
+@custom-media --breakpoint-medium screen and (min-width: 30em) and (max-width: 60em);
+@custom-media --breakpoint-large screen and (min-width: 60em);
+
+/* colors can be found in ./_pallete.css */
+:root {
+
+  --sans-serif: arial, sans-serif;
+  --serif: cambria, serif;
+
+  --font-size-base: 16pt;
+
+  --font-size-logo: 3rem;
+  --font-size-h1: 2.25rem;
+  --font-size-h2: 1.5rem;
+  --font-size-h3: 1.25rem;
+  --font-size-quote: 1.25rem;
+  --font-size-body: 1rem;
+  --font-size-link: 0.875rem;
+}

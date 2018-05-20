@@ -1,13 +1,41 @@
 import React from 'react'
 import Link from 'gatsby-link'
+import get from 'lodash/get'
+import Helmet from 'react-helmet'
 
-const IndexPage = () => (
-  <div>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <Link to="/page-2/">Go to page 2</Link>
-  </div>
-)
+class RootIndex extends React.Component {
+  render() {
+    console.log('RootIndex', this.props.data)
+    const {
+      title, slug,
+      body: {
+        childMarkdownRemark: {html: body}
+      }
+    } = this.props.data.contentfulSiteData.homePage
 
-export default IndexPage
+    return ([
+        <Helmet key="articleHelmet" title={title} />,
+        <h2 key="articleTitle">{title}</h2>,
+        <main key="articleContent" dangerouslySetInnerHTML={{ __html: body }} />,
+      ]
+    )
+  }
+}
+
+export default RootIndex
+
+export const pageQuery = graphql`
+  query indexPage {
+    contentfulSiteData(current: {eq: "current"}) {
+      homePage {
+        title
+        slug
+        body {
+          childMarkdownRemark {
+            html
+          }
+        }    
+      }
+    }
+  }
+`

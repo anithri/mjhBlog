@@ -1,0 +1,13 @@
+
+:root {
+  --color-logo: #00b050;
+  --color-header-bg: #0070C0;
+
+  --color-title: #421CFF;
+  --color-link: var(--black, black);
+  --color-body-bg: #C1E2F7;
+  --color-link-bg: var(--white, white);
+  --color-link-border: #00b050;
+  --color-reading: #0746F7;
+  --color-reading-bg: #FFFF99AA;
+}

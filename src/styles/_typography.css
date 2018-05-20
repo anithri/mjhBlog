@@ -1,0 +1,69 @@
+html {
+  font-size: var(--font-size-base);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: var(--spacing-none, 0);
+  font-family: var(--serif);
+  color: var(--color-title);
+  /* letter spacing, line height? */
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  /* letter spacing, line height? */
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  /* letter spacing, line height? */
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  /* letter spacing, line height? */
+}
+
+p, span, blockquote, a, button {
+  font-family: var(--sans-serif);
+  /* letter spacing, line height? */
+}
+
+.logoText {
+  font-size: var(--font-size-logo);
+  color: var(--color-logo);
+  /* letter spacing, line height? */
+}
+
+.linkText {
+  font-size: var(--font-size-link);
+  color: var(--color-link);
+  /* letter spacing, line height? */
+}
+
+.bodyText {
+  font-size: var(--font-size-body);
+  color: var(--color-reading);
+  /* letter spacing, line height? */
+
+  & h1, & h2, & h3, & h4, & h5, & h6 {
+    color: var(--color-title);
+  }
+  & p, & span, & blockquote, & a, & button {
+
+  }
+}
+
+.bodyText > p:last-child {
+  margin: var(--spacing-none, 0);
+  border-radius: var(--border-radius-2, .25rem);
+
+}
+
+
+.quoteText {
+  font-size: var(--font-size-quote);
+  font-style: italic;
+  color: var(--color-body);
+  /* letter spacing, line height? */
+}

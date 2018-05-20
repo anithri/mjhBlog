@@ -1,0 +1,16 @@
+@import 'tachyons.css';
+
+@import '_typography.css';
+
+@import './tachyons/_debug.css';
+
+html, body, main {
+  height: 100%;
+  width: 100%;
+  background-color: var(--washed-blue, #f6fffe);
+}
+
+/* variables imported last to ensure precedence */
+
+@import '_variables.css';
+@import '_pallete.css';
