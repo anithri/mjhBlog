@@ -13,11 +13,12 @@ class RootIndex extends React.Component {
       }
     } = this.props.data.contentfulSiteData.homePage
 
-    return ([
-        <Helmet key="articleHelmet" title={title} />,
-        <h2 key="articleTitle">{title}</h2>,
-        <main key="articleContent" dangerouslySetInnerHTML={{ __html: body }} />,
-      ]
+    return (
+      <article>
+        <Helmet title={title} />,
+        <h2 >{title}</h2>,
+        <section className="articleContent" dangerouslySetInnerHTML={{ __html: body }} />,
+      </article>
     )
   }
 }
@@ -34,7 +35,7 @@ export const pageQuery = graphql`
           childMarkdownRemark {
             html
           }
-        }    
+        }
       }
     }
   }

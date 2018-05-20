@@ -1,10 +1,11 @@
 @import 'tachyons.css';
 
 @import '_typography.css';
+@import '_grid.css';
 
 @import './tachyons/_debug.css';
 
-html, body, main {
+html, body, body > * {
   height: 100%;
   width: 100%;
   background-color: var(--washed-blue, #f6fffe);

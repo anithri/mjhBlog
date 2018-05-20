@@ -1,13 +1,12 @@
 import React from 'react'
 import Link from 'gatsby-link'
 
-const Header = (props) => {
-  console.log(props)
+const Header = ({className, siteTitle}) => {
   return (
-    <header>
+    <header className={className}>
       <h1>
         <Link to="/">
-          {props.title}
+          {siteTitle}
         </Link>
       </h1>
     </header>

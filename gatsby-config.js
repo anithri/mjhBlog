@@ -14,15 +14,13 @@ module.exports = {
         accessToken: process.env.MOM_ACCESS_TOKEN,
       },
     },
-    'gatsby-plugin-react-helmet',
     'gatsby-transformer-remark',
     {
       resolve: `gatsby-plugin-postcss-sass`,
       options: {
         postCssPlugins: [
           require('postcss-cssnext')
-        ],
-        precision: 8, // cargo cult
+        ]
       },
     },
   ],

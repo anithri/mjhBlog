@@ -5,14 +5,14 @@ import Helmet from 'react-helmet'
 import Header from '../components/header'
 import '../styles/site.css'
 
-const Nav = ({ pages }) => {
+const Nav = ({ pages, className }) => {
   const links = pages.map(({ title, slug }) => {
     return (
       <li key={`pageNav-${slug}`}>{title}</li>
     )
   })
   return (
-    <nav>
+    <nav className={className}>
       <ul>
         {links}
       </ul>
@@ -20,7 +20,7 @@ const Nav = ({ pages }) => {
   )
 }
 
-const Footer = () => (<footer key="pageFooter">The Footer</footer>)
+const Footer = ({className}) => (<footer className={className}>The Footer</footer>)
 
 const Layout = ({ children, data }) => {
   console.log(data)
@@ -28,7 +28,7 @@ const Layout = ({ children, data }) => {
   const { siteTitle, keywords, description, pages } = data.contentfulSiteData
 
   return (
-    <article>
+    <section className="pageGrid">
       <Helmet
         key="pageHelmet"
         defaultTitle={siteTitle}
@@ -38,11 +38,13 @@ const Layout = ({ children, data }) => {
           { name: 'keywords', content: keywords.join(',') },
         ]}
       />
-      <Header key="pageHeader" {...{ siteTitle, homeUrl, host }} />
-      <Nav key="pageNav" pages={pages} />
-      {children()}
-      <Footer />
-    </article>
+      <Header className="pageHeader" {...{ siteTitle, homeUrl, host }} />
+      <Nav className="pageNav" pages={pages} />
+      <main className="pageContent">
+        {children()}
+      </main>
+      <Footer className="pageFooter"/>
+    </section>
   )
 }
 
