@@ -14,6 +14,12 @@ module.exports = {
         accessToken: process.env.MOM_ACCESS_TOKEN,
       },
     },
+    {
+      resolve: 'gatsby-plugin-typography',
+      options: {
+        pathToConfigModule: 'src/styles/typography',
+      },
+    },
     'gatsby-transformer-remark',
     // {
     //   resolve: `gatsby-plugin-postcss-sass`,

@@ -1,15 +1,21 @@
 @import 'tachyons.css';
 
-@import '_variables.css';
-@import '_pallete.css';
+@import '__variables.css';
+@import '__colors.css';
 
-@import '_typography.css';
 @import '_grid.css';
+@import '_pageHeader.css';
+@import '_pageNav.css';
+@import '_typography.css';
 
-@import './tachyons/_debug.css';
+/*@import './tachyons/_debug.css';*/
 
-html, body, body > * {
+html,
+body,
+#___gatsby,
+.max {
   height: 100%;
   width: 100%;
-  background-color: var(--washed-blue, #f6fffe);
+  padding: var(--spacing-none, 0);
+  margin: var(--spacing-none, 0);
 }

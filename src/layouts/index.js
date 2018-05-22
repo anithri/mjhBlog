@@ -2,25 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 
-import Header from '../components/header'
+import Header from '../components/Header'
+import Nav from '../components/Nav'
+import Footer from '../components/Footer'
+
 import '../styles/site.css'
-
-const Nav = ({ pages, className }) => {
-  const links = pages.map(({ title, slug }) => {
-    return (
-      <li key={`pageNav-${slug}`}>{title}</li>
-    )
-  })
-  return (
-    <nav className={className}>
-      <ul>
-        {links}
-      </ul>
-    </nav>
-  )
-}
-
-const Footer = ({className}) => (<footer className={className}>The Footer</footer>)
 
 const Layout = ({ children, data }) => {
   console.log(data)
@@ -67,7 +53,7 @@ export const query = graphql`
       keywords
       description
       pages {
-        title
+        linkName
         slug
       }
     }

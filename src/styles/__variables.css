@@ -24,17 +24,9 @@ page background 193,226,247
 
 /* colors can be found in ./_pallete.css */
 :root {
-
-  --sans-serif: arial, sans-serif;
-  --serif: cambria, serif;
-
   --font-size-base: 16pt;
 
-  --font-size-logo: 3rem;
-  --font-size-h1: 2.25rem;
-  --font-size-h2: 1.5rem;
-  --font-size-h3: 1.25rem;
-  --font-size-quote: 1.25rem;
-  --font-size-body: 1rem;
-  --font-size-link: 0.875rem;
+  --page-width: var(--measure-wide);
+
 }
+

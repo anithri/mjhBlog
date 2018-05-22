@@ -3,7 +3,6 @@ const path = require('path')
 exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators
   return new Promise((resolve, reject) => {
-    const pageTemplate = path.resolve('src/templates/page.js')
     // const postTemplate = path.resolve('src/templates/post.js')
     resolve(
       graphql(`
@@ -12,6 +11,12 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             edges {
               node {
                 slug
+                layout {
+                  template
+                }
+                theme {
+                  skin
+                }
               }
             }
           }
@@ -21,11 +26,15 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           reject(result.errors)
         }
         result.data.allContentfulPage.edges.forEach((edge) => {
+          const {slug, layout: {template}, theme: {skin}} = edge.node
+          const pageTemplate = path.resolve('src/templates',`${template}.js`)
+
           createPage({
-            path: edge.node.slug + '.html',
+            path: slug + '.html',
             component: pageTemplate,
             context: {
               slug: edge.node.slug,
+              theme: skin
             },
           })
         })
@@ -34,5 +43,3 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     )
   })
 }
-
-

@@ -1,0 +1,9 @@
+.pageHeader {
+  padding-top: var(--spacing-small, .5rem);
+
+ & > h1 {
+   font-size: var(--font-size-2);
+   text-align: center;
+
+ }
+}

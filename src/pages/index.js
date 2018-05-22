@@ -1,11 +1,7 @@
 import React from 'react'
-import Link from 'gatsby-link'
-import get from 'lodash/get'
 import Helmet from 'react-helmet'
-
 class RootIndex extends React.Component {
   render() {
-    console.log('RootIndex', this.props.data)
     const {
       title, slug,
       body: {
@@ -17,7 +13,9 @@ class RootIndex extends React.Component {
       <article>
         <Helmet title={title} />,
         <h2 >{title}</h2>,
-        <section className="articleContent" dangerouslySetInnerHTML={{ __html: body }} />,
+        <section className="articleContent"
+                 dangerouslySetInnerHTML={{ __html: body }}
+        />,
       </article>
     )
   }
@@ -30,7 +28,6 @@ export const pageQuery = graphql`
     contentfulSiteData(current: {eq: "current"}) {
       homePage {
         title
-        slug
         body {
           childMarkdownRemark {
             html
