@@ -8,9 +8,9 @@ import Footer from '../components/Footer'
 
 import '../styles/site.css'
 
-const Layout = (props) => {
+const Layout = props => {
   const { children, data } = props
-  console.log('props',props)
+  console.log('props', props)
   const { homeUrl, host } = data.site.siteMetadata
   const { siteTitle, keywords, description, pages } = data.contentfulSiteData
 
@@ -27,10 +27,8 @@ const Layout = (props) => {
       />
       <Header className="pageHeader" {...{ siteTitle, homeUrl, host }} />
       <Nav className="pageNav" pages={pages} />
-      <main className="pageContent">
-        {children()}
-      </main>
-      <Footer className="pageFooter"/>
+      <main className="pageContent">{children()}</main>
+      <Footer className="pageFooter" />
     </section>
   )
 }
@@ -49,7 +47,7 @@ export const query = graphql`
         host
       }
     }
-    contentfulSiteData(current: {eq: "current"}) {
+    contentfulSiteData(current: { eq: "current" }) {
       siteTitle
       keywords
       description

@@ -4,7 +4,8 @@ import Helmet from 'react-helmet'
 class HomePage extends React.Component {
   render() {
     const {
-      title, slug,
+      title,
+      slug,
       body: {
         childMarkdownRemark: { html: body },
       },
@@ -15,8 +16,9 @@ class HomePage extends React.Component {
       <article>
         <Helmet title={title} />,
         <h2>{title}</h2>,
-        <section className="articleContent"
-                 dangerouslySetInnerHTML={{ __html: body }}
+        <section
+          className="articleContent"
+          dangerouslySetInnerHTML={{ __html: body }}
         />,
       </article>
     )
@@ -27,11 +29,11 @@ export default HomePage
 
 export const HomePageQuery = graphql`
   query homePageQuery {
-    contentfulPage(slug: {eq: "home"}) {
+    contentfulPage(slug: { eq: "home" }) {
       slug
       title
       body {
-        childMarkdownRemark{
+        childMarkdownRemark {
           html
         }
       }

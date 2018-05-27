@@ -2,9 +2,12 @@ import React from 'react'
 
 const TextPage = ({ data: { contentfulPage: page } }) => {
   const {
-    title, slug,
-    body: { childMarkdownRemark: { html: body } },
-    theme: {skin}
+    title,
+    slug,
+    body: {
+      childMarkdownRemark: { html: body },
+    },
+    theme: { skin },
   } = page
   return (
     <article className={`textPage ${skin} ${slug}Slug`}>
@@ -19,11 +22,11 @@ export default TextPage
 
 export const pageQuery = graphql`
   query textPageQuery($slug: String!) {
-    contentfulPage(slug: {eq: $slug}) {
+    contentfulPage(slug: { eq: $slug }) {
       slug
       title
       body {
-        childMarkdownRemark{
+        childMarkdownRemark {
           html
         }
       }

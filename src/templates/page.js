@@ -3,19 +3,24 @@ import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
 
 const normalizeResponse = ({
-                             title, slug,
-                             body: { childMarkdownRemark: { html: body } },
-                             theme: { skin: theme },
-                           }) => {
+  title,
+  slug,
+  body: {
+    childMarkdownRemark: { html: body },
+  },
+  theme: { skin: theme },
+}) => {
   return { title, slug, body, theme }
 }
 
-
-const IndexPage = (({ data: { contentfulPage: page } }) => {
+const IndexPage = ({ data: { contentfulPage: page } }) => {
   const {
-    title, slug,
-    body: { childMarkdownRemark: { html: body } },
-    theme: {skin}
+    title,
+    slug,
+    body: {
+      childMarkdownRemark: { html: body },
+    },
+    theme: { skin },
   } = page
   return (
     <article className={`pageArticle ${skin} ${slug}Slug`}>
@@ -24,17 +29,17 @@ const IndexPage = (({ data: { contentfulPage: page } }) => {
       {/*<Img resolutions={node.featuredImage.resolutions}/>*/}
     </article>
   )
-})
+}
 
 export default IndexPage
 
 export const pageQuery = graphql`
   query PageQuery($slug: String!) {
-    contentfulPage(slug: {eq: $slug}) {
+    contentfulPage(slug: { eq: $slug }) {
       slug
       title
       body {
-        childMarkdownRemark{
+        childMarkdownRemark {
           html
         }
       }

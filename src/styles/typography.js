@@ -1,13 +1,13 @@
-import Typography from "typography";
-import theme from "typography-theme-lincoln";
+import Typography from 'typography'
+import theme from 'typography-theme-lincoln'
 
-theme.includeNormalize = false;
+theme.includeNormalize = false
 theme.overrideThemeStyles = ({ rhythm }, options, styles) => ({
   'a, a:visited, a:hover, a:active': {
     textDecoration: 'none',
-    backgroundImage: 'none'
-  }
+    backgroundImage: 'none',
+  },
 })
-const typography = new Typography(theme);
+const typography = new Typography(theme)
 
-export default typography;
+export default typography

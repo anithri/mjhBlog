@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 const PostArticle = ({ className }) => {
   return (
     <article className={`${className} postArticle`}>
-      <h3><Link to={node.slug}>{node.title}</Link></h3>
+      <h3>
+        <Link to={node.slug}>{node.title}</Link>
+      </h3>
       <p>{node.createdAt}</p>
       <div>
-        <div>
-          {/*<Img resolutions={node.featuredImage.resolutions}/>*/}
-        </div>
+        <div>{/*<Img resolutions={node.featuredImage.resolutions}/>*/}</div>
         <div>{node.content.childMarkdownRemark.excerpt}</div>
       </div>
     </article>

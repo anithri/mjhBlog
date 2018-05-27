@@ -4,9 +4,7 @@ import PostArticle from '../components/PostArticle'
 
 const PostPage = ({ post, skin }) => {
   // TODO Also return a post navigation section
-  return (
-    <PostArticle post={post} className={`postPage ${skin}`}/>
-  )
+  return <PostArticle post={post} className={`postPage ${skin}`} />
 }
 
 PostPage.propTypes = {
@@ -17,13 +15,13 @@ PostPage.propTypes = {
     body: PropTypes.shape({
       childMarkdown: PropTypes.shape({
         html: PropTypes.string.isRequired,
-      })
+      }),
     }),
     dateTime: PropTypes.string.isRequired,
     publishDate: PropTypes.string.isRequired,
     theme: {
       skin: propTypes.string.isRequired,
-    }
+    },
   }),
 }
 
@@ -31,13 +29,13 @@ export default Post
 
 export const PostQuery = graphql`
   query PostPageQuery($id: String!) {
-    contentfulPost(id: {eq: $id}) {
+    contentfulPost(id: { eq: $id }) {
       slug
       title
       dateTime: publishOn(formatString: "YYYY-MM-DD")
       publishDate: publishOn(formatString: "LL")
       body {
-        childMarkdownRemark{
+        childMarkdownRemark {
           html
         }
       }

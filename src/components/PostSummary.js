@@ -2,8 +2,8 @@ import React from 'react'
 import PostLink from '../components/PostLink'
 import PropTypes from 'prop-types'
 
-export const PostSummary = ({ post, className}) => {
-  const {summary, publishDate, dateTime} = post
+export const PostSummary = ({ post, className }) => {
+  const { summary, publishDate, dateTime } = post
 
   return (
     <article className={`${className} postSummary`}>

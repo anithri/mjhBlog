@@ -1,14 +1,16 @@
 import React from 'react'
 import Link from 'gatsby-link'
-import {postSlugFrom} from '../utils/postSlug'
-import PropTypes from 'prop-types';
+import { postSlugFrom } from '../utils/postSlug'
+import PropTypes from 'prop-types'
 
-export const PostLink = ({post, className, activeClassName}) => {
+export const PostLink = ({ post, className, activeClassName }) => {
   const { title, slug, dateTime } = post
   return (
-    <Link to={postSlugFrom(slug, dateTime, '/')}
-          className={className}
-          activeClassName={activeClassName}>
+    <Link
+      to={postSlugFrom(slug, dateTime, '/')}
+      className={className}
+      activeClassName={activeClassName}
+    >
       {title}
     </Link>
   )
@@ -21,13 +23,12 @@ PostLink.propTypes = {
     dateTime: PropTypes.string.isRequired,
   }),
   className: PropTypes.string,
-  activeClassName: PropTypes.string
+  activeClassName: PropTypes.string,
 }
 
 PostLink.defaultProps = {
   activeClassName: 'currentPage',
-  className: 'postLink'
+  className: 'postLink',
 }
-
 
 export default PostLink
