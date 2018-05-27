@@ -8,8 +8,9 @@ import Footer from '../components/Footer'
 
 import '../styles/site.css'
 
-const Layout = ({ children, data }) => {
-  console.log(data)
+const Layout = (props) => {
+  const { children, data } = props
+  console.log('props',props)
   const { homeUrl, host } = data.site.siteMetadata
   const { siteTitle, keywords, description, pages } = data.contentfulSiteData
 

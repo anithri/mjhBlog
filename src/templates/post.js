@@ -1,43 +1,48 @@
 import React from 'react'
-import Link from 'gatsby-link'
-import Img from 'gatsby-image'
+import PropTypes from 'prop-types'
+import PostArticle from '../components/PostArticle'
 
-const Post = ({ node }) => {
+const PostPage = ({ post, skin }) => {
+  // TODO Also return a post navigation section
   return (
-    <article className={'pageArticle'}>
-      <h3><Link to={node.slug}>{node.title}</Link></h3>
-      <p>{node.createdAt}</p>
-      <div>
-        <div>
-          {/*<Img resolutions={node.featuredImage.resolutions}/>*/}
-        </div>
-        <div>{node.content.childMarkdownRemark.excerpt}</div>
-      </div>
-    </article>
+    <PostArticle post={post} className={`postPage ${skin}`}/>
   )
 }
 
-const IndexPost = (props) => {
-  console.log(props)
-  return (
-    <div>
-      Stuff
-      {/*<Page node={props} />*/}
-    </div>
-  )
+PostPage.propTypes = {
+  className: PropTypes.string,
+  post: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    body: PropTypes.shape({
+      childMarkdown: PropTypes.shape({
+        html: PropTypes.string.isRequired,
+      })
+    }),
+    dateTime: PropTypes.string.isRequired,
+    publishDate: PropTypes.string.isRequired,
+    theme: {
+      skin: propTypes.string.isRequired,
+    }
+  }),
 }
 
-export default IndexPage
+export default Post
 
-export const pageQuery = graphql`
-  query PostQuery($id: String!) {
-    contentfulPage(id: {eq: $id}) {
+export const PostQuery = graphql`
+  query PostPageQuery($id: String!) {
+    contentfulPost(id: {eq: $id}) {
       slug
       title
+      dateTime: publishOn(formatString: "YYYY-MM-DD")
+      publishDate: publishOn(formatString: "LL")
       body {
         childMarkdownRemark{
           html
         }
+      }
+      theme {
+        skin
       }
     }
   }

@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "Believing the Bird",
+  "description": "MJH Blog",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Scott M Parrish<anithri@gmail.com>",
   "dependencies": {
     "gatsby": "^1.9.247",
     "gatsby-image": "^1.0.51",

@@ -1,18 +1,20 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-class RootIndex extends React.Component {
+
+class HomePage extends React.Component {
   render() {
     const {
       title, slug,
       body: {
-        childMarkdownRemark: {html: body}
-      }
-    } = this.props.data.contentfulSiteData.homePage
+        childMarkdownRemark: { html: body },
+      },
+      theme: { skin },
+    } = this.props.data.contentfulPage
 
     return (
       <article>
         <Helmet title={title} />,
-        <h2 >{title}</h2>,
+        <h2>{title}</h2>,
         <section className="articleContent"
                  dangerouslySetInnerHTML={{ __html: body }}
         />,
@@ -21,18 +23,20 @@ class RootIndex extends React.Component {
   }
 }
 
-export default RootIndex
+export default HomePage
 
-export const pageQuery = graphql`
-  query indexPage {
-    contentfulSiteData(current: {eq: "current"}) {
-      homePage {
-        title
-        body {
-          childMarkdownRemark {
-            html
-          }
+export const HomePageQuery = graphql`
+  query homePageQuery {
+    contentfulPage(slug: {eq: "home"}) {
+      slug
+      title
+      body {
+        childMarkdownRemark{
+          html
         }
+      }
+      theme {
+        skin
       }
     }
   }
