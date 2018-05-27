@@ -1,18 +1,22 @@
 import React from 'react'
-import PostSummary from './PostSummary'
+import Summary from './Summary'
 import PropTypes from 'prop-types'
 
-export const PostSummaryList = ({ posts, className }) => {
+export const SummaryList = ({ posts, className }) => {
   const postSummaries = posts.map(post => (
     <li key={`postSummary-${post.slug}`}>
-      <PostSummary post={post} />
+      <Summary post={post} />
     </li>
   ))
 
-  return <ul className={className}>{postSummaries}</ul>
+  return (
+    <ul className={className}>
+      {postSummaries}
+    </ul>
+  )
 }
 
-PostSummaryList.propTypes = {
+SummaryList.propTypes = {
   className: PropTypes.string,
   posts: PropTypes.arrayOf(
     PropTypes.shape({
@@ -25,7 +29,7 @@ PostSummaryList.propTypes = {
   ),
 }
 
-PostSummaryList.defaultProps = {
+SummaryList.defaultProps = {
   className: 'postSummary',
 }
-export default PostSummaryList
+export default SummaryList

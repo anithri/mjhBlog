@@ -27,9 +27,9 @@ PostPage.propTypes = {
 
 export default Post
 
-export const PostQuery = graphql`
-  query PostPageQuery($id: String!) {
-    contentfulPost(id: { eq: $id }) {
+export const PostPageQuery = graphql`
+  query PostPageQuery($contentful_id: String!) {
+    contentfulPost(contentful_id: { eq: $contentful_id }) {
       slug
       title
       dateTime: publishOn(formatString: "YYYY-MM-DD")

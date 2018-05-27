@@ -19,7 +19,7 @@ const Nav = ({ pages, className }) => {
       return [
         <Spacer idx={idx} key={`pageNavSpacer>${idx}`} />,
         <li key={`pageNav-${slug}-${idx}`}>
-          <Link to={slug} activeClassName={'currentPage'}>
+          <Link to={`/${slug}`} activeClassName={'currentPage'}>
             {linkName}
           </Link>
         </li>,
@@ -31,6 +31,18 @@ const Nav = ({ pages, className }) => {
       <ul>{links}</ul>
     </nav>
   )
+}
+
+Nav.propTypes = {
+  className: PropTypes.string,
+  pages: PropTypes.arrayOf(PropTypes.shape({
+    linkName: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+  }))
+}
+
+Nav.defaultProps = {
+  className: 'pageNav',
 }
 
 export default Nav

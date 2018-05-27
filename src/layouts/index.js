@@ -8,16 +8,14 @@ import Footer from '../components/Footer'
 
 import '../styles/site.css'
 
-const Layout = props => {
-  const { children, data } = props
-  console.log('props', props)
-  const { homeUrl, host } = data.site.siteMetadata
-  const { siteTitle, keywords, description, pages } = data.contentfulSiteData
-
+const Layout = (props) => {
+  console.log('LAYOUT', props)
+  const { children, data: { site, contentfulSiteData } } = props
+  const { homeUrl, host } = site.siteMetadata
+  const { siteTitle, keywords, description, pages } = contentfulSiteData
   return (
     <section className="pageGrid">
       <Helmet
-        key="pageHelmet"
         defaultTitle={siteTitle}
         titleTemplate={`${siteTitle} - %s`}
         meta={[
@@ -26,21 +24,41 @@ const Layout = props => {
         ]}
       />
       <Header className="pageHeader" {...{ siteTitle, homeUrl, host }} />
-      <Nav className="pageNav" pages={pages} />
-      <main className="pageContent">{children()}</main>
+      <Nav className="pageNav" {...{ pages }} />
+      <main className="pageContent">{children}</main>
       <Footer className="pageFooter" />
     </section>
   )
 }
 
 Layout.propTypes = {
-  children: PropTypes.func,
+  data: {
+    site: {
+      siteMetadata: {
+        homeUrl: PropTypes.string,
+        host: PropTypes.string,
+      },
+    },
+    contentfulSiteData: {
+      siteTitle: PropTypes.string.isRequired,
+      keywords: PropTypes.arrayOf(PropTypes.string.isRequired),
+      description: PropTypes.string.isRequired,
+      pages: PropTypes.arrayOf({
+        linkName: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
+      }),
+    },
+  },
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 }
 
 export default Layout
 
-export const query = graphql`
-  query SiteTitleQuery {
+export const SiteLayoutQuery = graphql`
+  query SiteLayoutQuery {
     site {
       siteMetadata {
         homeUrl

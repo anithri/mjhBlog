@@ -1,27 +1,21 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import Quote from '../components/Quote'
+import pageContainer, {contentfulPageShape} from '../containers/page'
 
-class HomePage extends React.Component {
-  render() {
-    const {
-      title,
-      slug,
-      body: {
-        childMarkdownRemark: { html: body },
-      },
-      theme: { skin },
-    } = this.props.data.contentfulPage
+const HomePage = ({data: contentfulPage}) => {
+  const page = pageContainer(contentfulPage)
 
-    return (
-      <article>
-        <Helmet title={title} />,
-        <h2>{title}</h2>,
-        <section
-          className="articleContent"
-          dangerouslySetInnerHTML={{ __html: body }}
-        />,
-      </article>
-    )
+  return (
+    <Quote className={`homePage ${page.skin}`} subject={page}>
+      <Helmet title={page.title} />
+    </Quote>
+  )
+}
+
+HomePage.propTypes = {
+  data: {
+    contentfulPage: contentfulPageShape
   }
 }
 
@@ -30,16 +24,7 @@ export default HomePage
 export const HomePageQuery = graphql`
   query homePageQuery {
     contentfulPage(slug: { eq: "home" }) {
-      slug
-      title
-      body {
-        childMarkdownRemark {
-          html
-        }
-      }
-      theme {
-        skin
-      }
+      ...commonPageProps
     }
   }
 `

@@ -1,44 +1,37 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import PostSummary from '../components/PostSummary'
-import PostSummaryList from '../components/PostSummaryList'
+import PostHome from '../components/posts/Home'
+import PropTypes from 'prop-types'
+import postContainer, {contentfulPostShape} from '../containers/post'
+import pageContainer, {contentfulPageShape} from '../containers/page'
 
 class BlogHomePage extends React.Component {
   render() {
-    const {
-      title,
-      theme: { skin },
-    } = this.props.data.contentfulPage
-    const posts = this.props.data.allContentfulPost.edges.map((edge, idx) => {
-      return (
-        <PostSummary
-          blogPost={edge.node}
-          Wrapper="li"
-          key={`PostSummary${idx}`}
-        />
-      )
-    })
+    const {data: {allContentfulPost,contentfulPage}} = this.props
+    const posts = allContentfulPost.posts.map(({post}) => postContainer(post))
+    const page = pageContainer(contentfulPage)
+
     return (
-      <section className={`postHomePage ${skin}`}>
-        <Helmet title={title} />,
-        <header>
-          <h2>{title}</h2>
-        </header>
-        <PostSummaryList posts={posts} />
-      </section>
+      <PostHome posts={posts} page={page} className={skin}>
+        <Helmet title={page.title} />
+      </PostHome>
     )
   }
 }
 
 export default BlogHomePage
 
-export const blogHomePageQuery = graphql`
-  query blogHomePageQuery {
+BlogHomePage.propTypes = {
+  data: {
+    contentfulPage: contentfulPageShape,
+    allContentfulPost: PropTypes.arrayOf(contentfulPostShape)
+  }
+}
+
+export const BlogHomePageQuery = graphql`
+  query BlogHomePageQuery {
     contentfulPage(slug: { eq: "blog" }) {
-      title
-      theme {
-        skin
-      }
+      ...commonPageProps
     }
 
     allContentfulPost(
@@ -46,13 +39,9 @@ export const blogHomePageQuery = graphql`
       sort: { fields: [publishOn], order: DESC }
       filter: { publishOn: { ne: null } }
     ) {
-      edges {
-        node {
-          slug
-          title
-          dateTime: publishOn(formatString: "YYYY-MM-DD")
-          publishDate: publishOn(formatString: "LL")
-          summary
+      posts: edges {
+        post: node {
+          ...commonPostProps
         }
       }
     }

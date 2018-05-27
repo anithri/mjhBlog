@@ -1,8 +1,8 @@
 import React from 'react'
-import PostLink from '../components/PostLink'
+import PostLink from './PostLink'
 import PropTypes from 'prop-types'
 
-export const PostSummary = ({ post, className }) => {
+export const Summary = ({ post, className }) => {
   const { summary, publishDate, dateTime } = post
 
   return (
@@ -18,13 +18,14 @@ export const PostSummary = ({ post, className }) => {
   )
 }
 
-PostSummary.propTypes = {
+Summary.propTypes = {
   className: PropTypes.string,
   post: PropTypes.shape({
+    title: PropTypes.string.isRequired,
     publishDate: PropTypes.string.isRequired,
     dateTime: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
   }),
 }
 
-export default PostSummary
+export default Summary

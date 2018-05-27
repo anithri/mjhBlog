@@ -1,7 +1,7 @@
-import React from 'react'
 import Link from 'gatsby-link'
-import { postSlugFrom } from '../utils/postSlug'
+import React from 'react'
 import PropTypes from 'prop-types'
+import { postSlugFrom } from '../../utils/postSlug'
 
 export const PostLink = ({ post, className, activeClassName }) => {
   const { title, slug, dateTime } = post
