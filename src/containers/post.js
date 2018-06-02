@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import {postSlugFrom} from '../utils/postSlug'
 
@@ -12,7 +13,7 @@ export const postShape = PropTypes.shape({
   skin: PropTypes.string.isRequired,
 })
 
-export const contentfulShape = PropTypes.shape({
+export const contentfulPostShape = PropTypes.shape({
   slug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   dateTime: PropTypes.string.isRequired,
@@ -30,18 +31,19 @@ export const contentfulShape = PropTypes.shape({
 })
 
 const contentfulPost = (post) => {
+  console.log(post)
   return {
     ...post,
     body: post.body.childMarkdownRemark.html,
-    skin: post.theme.skin,
+    skin: (post.theme && post.theme.skin) || '',
     excerpt: post.body.childMarkdownRemark.excerpt,
     slugPath: postSlugFrom(post.slug,post.dateTime),
     summaryBody: post.summary || post.body.childMarkdownRemark.excerpt
   }
 }
 
-export const commonPostProps = graphql`
-  fragment commonPostProps on ContentfulPost {
+export const commonPostFragment = graphql`
+  fragment commonPostFragment on ContentfulPost {
     slug
     title
     dateTime: publishOn(formatString: "YYYY-MM-DD")

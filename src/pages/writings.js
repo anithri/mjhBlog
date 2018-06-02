@@ -5,35 +5,34 @@ import PropTypes from 'prop-types'
 import postContainer, {contentfulPostShape} from '../containers/post'
 import pageContainer, {contentfulPageShape} from '../containers/page'
 
-class BlogHomePage extends React.Component {
+class WritingsHomePage extends React.Component {
   render() {
     const {data: {allContentfulPost,contentfulPage}} = this.props
     const posts = allContentfulPost.posts.map(({post}) => postContainer(post))
     const page = pageContainer(contentfulPage)
 
     return (
-      <PostHome posts={posts} page={page} className={skin}>
+      <PostHome posts={posts} page={page} className={page.skin}>
         <Helmet title={page.title} />
       </PostHome>
     )
   }
 }
 
-export default BlogHomePage
+export default WritingsHomePage
 
-BlogHomePage.propTypes = {
-  data: {
-    contentfulPage: contentfulPageShape,
-    allContentfulPost: PropTypes.arrayOf(contentfulPostShape)
-  }
-}
+// WritingsHomePage.propTypes = {
+//   data: {
+//     contentfulPage: contentfulPageShape,
+//     allContentfulPost: PropTypes.arrayOf(contentfulPostShape)
+//   }
+// }
 
-export const BlogHomePageQuery = graphql`
-  query BlogHomePageQuery {
-    contentfulPage(slug: { eq: "blog" }) {
-      ...commonPageProps
+export const WritingsHomePageQuery = graphql`
+  query WritingsHomePageQuery {
+    contentfulPage(slug: {eq: "writings" }) {
+      ...commonPageFragment
     }
-
     allContentfulPost(
       limit: 3
       sort: { fields: [publishOn], order: DESC }
@@ -41,7 +40,7 @@ export const BlogHomePageQuery = graphql`
     ) {
       posts: edges {
         post: node {
-          ...commonPostProps
+          ...commonPostFragment
         }
       }
     }

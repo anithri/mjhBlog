@@ -12,7 +12,7 @@ const PostQuote = ({ data: { contentfulPost } }) => {
   )
 }
 
-QuotePost.propTypes = {
+PostQuote.propTypes = {
   data: {
     contentfulPost: contentfulShape,
   },
@@ -20,10 +20,10 @@ QuotePost.propTypes = {
 
 export default PostQuote
 
-export const QuotePostQuery = graphql`
-  query QuotePostQuery($id: String!) {
-    contentfulPost(id: { eq: $id }) {
-      ...commonPostProps
+export const PostQuoteQuery = graphql`
+  query PostQuoteQuery($contentful_id: String!) {
+    contentfulPost(contentful_id: { eq: $contentful_id}) {
+      ...commonPostFragment
     }
   }
 `

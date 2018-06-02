@@ -8,9 +8,8 @@ import Footer from '../components/Footer'
 
 import '../styles/site.css'
 
-const Layout = (props) => {
-  console.log('LAYOUT', props)
-  const { children, data: { site, contentfulSiteData } } = props
+const Layout = ({children, data}) => {
+  const { site, contentfulSiteData } = data
   const { homeUrl, host } = site.siteMetadata
   const { siteTitle, keywords, description, pages } = contentfulSiteData
   return (
@@ -25,35 +24,35 @@ const Layout = (props) => {
       />
       <Header className="pageHeader" {...{ siteTitle, homeUrl, host }} />
       <Nav className="pageNav" {...{ pages }} />
-      <main className="pageContent">{children}</main>
+      <main className="pageContent">{children()}</main>
       <Footer className="pageFooter" />
     </section>
   )
 }
 
-Layout.propTypes = {
-  data: {
-    site: {
-      siteMetadata: {
-        homeUrl: PropTypes.string,
-        host: PropTypes.string,
-      },
-    },
-    contentfulSiteData: {
-      siteTitle: PropTypes.string.isRequired,
-      keywords: PropTypes.arrayOf(PropTypes.string.isRequired),
-      description: PropTypes.string.isRequired,
-      pages: PropTypes.arrayOf({
-        linkName: PropTypes.string.isRequired,
-        slug: PropTypes.string.isRequired,
-      }),
-    },
-  },
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-}
+// Layout.propTypes = {
+//   data: {
+//     site: {
+//       siteMetadata: {
+//         homeUrl: PropTypes.string,
+//         host: PropTypes.string,
+//       },
+//     },
+//     contentfulSiteData: {
+//       siteTitle: PropTypes.string.isRequired,
+//       keywords: PropTypes.arrayOf(PropTypes.string.isRequired),
+//       description: PropTypes.string.isRequired,
+//       pages: PropTypes.arrayOf({
+//         linkName: PropTypes.string.isRequired,
+//         slug: PropTypes.string.isRequired,
+//       }),
+//     },
+//   },
+//   children: PropTypes.oneOfType([
+//     PropTypes.arrayOf(PropTypes.node),
+//     PropTypes.node,
+//   ]),
+// }
 
 export default Layout
 
@@ -65,7 +64,7 @@ export const SiteLayoutQuery = graphql`
         host
       }
     }
-    contentfulSiteData(current: { eq: "current" }) {
+    contentfulSiteData(current: { eq: "CURRENT" }) {
       siteTitle
       keywords
       description

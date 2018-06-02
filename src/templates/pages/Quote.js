@@ -21,9 +21,9 @@ PageQuote.propTypes = {
 export default PageQuote
 
 export const PageQuoteQuery = graphql`
-  query PageQuoteQuery($slug: String!) {
-    contentfulPage(slug: { eq: $slug }) {
-      ...commonPostProps
+  query PageQuoteQuery($contentful_id: String!) {
+    contentfulPage(contentful_id: { eq: $contentful_id }) {
+      ...commonPageFragment    
     }
   }
 `

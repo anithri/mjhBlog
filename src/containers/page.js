@@ -1,3 +1,4 @@
+import 'react'
 import PropTypes from 'prop-types'
 
 export const pageShape = PropTypes.shape({
@@ -23,7 +24,8 @@ export const contentfulPageShape = PropTypes.shape({
 })
 
 const pageContainer = (page) => {
-  const body = page.body.childMarkdown.html
+  console.log(page)
+  const body = page.body.childMarkdownRemark.html
   const skin = (page.theme && page.theme.skin) || 'defaultSkin'
   const template = (page.layout && page.layout.template) || 'article'
   return {
@@ -34,8 +36,8 @@ const pageContainer = (page) => {
   }
 }
 
-export const commonPageProps = graphql`
-  fragment commonPageProps on ContentfulPage {
+export const commonPageFragment = graphql`
+  fragment commonPageFragment on ContentfulPage {
     slug
     title
     body {

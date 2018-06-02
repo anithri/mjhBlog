@@ -6,7 +6,7 @@ import pageContainer, {contentfulPageShape} from '../../containers/page';
 const PageArticle = ({ data: { contentfulPage } }) => {
   const page = pageContainer(contentfulPage)
   return (
-    <Article subject={page} className={`pageArticle ${skin} ${slug}Page`}>
+    <Article subject={page} className={`pageArticle ${page.skin} ${page.slug}Page`}>
       <Helmet title={page.title} />
     </Article>
   )
@@ -21,9 +21,9 @@ PageArticle.propTypes = {
 export default PageArticle
 
 export const PageArticleQuery = graphql`
-  query PageArticleQuery($slug: String!) {
-    contentfulPage(slug: { eq: $slug }) {
-      ...commonPageProps
+  query PageArticleQuery($contentful_id: String!) {
+    contentfulPage(contentful_id: { eq: $contentful_id }) {
+      ...commonPageFragment
     }
   }
 `

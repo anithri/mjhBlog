@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import Quote from '../components/Quote'
 import pageContainer, {contentfulPageShape} from '../containers/page'
 
-const HomePage = ({data: contentfulPage}) => {
+const Index = ({data: {contentfulPage}}) => {
   const page = pageContainer(contentfulPage)
 
   return (
@@ -13,18 +13,18 @@ const HomePage = ({data: contentfulPage}) => {
   )
 }
 
-HomePage.propTypes = {
+Index.propTypes = {
   data: {
     contentfulPage: contentfulPageShape
   }
 }
 
-export default HomePage
+export default Index
 
 export const HomePageQuery = graphql`
   query homePageQuery {
-    contentfulPage(slug: { eq: "home" }) {
-      ...commonPageProps
+    contentfulPage(slug: {eq: "home" }) {
+      ...commonPageFragment
     }
   }
 `
