@@ -2,10 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {postShape} from '../containers/post'
 import {pageShape} from '../containers/page'
-
+import Img from 'gatsby-image'
 const Article = ({ children, className, subject }) => {
-  const { body, timeStamp, dateStamp, publishDate, title } = subject
-  var timeHeader
+  const { body, timeStamp, dateStamp, publishDate, title, images } = subject
+  let timeHeader, imageTags
+
+  if (images.length > 0) {
+    imageTags = (<Img sizes={images[0].sizes} alt={images[0].title} />)
+  }
+
   if (dateStamp) {
     timeHeader = (<time dateTime={dateStamp.format()}>{publishDate}</time>)
   }
@@ -15,6 +20,7 @@ const Article = ({ children, className, subject }) => {
         <h3>{title}</h3>
         {timeHeader}
       </header>
+      {images}
       <section dangerouslySetInnerHTML={{ __html: body }} />
       <div>{/*<Img resolutions={node.featuredImage.resolutions}/>*/}</div>
       {children}

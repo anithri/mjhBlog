@@ -11,8 +11,11 @@
   }
   & > nav {
     grid-row: 2;
+    padding-bottom: var(--spacing-small); /* .pb2 */
+
   }
   & > #pageContent {
+    overflow-y: scroll;
     grid-row: 3;
   }
   & > footer {

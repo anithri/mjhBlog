@@ -1,11 +1,13 @@
 import 'react'
 import PropTypes from 'prop-types'
+import {imageContainer, imageShape} from './image'
 
 export const pageShape = PropTypes.shape({
   body: PropTypes.string,
   slug: PropTypes.string.isRequired,
   theme: PropTypes.string,
   title: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(imageShape),
 })
 
 export const contentfulPageShape = PropTypes.shape({
@@ -17,15 +19,17 @@ export const contentfulPageShape = PropTypes.shape({
   slug: PropTypes.string.isRequired,
   theme: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(imageShape)
 })
 
 const pageContainer = (page) => {
   console.log(page.images)
-
+  const images = page.images ? page.images.map(i => imageContainer(i)) : []
   const body = page.body.childMarkdownRemark.html
   return {
     ...page,
     body,
+    images
   }
 }
 
@@ -42,7 +46,6 @@ export const commonPageFragment = graphql`
         ...GatsbyContentfulSizes
       }
     }
-    
     slug
     theme
     title

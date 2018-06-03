@@ -16,6 +16,17 @@ body,
 .max {
   height: 100%;
   width: 100%;
+  max-height: 100%;
   padding: var(--spacing-none, 0);
   margin: var(--spacing-none, 0);
+}
+
+body {
+  background-color: var(--color-body-bg);
+}
+
+#___gatsby {
+  background-image: url('../images/lace-background.png');
+  background-position: bottom right;
+  background-size: cover;
 }

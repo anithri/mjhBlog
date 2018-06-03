@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import Slug from '../utils/Slug'
+import {imageShape, imageContainer} from './image'
 
 export const postShape = PropTypes.shape({
   body: PropTypes.string,
@@ -12,6 +13,7 @@ export const postShape = PropTypes.shape({
   summary: PropTypes.string.isRequired,
   theme: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(imageShape)
 })
 
 export const contentfulPostShape = PropTypes.shape({
@@ -26,14 +28,17 @@ export const contentfulPostShape = PropTypes.shape({
   summary: PropTypes.string,
   theme: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(imageShape)
 })
 
 const contentfulPost = (post) => {
   const dateStamp = moment(post.publishOn)
+  const images = post.images ? post.images.map(i => imageContainer(i)) : []
   return {
     ...post,
     body: post.body.childMarkdownRemark.html,
     dateStamp,
+    images,
     publishDate: dateStamp.format('LL'),
     slugPath: Slug.post(post.slug,dateStamp),
     summary: post.body.childMarkdownRemark.excerpt,
@@ -46,6 +51,12 @@ export const commonPostFragment = graphql`
       childMarkdownRemark {
         html
         excerpt
+      }
+    }
+    images {
+      title
+      sizes(maxWidth: 1280) {
+        ...GatsbyContentfulSizes
       }
     }
     publishOn
