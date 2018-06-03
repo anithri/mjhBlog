@@ -30,3 +30,68 @@ body {
   background-position: bottom right;
   background-size: cover;
 }
+
+.quote {
+  text-align: right; /* .tr */
+  background-color: var(--white-30); /* .bg-white-30 */
+
+  & blockquote {
+    margin-top: var(--spacing-medium); /* .mt3 */
+    color: var(--near-black); /* .near-black */
+  }
+  & p {
+    margin-bottom: var(--spacing-small); /* .mb2 */
+
+  }
+
+
+  & ul {
+    list-style: none;
+  }
+}
+
+h3 {
+  font-style: italic; /* .i */
+  font-size: var(--font-size-3); /* .f3 */
+  font-weight: 500; /* .fw6 */
+  color: var(--dark-green); /* .dark-green */
+
+}
+p:first-child:first-letter {
+  float: left;
+  font-size: 3rem;
+  line-height: 60px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  color: var(--dark-green); /* .dark-green */
+
+}
+ul {
+  margin-top: var(--spacing-small); /* .mt2 */
+
+  list-style: none;
+  margin-left: var(--spacing-none); /* .mh0 */
+  margin-right: var(--spacing-none);
+  & > li {
+    margin: var(--spacing-none); /* .ma0 */
+    margin-bottom: var(--spacing-medium); /* .mb3 */
+  }
+}
+
+time {
+  font-weight: bold; /* .b */
+
+}
+
+.postSummary {
+  & h3 {
+    margin-bottom: var(--spacing-small); /* .mb2 */
+
+  }
+
+  & header {
+    border-bottom: thin solid var(--dark-green) /* TODO add fade */
+  }
+
+}

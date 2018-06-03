@@ -9,10 +9,10 @@ export const Summary = ({ post, className }) => {
   return (
     <article className={`${className} postSummary`}>
       <header>
-        <h3>
+        <h4>
+          <time dateTime={dateStamp.format()}>{publishDate} - </time>
           <PostLink post={post} className="postSummaryLink" />
-        </h3>
-        <time dateTime={dateStamp.format()}>{publishDate}</time>
+        </h4>
       </header>
       <p>{summary}</p>
     </article>
