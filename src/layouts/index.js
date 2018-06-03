@@ -11,48 +11,24 @@ import '../styles/site.css'
 const Layout = ({children, data}) => {
   const { site, contentfulSiteData } = data
   const { homeUrl, host } = site.siteMetadata
-  const { siteTitle, keywords, description, pages } = contentfulSiteData
+  const { title, keywords, description, pages } = contentfulSiteData
   return (
     <section className="pageGrid">
       <Helmet
-        defaultTitle={siteTitle}
-        titleTemplate={`${siteTitle} - %s`}
+        defaultTitle={title}
+        titleTemplate={`${title} - %s`}
         meta={[
           { name: 'description', content: description },
           { name: 'keywords', content: keywords.join(',') },
         ]}
       />
-      <Header className="pageHeader" {...{ siteTitle, homeUrl, host }} />
+      <Header className="pageHeader" {...{ title, homeUrl, host }} />
       <Nav className="pageNav" {...{ pages }} />
       <main className="pageContent">{children()}</main>
       <Footer className="pageFooter" />
     </section>
   )
 }
-
-// Layout.propTypes = {
-//   data: {
-//     site: {
-//       siteMetadata: {
-//         homeUrl: PropTypes.string,
-//         host: PropTypes.string,
-//       },
-//     },
-//     contentfulSiteData: {
-//       siteTitle: PropTypes.string.isRequired,
-//       keywords: PropTypes.arrayOf(PropTypes.string.isRequired),
-//       description: PropTypes.string.isRequired,
-//       pages: PropTypes.arrayOf({
-//         linkName: PropTypes.string.isRequired,
-//         slug: PropTypes.string.isRequired,
-//       }),
-//     },
-//   },
-//   children: PropTypes.oneOfType([
-//     PropTypes.arrayOf(PropTypes.node),
-//     PropTypes.node,
-//   ]),
-// }
 
 export default Layout
 
@@ -65,7 +41,7 @@ export const SiteLayoutQuery = graphql`
       }
     }
     contentfulSiteData(current: { eq: "CURRENT" }) {
-      siteTitle
+      title
       keywords
       description
       pages {

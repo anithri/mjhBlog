@@ -1,6 +1,7 @@
 import React from 'react'
 import Summary from './Summary'
 import PropTypes from 'prop-types'
+import {postShape} from '../../containers/post'
 
 export const SummaryList = ({ posts, className }) => {
   const postSummaries = posts.map(post => (
@@ -18,15 +19,7 @@ export const SummaryList = ({ posts, className }) => {
 
 SummaryList.propTypes = {
   className: PropTypes.string,
-  posts: PropTypes.arrayOf(
-    PropTypes.shape({
-      slug: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      summary: PropTypes.string.isRequired,
-      publishDate: PropTypes.string.isRequired,
-      dateTime: PropTypes.string.isRequired,
-    })
-  ),
+  posts: PropTypes.arrayOf(postShape),
 }
 
 SummaryList.defaultProps = {

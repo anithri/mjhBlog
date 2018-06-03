@@ -1,6 +1,7 @@
 const path = require('path')
-const postSlugFrom = require('./src/utils/postSlug').postSlugFrom
+const Slug = require('./src/utils/Slug')
 const moment = require('moment')
+const _groupBy = require('lodash/groupBy')
 
 const templatePath = (dir, template) => {
   return path.resolve('src', 'templates', dir, template + '.js')
@@ -15,11 +16,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         query {
           contentfulSiteData(current: { eq: "CURRENT" }) {
             pages {
-              slug
               contentful_id
-              layout {
-                template
-              }
+              layout
+              slug
             }
           }
           allContentfulPost(
@@ -28,13 +27,10 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           ) {
             posts: edges {
               post: node {
-                slug
                 contentful_id
-                publishDate: publishOn(formatString: "LL")
-                dateTime: publishOn(formatString: "YYYY-MM-DD")
-                layout {
-                  template
-                }
+                layout
+                publishOn
+                slug
               }
             }
           }
@@ -46,33 +42,32 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           }
 
           const pages = data.contentfulSiteData.pages
-            .filter(page => page.layout.template !== 'Special')
+            .filter(page => page.layout !== 'Special')
             .map(page => {
               return {
-                slug: page.slug.replace(/[^a-zA-Z0-9-_]/g, ''),
                 contentful_id: page.contentful_id,
-                template: templatePath('pages', page.layout.template),
+                slug: Slug.page(page.slug),
+                slugHtml: Slug.page(page.slug, 'html'),
+                template: templatePath('pages', page.layout),
               }
             })
 
-          const posts = data.allContentfulPost.posts
-            .filter(({ post }) => post.dateTime <= BUILD_DATE)
-            .map(({ post }) => {
-              return {
-                slug: post.slug.replace(/[^a-zA-Z0-9-_]/g, ''),
-                contentful_id: post.contentful_id,
-                publishDate: post.publishDate,
-                dateTime: post.dateTime,
-                template: templatePath('posts', post.layout.template),
-                path: postSlugFrom(post.slug, post.dateTime),
-              }
-            })
+          const posts = data.allContentfulPost.posts.map(({ post }) => {
+            const dateStamp = moment(post.publishOn)
+            return {
+              contentful_id: post.contentful_id,
+              dateStamp: dateStamp,
+              path: Slug.post(post.slug, dateStamp),
+              slug: Slug.post(post.slug, dateStamp),
+              template: templatePath('posts', post.layout),
+            }
+          })
 
           return { pages, posts }
-        })
+        }) // extract data from
         .then(result => {
           result.pages.forEach(page => {
-            console.log(page)
+
             createPage({
               path: page.slug,
               component: page.template,
@@ -80,11 +75,17 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                 contentful_id: page.contentful_id,
               },
             })
+            createPage({
+              path: page.slugHtml,
+              component: page.template,
+              context: {
+                contentful_id: page.contentful_id,
+              },
+            })
           })
           return result
-        })
+        }) // generate pages
         .then(result => {
-          console.log(result)
           result.posts.forEach(post => {
             createPage({
               path: post.path,
@@ -96,7 +97,25 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           })
 
           return result
-        })
+        }) // generate posts
+        .then(result => {
+          const byDate = {
+              ..._groupBy(result.posts, (p => p.dateStamp.year())),
+              ..._groupBy(result.posts, (p => p.dateStamp.format('YYYY-MM')))
+          }
+          Object.entries(([group, posts]) => {
+            createPage({
+              path: Slug.post('index', moment(group)),
+              component: post.template,
+              context: {
+                contentful_id: post.contentful_id,
+              },
+            })
+          })
+
+          return result
+        }) // generate post indicies
+
       //   //
       //   // // TODO Write Blog indices for
       //   // // blog/all.html  // Master List

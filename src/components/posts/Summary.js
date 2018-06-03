@@ -1,9 +1,10 @@
 import React from 'react'
 import PostLink from './PostLink'
 import PropTypes from 'prop-types'
+import {postShape} from '../../containers/post'
 
 export const Summary = ({ post, className }) => {
-  const { summary, publishDate, dateTime } = post
+  const { summary, publishDate, dateStamp } = post
 
   return (
     <article className={`${className} postSummary`}>
@@ -11,7 +12,7 @@ export const Summary = ({ post, className }) => {
         <h3>
           <PostLink post={post} className="postSummaryLink" />
         </h3>
-        <time dateTime={dateTime}>{publishDate}</time>
+        <time dateTime={dateStamp.format()}>{publishDate}</time>
       </header>
       <p>{summary}</p>
     </article>
@@ -20,12 +21,7 @@ export const Summary = ({ post, className }) => {
 
 Summary.propTypes = {
   className: PropTypes.string,
-  post: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    publishDate: PropTypes.string.isRequired,
-    dateTime: PropTypes.string.isRequired,
-    summary: PropTypes.string.isRequired,
-  }),
+  post: postShape,
 }
 
 export default Summary

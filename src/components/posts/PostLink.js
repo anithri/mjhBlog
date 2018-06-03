@@ -1,13 +1,14 @@
 import Link from 'gatsby-link'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { postSlugFrom } from '../../utils/postSlug'
+import Slug from '../../utils/Slug'
+import {postShape} from '../../containers/post'
 
 export const PostLink = ({ post, className, activeClassName }) => {
-  const { title, slug, dateTime } = post
+  const { title, slug, dateStamp } = post
   return (
     <Link
-      to={postSlugFrom(slug, dateTime, '/')}
+      to={Slug.post(slug, dateStamp)}
       className={className}
       activeClassName={activeClassName}
     >
@@ -17,11 +18,7 @@ export const PostLink = ({ post, className, activeClassName }) => {
 }
 
 PostLink.propTypes = {
-  post: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    dateTime: PropTypes.string.isRequired,
-  }),
+  post: postShape,
   className: PropTypes.string,
   activeClassName: PropTypes.string,
 }

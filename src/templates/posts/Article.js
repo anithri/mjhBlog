@@ -1,22 +1,22 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import Article from '../../components/Article'
-import postContainer, { contentfulShape } from '../../containers/post'
-
+import postContainer, { contentfulPostShape } from '../../containers/post'
+import PropTypes from 'prop-types'
 const PostArticle = (props) => {
   const { data: { contentfulPost } } = props
   const post = postContainer(contentfulPost)
   return (
-    <Article subject={post} className={`${post.skin} postArticle`}>
+    <Article subject={post} className={`${post.theme} postArticle`}>
       <Helmet title={post.title} />
     </Article>
   )
 }
 
 PostArticle.propTypes = {
-  data: {
-    contentfulPost: contentfulShape,
-  },
+  data: PropTypes.shape({
+    contentfulPost: contentfulPostShape,
+  }),
 }
 
 export default PostArticle

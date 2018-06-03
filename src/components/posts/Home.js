@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import SummaryList from './SummaryList'
-import { contentfulPageShape } from '../../containers/page'
-import { contentfulPostShape } from '../../containers/post'
+import { pageShape } from '../../containers/page'
+import { postShape } from '../../containers/post'
 
 const PostHome = ({ children, className, page, posts }) => {
   return (
@@ -18,9 +18,9 @@ const PostHome = ({ children, className, page, posts }) => {
 
 PostHome.propTypes = {
   className: PropTypes.string,
-  page: contentfulPageShape.isRequired,
-  posts: PropTypes.arrayOf(contentfulPostShape).isRequired,
-  children: PropTypes.oneOf([
+  page: pageShape.isRequired,
+  posts: PropTypes.arrayOf(postShape).isRequired,
+  children: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.func),

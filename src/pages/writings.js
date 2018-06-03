@@ -12,7 +12,7 @@ class WritingsHomePage extends React.Component {
     const page = pageContainer(contentfulPage)
 
     return (
-      <PostHome posts={posts} page={page} className={page.skin}>
+      <PostHome posts={posts} page={page} className={page.theme}>
         <Helmet title={page.title} />
       </PostHome>
     )

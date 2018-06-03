@@ -1,10 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {pageShape} from '../containers/page'
+import {postShape} from '../containers/post'
+import Img from 'gatsby-image'
 
 const Quote = ({children, className, subject }) => {
-  const {body} = subject
+  const {body, images} = subject
+  let image
+  if (images) {
+    image = (<Img sizes={images[0].sizes} alt={images[0].title} />)
+  }
   return (
     <article className={`quote ${className}`}>
+      {image}
       <section dangerouslySetInnerHTML={{ __html: body }} />
       {/*<Img resolutions={node.featuredImage.resolutions}/>*/}
     </article>
@@ -17,9 +25,7 @@ Quote.propTypes = {
     PropTypes.node,
   ]),
   className: PropTypes.string.isRequired,
-  subject: {
-    body: PropTypes.string.isRequired,
-  }
+  subject: PropTypes.oneOfType([pageShape, postShape])
 }
 
 Quote.defaultProps = {

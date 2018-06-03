@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {postShape} from '../containers/post'
+import {pageShape} from '../containers/page'
 
 const Article = ({ children, className, subject }) => {
-  const { body, dateTime, publishDate, title } = subject
+  const { body, timeStamp, dateStamp, publishDate, title } = subject
   var timeHeader
-  if (publishDate) {
-    timeHeader = (<time dateTime={dateTime}>{publishDate}</time>)
+  if (dateStamp) {
+    timeHeader = (<time dateTime={dateStamp.format()}>{publishDate}</time>)
   }
   return (
     <article className={`${className} article`}>
@@ -22,12 +24,7 @@ const Article = ({ children, className, subject }) => {
 
 Article.propTypes = {
   className: PropTypes.string,
-  subject: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    dateTime: PropTypes.string.isRequired,
-    publishDate: PropTypes.string,
-    body: PropTypes.string,
-  }),
+  subject: PropTypes.oneOfType([pageShape, postShape]),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

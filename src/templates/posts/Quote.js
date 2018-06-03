@@ -6,7 +6,7 @@ import Quote from '../../components/Quote'
 const PostQuote = ({ data: { contentfulPost } }) => {
   const post = postContainer(contentfulPost)
   return (
-    <Quote post={post} className={`${post.skin} postQuote`}>
+    <Quote post={post} className={`${post.theme} postQuote`}>
       <Helmet title={post.title} />
     </Quote>
   )

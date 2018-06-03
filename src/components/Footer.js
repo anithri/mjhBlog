@@ -5,4 +5,8 @@ const Footer = ({ className }) => (
   <footer className={className}>The Footer</footer>
 )
 
+Footer.propTypes = {
+  className: PropTypes.string
+}
+
 export default Footer
