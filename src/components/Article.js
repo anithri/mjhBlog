@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {postShape} from '../containers/post'
 import {pageShape} from '../containers/page'
 import Img from 'gatsby-image'
+import Exhibit from './Exhibit'
+
 const Article = ({ children, className, subject }) => {
   const { body, timeStamp, dateStamp, publishDate, title, images } = subject
   let timeHeader, imageTags
@@ -20,7 +22,7 @@ const Article = ({ children, className, subject }) => {
         <h3>{title}</h3>
         {timeHeader}
       </header>
-      {images}
+      <Exhibit images={images} className={'articleExhibit'} />
       <section dangerouslySetInnerHTML={{ __html: body }} />
       <div>{/*<Img resolutions={node.featuredImage.resolutions}/>*/}</div>
       {children}
