@@ -1,0 +1,27 @@
+[build]
+  publish = "public/"
+  command = "gatsby build"
+
+[context.production]
+  command = "gatsby build"
+
+[context.production.environment]
+  CONTENTFUL_URL = 'cdn.contentful.com'
+
+[context.branch-deploy]
+  command = "gatsby build"
+
+# Dev. Testing. experiments, feedback
+[context.dev]
+  command = "gatsby build"
+
+[context.dev.environment]
+  CONTENTFUL_URL = 'cdn.contentful.com'
+
+# Staging.  Final checks before going live
+[context.staging]
+  command = "gatsby build"
+
+[context.staging.environment] # 'staging' is a branch name
+  CONTENTFUL_URL = 'preview.contentful.com'
+
