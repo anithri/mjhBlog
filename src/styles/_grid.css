@@ -2,9 +2,8 @@
   height: 100%;
   max-width: var(--page-width);
   margin: 0 auto;
-
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: 3rem 2rem 1fr 3rem;
 
   & > header {
     grid-row: 1;
@@ -14,7 +13,7 @@
     padding-bottom: var(--spacing-small); /* .pb2 */
 
   }
-  & > #pageContent {
+  & > pageContent {
     overflow-y: scroll;
     grid-row: 3;
   }

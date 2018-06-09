@@ -6,6 +6,7 @@ import Img from 'gatsby-image'
 import Exhibit from './Exhibit'
 
 const Article = ({ children, className, subject }) => {
+  console.log(subject)
   const { body, timeStamp, dateStamp, publishDate, title, images } = subject
   let timeHeader, imageTags
 
@@ -19,7 +20,7 @@ const Article = ({ children, className, subject }) => {
   return (
     <article className={`${className} article`}>
       <header>
-        <h3>{title}</h3>
+        <h2>{title}</h2>
         {timeHeader}
       </header>
       <Exhibit images={images} className={'articleExhibit'} />

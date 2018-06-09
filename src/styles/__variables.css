@@ -28,5 +28,7 @@ page background 193,226,247
 
   --page-width: var(--measure-wide);
 
+  --article-title-size: 2rem;
+
 }
 

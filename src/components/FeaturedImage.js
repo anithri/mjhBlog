@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Image from './Image'
 
-const FeaturedImage = ({className, images,}) => {
-
+const FeaturedImage = ({className, image}) => {
   return (
     <Image image={image} className={`featuredImage ${className}`} />
   )

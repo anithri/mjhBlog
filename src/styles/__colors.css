@@ -9,5 +9,7 @@
   --color-link-bg: var(--white, white);
   --color-link-border: #00b050;
   --color-reading: #0746F7;
-  --color-reading-bg: #FFFF99AA;
+  --color-reading-bg: var(--white-50);
+
+  --color-footer-border: var(--dark-green);
 }
