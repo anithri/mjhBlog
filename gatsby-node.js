@@ -51,6 +51,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                 template: templatePath('pages', page.layout),
               }
             })
+          console.log("PAGES! =>", pages)
 
           const posts = data.allContentfulPost.posts.map(({ post }) => {
             const dateStamp = moment(post.publishOn)

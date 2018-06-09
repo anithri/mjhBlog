@@ -5,13 +5,14 @@ import Slug from '../../utils/Slug'
 import {postShape} from '../../containers/post'
 
 export const PostLink = ({ post, className, activeClassName }) => {
-  const { title, slug, dateStamp } = post
+  const { title, slug, dateStamp, publishDate } = post
   return (
     <Link
       to={Slug.post(slug, dateStamp)}
       className={className}
       activeClassName={activeClassName}
     >
+      <time dateTime={dateStamp.format()}>{publishDate} - </time>
       {title}
     </Link>
   )

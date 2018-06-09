@@ -6,7 +6,7 @@ import { childShape } from '../containers/other'
 import { Carousel } from 'react-responsive-carousel'
 import FeaturedImage from './FeaturedImage'
 
-const Exhibit = ({ className, images, limit, emptyExhibit }) => {
+const Exhibit = ({ className, images, limit, emptyExhibit = null }) => {
   if (limit === 0 || images.length === 0) return emptyExhibit
   if (limit === 1 || images.length > 0) {
     return <FeaturedImage image={images[0]} />

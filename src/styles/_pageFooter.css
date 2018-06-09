@@ -7,7 +7,6 @@
   justify-content: center;
   align-content: stretch;
   align-items: center;
-  padding-top: var(--spacing-extra-small); /* .pt1 */
 
   border: 1px solid;
   border-image: linear-gradient(
