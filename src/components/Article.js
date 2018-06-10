@@ -6,7 +6,6 @@ import Img from 'gatsby-image'
 import Exhibit from './Exhibit'
 
 const Article = ({ children, className, subject }) => {
-  console.log(subject)
   const { body, timeStamp, dateStamp, publishDate, title, images } = subject
   let timeHeader, imageTags
 

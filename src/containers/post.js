@@ -61,7 +61,6 @@ export const postLinkContainer = (post, overrideTitle = false) => {
 }
 
 const contentfulPost = post => {
-  console.log('contentfulPostContainer', post)
   const dateStamp = moment(post.publishOn)
   const images = post.images ? post.images.map(i => imageContainer(i)) : []
   return {
