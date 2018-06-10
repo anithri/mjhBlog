@@ -2,9 +2,9 @@
   publish = "public/"
   command = "gatsby build"
 
+# TODO it works but really?
 [context.production]
   command = "gatsby build"
-
 [context.production.environment]
   CONTENTFUL_URL = 'cdn.contentful.com'
 
@@ -15,11 +15,6 @@
   command = "gatsby build"
 [context.dev.environment]
   CONTENTFUL_URL = 'cdn.contentful.com'
-
-[context.preview]
-  command = "gatsby build"
-[context.preview.environment]
-  CONTENTFUL_URL = 'preview.contentful.com'
 
 [context.staging]
   command = "gatsby build"
