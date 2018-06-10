@@ -24,6 +24,6 @@ SummaryList.propTypes = {
 }
 
 SummaryList.defaultProps = {
-  className: 'postSummary',
+  className: 'postSummaryList',
 }
 export default SummaryList

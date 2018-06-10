@@ -69,7 +69,7 @@ const contentfulPost = post => {
     body: post.body.childMarkdownRemark.html,
     dateStamp,
     images,
-    publishDate: dateStamp.format('LL'),
+    publishDate: dateStamp.format('MMM D, YYYY'),
     slugPath: Slug.post(post.slug, dateStamp),
     summary: post.body.childMarkdownRemark.excerpt,
     displayTitle: `${dateStamp.format('LL')} - ${post.title}`

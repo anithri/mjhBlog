@@ -7,14 +7,13 @@ import postContainer, {
   postLinkContainer,
 } from '../../containers/post'
 import PropTypes from 'prop-types'
-import PostLink from '../../components/posts/PostLink'
 
 const PostsNav = ({next, prev}) => (
   <nav className="postNav">
     <ul >
-      {(prev && <li><PostLink post={prev} title="Previous" /></li>) || null}
+      {(prev && <li><Link to={prev.slugPath} title={prev.title}>Previous</Link></li>) || null}
       <li><Link to="/writings">All Entries</Link></li>
-      {(next && <li><PostLink post={next} title="Next" /></li>) || null}
+        {(next && <li><Link  to={next.slugPath} alt={next.title}>Next</Link></li>) || null}
     </ul>
   </nav>
 )
