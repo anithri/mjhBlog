@@ -11,17 +11,18 @@
 [context.branch-deploy]
   command = "gatsby build"
 
-# Dev. Testing. experiments, feedback
 [context.dev]
   command = "gatsby build"
-
 [context.dev.environment]
   CONTENTFUL_URL = 'cdn.contentful.com'
 
-# Staging.  Final checks before going live
+[context.preview]
+  command = "gatsby build"
+[context.preview.environment]
+  CONTENTFUL_URL = 'preview.contentful.com'
+
 [context.staging]
   command = "gatsby build"
-
 [context.staging.environment] # 'staging' is a branch name
-  CONTENTFUL_URL = 'preview.contentful.com'
+  CONTENTFUL_URL = 'cdn.contentful.com'
 
