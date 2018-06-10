@@ -9,7 +9,8 @@ const deep = (before, slug, extension = '', after = []) => {
 }
 
 const post = (slug, date) => {
-  return deep(['posts', date.year(), date.format('mm')], slug, 'html')
+  console.log('SLug.post',slug,date)
+  return deep(['/posts', date.year(), date.format('mm')], slug, 'html')
 }
 const page = (slug, extension = '') => deep([], slug, extension)
 

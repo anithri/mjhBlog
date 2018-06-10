@@ -34,7 +34,6 @@ export const WritingsHomePageQuery = graphql`
       ...commonPageFragment
     }
     allContentfulPost(
-      limit: 3
       sort: { fields: [publishOn], order: DESC }
       filter: { publishOn: { ne: null } }
     ) {

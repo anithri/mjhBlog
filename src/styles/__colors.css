@@ -12,4 +12,7 @@
   --color-reading-bg: var(--white-50);
 
   --color-footer-border: var(--dark-green);
+
+  --color-post-nav: #137752D0;
+  --color-post-nav-bg: var(--near-white)
 }

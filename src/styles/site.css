@@ -62,7 +62,8 @@ h2 {
   font-weight: 500; /* .fw6 */
   color: var(--dark-green); /* .dark-green */
 }
-p:first-child:first-letter {
+
+section > p:first-child:first-letter {
   font-size: 3rem;
   line-height: 60px;
   padding-top: 4px;
@@ -70,6 +71,7 @@ p:first-child:first-letter {
   padding-left: 3px;
   color: var(--dark-green); /* .dark-green */
 }
+
 ul {
   margin-top: var(--spacing-small); /* .mt2 */
 

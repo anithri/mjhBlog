@@ -26,6 +26,16 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             sort: { fields: [publishOn], order: DESC }
           ) {
             posts: edges {
+              next {
+                contentful_id
+                slug
+                publishOn
+              }
+              prev: previous {
+                contentful_id
+                slug
+                publishOn
+              }
               post: node {
                 contentful_id
                 layout
@@ -51,9 +61,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                 template: templatePath('pages', page.layout),
               }
             })
-          console.log("PAGES! =>", pages)
+          console.log('PAGES! =>', pages)
 
-          const posts = data.allContentfulPost.posts.map(({ post }) => {
+          const posts = data.allContentfulPost.posts.map(({ next, post, prev }) => {
             const dateStamp = moment(post.publishOn)
             return {
               contentful_id: post.contentful_id,
@@ -61,6 +71,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               path: Slug.post(post.slug, dateStamp),
               slug: Slug.post(post.slug, dateStamp),
               template: templatePath('posts', post.layout),
+              next_post_id: next && next.contentful_id,
+              prev_post_id: prev && prev.contentful_id,
             }
           })
 
@@ -68,7 +80,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         }) // extract data from
         .then(result => {
           result.pages.forEach(page => {
-
             createPage({
               path: page.slug,
               component: page.template,
@@ -93,6 +104,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               component: post.template,
               context: {
                 contentful_id: post.contentful_id,
+                next_post_id: post.next_post_id,
+                prev_post_id: post.prev_post_id
               },
             })
           })
@@ -101,8 +114,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         }) // generate posts
         .then(result => {
           const byDate = {
-              ..._groupBy(result.posts, (p => p.dateStamp.year())),
-              ..._groupBy(result.posts, (p => p.dateStamp.format('YYYY-MM')))
+            ..._groupBy(result.posts, p => p.dateStamp.year()),
+            ..._groupBy(result.posts, p => p.dateStamp.format('YYYY-MM')),
           }
           Object.entries(([group, posts]) => {
             createPage({
