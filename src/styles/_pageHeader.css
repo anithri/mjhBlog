@@ -1,10 +1,36 @@
+.birdInFlight {
+  height: 100%; /* .h-100 */
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  background: url('../images/bird-in-flight-25.png') left/100% 100% no-repeat;
+  color: transparent;
+  z-index: 1;
+}
+
 .pageHeader {
-  padding-top: var(--spacing-small, .5rem);
+  padding-top: var(--spacing-small, 0.5rem);
 
- & > h1 {
-   font-size: var(--font-size-2);
-   text-align: center;
-   font-weight: bolder;
+  & h1 {
+    font-size: var(--font-size-3);
+    text-align: center;
+    font-weight: 500;
 
- }
+    @media (--breakpoint-not-small) {
+      font-size: var(--font-size-2); /* .f2 */
+      width: 100%; /* .w-100 */
+    }
+
+    @media (--breakpoint-medium) {
+      width: 100%; /* .w-100 */
+    }
+
+    @media (--breakpoint-large) {
+      width: auto;
+      text-align: left; /* .tl */
+    }
+
+    &:first-letter {
+
+    }
+  }
 }

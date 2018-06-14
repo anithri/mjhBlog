@@ -18,18 +18,21 @@ page background 193,226,247
 
 */
 
-@custom-media --breakpoint-not-small screen and (min-width: 30em);
-@custom-media --breakpoint-medium screen and (min-width: 30em) and (max-width: 60em);
-@custom-media --breakpoint-large screen and (min-width: 60em);
+@custom-media --breakpoint-not-small screen and (min-width: 30rem);
+@custom-media --breakpoint-medium screen and (min-width: 30rem) and (max-width: 60rem);
+@custom-media --breakpoint-large screen and (min-width: 60rem);
 
 /* colors can be found in ./_pallete.css */
 :root {
   --font-size-base: 16pt;
 
-  --page-width: var(--measure-wide);
+  --page-width: 30rem;
 
   --article-title-size: 2rem;
 
   --spacing-extra-extra-small: .125rem;
+
+  --body-background: url('../images/lace-background.png') no-repeat bottom right fixed;
+  --body-texture: url('../images/scribble-light.png') repeat;
 }
 

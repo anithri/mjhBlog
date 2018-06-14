@@ -1,18 +1,16 @@
 .featuredImage {
-  margin: var(--spacing-none); /* .ma0 */
+  margin: 0; /* .ma0 */
   & > figcaption {
-    background-color: var(--color-reading-bg); /* .bg-white-40 */
+    background-color: var(--transparent); /* .bg-white-40 */
   }
 }
 
 .legend {
   font-style: italic; /* .i */
-text-align: center; /* .tc */
-
+  text-align: center; /* .tc */
 }
 
 img {
   border-radius: var(--border-radius-3); /* .br3 */
   background-color: var(--transparent); /* .bg-transparent */
-
 }
