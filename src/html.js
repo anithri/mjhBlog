@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 
 let stylesStr
 if (process.env.NODE_ENV === `production`) {
@@ -29,6 +30,9 @@ module.exports = class HTML extends React.Component {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
+          <link rel="alternate" type="application/rss+xml"
+                title="RSS Feed for believingthebird.com"
+                href="/rss.xml" />
           {css}
           {this.props.headComponents}
         </head>
