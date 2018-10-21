@@ -2,7 +2,7 @@ import React from 'react'
 
 const Feedback = ({toggle}) => {
   return (
-    <form className="feedbackForm" name="contact" method="POST" netlify>
+    <form className="feedbackForm" name="contact" method="POST" netlify="true">
       <input
         type="email"
         name="name"
