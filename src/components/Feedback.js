@@ -14,9 +14,9 @@ const Feedback = ({toggle, toggledOn}) => {
       <textarea name="message" placeholder={'Message'} className="message" rows={6}/>
       <div data-netlify-recaptcha className="captcha" />
 
-      <button className="cancel" onClick={e => toggle()}>
+      <a className="cancel" onClick={e => toggle()}>
         Cancel
-      </button>
+      </a>
 
       <button className="submit" type="submit">
         Send
