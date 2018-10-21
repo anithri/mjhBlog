@@ -2,7 +2,7 @@ import React from 'react'
 
 const Feedback = ({toggle}) => {
   return (
-    <form className="feedbackForm" name="contact" method="POST" netlify="true">
+    <form className="feedbackForm" name="contact" method="POST" data-netlify="true">
       <input
         type="email"
         name="name"
@@ -19,7 +19,7 @@ const Feedback = ({toggle}) => {
       <button className="submit" type="submit">
         Send
       </button>
-
+      <input type="hidden" name="form-name" value="contact" />
     </form>
   )
 }
