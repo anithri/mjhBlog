@@ -21,7 +21,7 @@ const PostsNavDisplay = ({ next, prev, toggledOn, toggle }) => (
       </li>
       {(next && <li><Link to={next.slugPath} alt={next.title}>Next</Link></li>) || null}
     </ul>
-    {toggledOn && <Feedback toggle={toggle} />}
+    <Feedback toggle={toggle} toggledOn={toggledOn}/>
   </nav>
 )
 

@@ -1,8 +1,10 @@
 import React from 'react'
+import cx from 'classnames'
 
-const Feedback = ({toggle}) => {
+const Feedback = ({toggle, toggledOn}) => {
+  const classes = cx("feedbackForm", toggledOn || 'dn')
   return (
-    <form className="feedbackForm" name="contact" method="POST" data-netlify="true">
+    <form className={classes} name="contact" method="POST" data-netlify="true">
       <input
         type="email"
         name="name"
@@ -19,6 +21,7 @@ const Feedback = ({toggle}) => {
       <button className="submit" type="submit">
         Send
       </button>
+
       <input type="hidden" name="form-name" value="contact" />
     </form>
   )
