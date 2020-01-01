@@ -10,6 +10,36 @@ if (process.env.NODE_ENV === `production`) {
   }
 }
 
+export default const HTML = (props) => {
+
+  return (
+    <html {...this.props.htmlAttributes}>
+    <head>
+      <meta charSet="utf-8" />
+      <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <link rel="alternate" type="application/rss+xml"
+            title="RSS Feed for believingthebird.com"
+            href="/rss.xml" />
+      {css}
+      {this.props.headComponents}
+    </head>
+    <body {...this.props.bodyAttributes}>
+    {this.props.preBodyComponents}
+    <div
+      key={`body`}
+      id="___gatsby"
+      dangerouslySetInnerHTML={{ __html: this.props.body }}
+    />
+    {this.props.postBodyComponents}
+    </body>
+    </html>
+  )
+}
+
 module.exports = class HTML extends React.Component {
   render() {
     let css
@@ -22,30 +52,7 @@ module.exports = class HTML extends React.Component {
       )
     }
     return (
-      <html {...this.props.htmlAttributes}>
-        <head>
-          <meta charSet="utf-8" />
-          <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-          />
-          <link rel="alternate" type="application/rss+xml"
-                title="RSS Feed for believingthebird.com"
-                href="/rss.xml" />
-          {css}
-          {this.props.headComponents}
-        </head>
-        <body {...this.props.bodyAttributes}>
-          {this.props.preBodyComponents}
-          <div
-            key={`body`}
-            id="___gatsby"
-            dangerouslySetInnerHTML={{ __html: this.props.body }}
-          />
-          {this.props.postBodyComponents}
-        </body>
-      </html>
+
     )
   }
 }
