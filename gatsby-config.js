@@ -2,20 +2,29 @@ const postcssPresetEnv = require('postcss-preset-env')
 
 module.exports = {
   siteMetadata: {
-    title: 'Yelloecake',
-    siteUrl: 'https://yellowcake.netlify.com'
+    title: 'Believing the Bird',
+    homeUrl: '/',
+    host: 'localhost:8000',
+    siteUrl: 'https://believingthebird.com',
+    description: 'Writings of Jeanne Horvath'
   },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-yaml',
     {
-      resolve: 'gatsby-plugin-google-tagmanager',
+      resolve: `gatsby-source-contentful`,
       options: {
-        /*id: 'GTM-add_your_tag_here',*/
-        id: 'GTM-P4RNF8D',
-        includeInDevelopment: false
-      }
+        spaceId: process.env.MOM_SPACE_ID,
+        accessToken: process.env.MOM_ACCESS_TOKEN,
+      },
     },
+    {
+      resolve: 'gatsby-plugin-typography',
+      options: {
+        pathToConfigModule: 'src/styles/typography',
+      },
+    },
+
     {
       resolve: 'gatsby-plugin-offline',
       options: {
@@ -126,14 +135,6 @@ module.exports = {
       }
     },
     'gatsby-plugin-sitemap',
-    {
-      resolve: 'gatsby-plugin-netlify-cms',
-      options: {
-        modulePath: `${__dirname}/src/cms/cms.js`,
-        stylesPath: `${__dirname}/src/cms/admin.css`,
-        enableIdentityWidget: true
-      }
-    },
     'gatsby-plugin-netlify' // make sure to keep it last in the array
   ]
 }
