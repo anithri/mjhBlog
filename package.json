@@ -1,14 +1,16 @@
 {
-  "name": "yellowcake",
-  "HomePage": "https://yellowcake.netlify.com/",
-  "description": "An opinionated starter project for creating lightning-fast websites with Gatsby v2 and Netlify CMS v2",
-  "version": "2.0.0",
+  "name": "believing-the-bird",
+  "description": "MJH Blog",
+  "version": "1.0.0",
+  "author": "Scott M Parrish<anithri@gmail.com>",
+  "HomePage": "https://believingthebird.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thriveweb/yellowcake"
+    "url": "https://github.com/anithri/mjhBlog"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
+    "compass-vertical-rhythm": "^1.4.5",
     "dom-form-serializer": "^1.0.7",
     "gatsby": "^2.17.7",
     "gatsby-image": "^2.2.30",
@@ -43,7 +45,10 @@
     "react-feather": "^2.0.3",
     "react-helmet": "^5.2.1",
     "react-markdown": "^4.2.2",
-    "react-photoswipe": "^1.3.0"
+    "react-photoswipe": "^1.3.0",
+    "react-typography": "^0.16.19",
+    "typography": "^0.16.19",
+    "typography-theme-lincoln": "^0.16.19"
   },
   "keywords": [
     "gatsby"

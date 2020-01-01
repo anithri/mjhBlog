@@ -14,5 +14,8 @@
     <orderEntry type="library" name="react-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="@types/lodash" level="application" />
     <orderEntry type="library" name="@types/prop-types" level="application" />
+    <orderEntry type="library" name="@types/react" level="application" />
+    <orderEntry type="library" name="@types/prop-types" level="application" />
+    <orderEntry type="library" name="@types/classnames" level="application" />
   </component>
 </module>
