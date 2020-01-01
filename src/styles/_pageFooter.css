@@ -1,5 +1,4 @@
 .pageFooter {
-  background-color: var(--color-reading-bg); /* .bg-white-50 */
 
   display: flex;
   flex-direction: column;

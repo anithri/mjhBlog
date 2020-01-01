@@ -7,16 +7,25 @@ import postContainer, {
   postLinkContainer,
 } from '../../containers/post'
 import PropTypes from 'prop-types'
+import Feedback from '../../components/Feedback'
+import withToggle from '../../containers/toggle'
+import times from '../../images/times-solid.svg'
 
-const PostsNav = ({next, prev}) => (
+const PostsNavDisplay = ({ next, prev, toggledOn, toggle }) => (
   <nav className="postNav">
-    <ul >
+    <ul>
       {(prev && <li><Link to={prev.slugPath} title={prev.title}>Previous</Link></li>) || null}
       <li><Link to="/writings">All Entries</Link></li>
-        {(next && <li><Link  to={next.slugPath} alt={next.title}>Next</Link></li>) || null}
+      <li onClick={toggle} className='feedback'>
+        Feedback
+      </li>
+      {(next && <li><Link to={next.slugPath} alt={next.title}>Next</Link></li>) || null}
     </ul>
+    <Feedback toggle={toggle} toggledOn={toggledOn}/>
   </nav>
 )
+
+const PostsNav = withToggle(PostsNavDisplay)
 
 const PostArticle = props => {
   const {
@@ -50,9 +59,9 @@ export default PostArticle
 
 export const PostArticleQuery = graphql`
   query PostArticleQuery(
-    $contentful_id: String!
-    $next_post_id: String
-    $prev_post_id: String
+  $contentful_id: String!
+  $next_post_id: String
+  $prev_post_id: String
   ) {
     currentPost: contentfulPost(contentful_id: { eq: $contentful_id }) {
       ...commonPostFragment

@@ -2,85 +2,25 @@
 
 @import '__variables.css';
 @import '__colors.css';
-
+@import '__layout.css';
 @import '_grid.css';
 @import '_images.css';
+@import '_feedback.css';
 @import '_posts.css';
 @import '_pageContent.css';
 @import '_pageFooter.css';
 @import '_pageHeader.css';
 @import '_pageNav.css';
 @import '_typography.css';
-
+@import '_quote.css';
 /*@import './tachyons/_debug.css';*/
 
-html,
-body,
-.max {
-  height: 100%;
-  width: 100%;
-  padding: var(--spacing-none, 0);
-  margin: var(--spacing-none, 0);
-}
-
-body {
-  background-color: var(--color-body-bg);
-}
-
-#___gatsby {
-  background: url('../images/lace-background.png') no-repeat bottom right fixed;
+html {
+  background: var(--body-texture), var(--body-background), var(--white-20);
   background-size: cover;
-  min-height: 100%;
-}
 
-.quote {
-  text-align: right; /* .tr */
-  background-color: var(--white-30); /* .bg-white-30 */
-
-  & blockquote {
-    padding-top: var(--spacing-medium); /* .pv3 */
-    padding-bottom: var(--spacing-medium);
-
-
-    margin: var(--spacing-none); /* .ma0 */
-    padding-left: var(--spacing-small); /* .ph2 */
-    padding-right: var(--spacing-small);
-    color: var(--near-black); /* .near-black */
-  }
-  & p {
-    margin-bottom: var(--spacing-small); /* .mb2 */
-  }
-
-  & ul {
-    list-style: none;
-  }
-}
-
-h2 {
-  font-style: italic; /* .i */
-  font-size: var(--article-title-size); /* .f3 */
-  font-weight: 500; /* .fw6 */
-  color: var(--dark-green); /* .dark-green */
-}
-
-section > p:first-child:first-letter {
-  font-size: 3rem;
-  line-height: 60px;
-  padding-top: 4px;
-  padding-right: 8px;
-  padding-left: 3px;
-  color: var(--dark-green); /* .dark-green */
-}
-
-ul {
-  margin-top: var(--spacing-small); /* .mt2 */
-
-  list-style: none;
-  margin-left: var(--spacing-none); /* .mh0 */
-  margin-right: var(--spacing-none);
-  & > li {
-    margin: var(--spacing-none); /* .ma0 */
-    margin-bottom: var(--spacing-medium); /* .mb3 */
+  & #___gatsby {
+    background: var(--color-body-bg);
   }
 }
 
@@ -98,9 +38,6 @@ time {
   }
 }
 
-.pageContent > article, .pageFooter {
-
-  & > section, & > .figure {
-    background-color: var(--color-reading-bg); /* .bg-white-40 */
-  }
+.pageContent > article,
+.pageFooter {
 }

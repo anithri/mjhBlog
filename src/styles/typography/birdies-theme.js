@@ -9,7 +9,7 @@ const theme = {
   googleFonts: [
     {
       name: 'Work Sans',
-      styles: ['600'],
+      styles: ['500'],
     },
     {
       name: 'Lora',
