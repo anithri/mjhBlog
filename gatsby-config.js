@@ -54,7 +54,7 @@ module.exports = {
                   url: url + Slug.post(post.slug, date),
                   guid: url + Slug.post(post.slug, date),
                   custom_elements: [
-                    { "content:encoded": post.body.text.excerpt }
+                    { "content:encoded": post.body.text }
                   ]
                 }
               })
