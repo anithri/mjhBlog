@@ -1,145 +1,111 @@
+const _ = require('lodash')
 const path = require('path')
-const Slug = require('./src/utils/Slug')
-const moment = require('moment')
-const _groupBy = require('lodash/groupBy')
+const { createFilePath } = require('gatsby-source-filesystem')
+const { fmImagesToRelative } = require('gatsby-remark-relative-images')
 
-const templatePath = (dir, template) => {
-  return path.resolve('src', 'templates', dir, template + '.js')
-}
+exports.createPages = ({ actions, graphql }) => {
+  const { createPage } = actions
 
-const BUILD_DATE = moment().format()
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators
-  return new Promise((resolve, reject) => {
-    resolve(
-      graphql(`
-        query {
-          contentfulSiteData(current: { eq: "CURRENT" }) {
-            pages {
-              contentful_id
-              layout
-              slug
+  return graphql(`
+    {
+      allMarkdownRemark(limit: 1000) {
+        edges {
+          node {
+            id
+            frontmatter {
+              template
+              title
             }
-          }
-          allContentfulPost(
-            filter: { publishOn: { ne: null } }
-            sort: { fields: [publishOn], order: DESC }
-          ) {
-            posts: edges {
-              next {
-                contentful_id
-                slug
-                publishOn
-              }
-              prev: previous {
-                contentful_id
-                slug
-                publishOn
-              }
-              post: node {
-                contentful_id
-                layout
-                publishOn
-                slug
-              }
+            fields {
+              slug
+              contentType
             }
           }
         }
-      `)
-        .then(({ errors, data }) => {
-          if (errors) {
-            reject(errors)
+      }
+    }
+  `).then(result => {
+    if (result.errors) {
+      result.errors.forEach(e => console.error(e.toString()))
+      return Promise.reject(result.errors)
+    }
+
+    const mdFiles = result.data.allMarkdownRemark.edges
+
+    const contentTypes = _.groupBy(mdFiles, 'node.fields.contentType')
+
+    _.each(contentTypes, (pages, contentType) => {
+      const pagesToCreate = pages.filter(page =>
+        // get pages with template field
+        _.get(page, `node.frontmatter.template`)
+      )
+      if (!pagesToCreate.length) return console.log(`Skipping ${contentType}`)
+
+      console.log(`Creating ${pagesToCreate.length} ${contentType}`)
+
+      pagesToCreate.forEach((page, index) => {
+        const id = page.node.id
+        createPage({
+          // page slug set in md frontmatter
+          path: page.node.fields.slug,
+          component: path.resolve(
+            `src/templates/${String(page.node.frontmatter.template)}.js`
+          ),
+          // additional data can be passed via context
+          context: {
+            id
           }
-
-          const pages = data.contentfulSiteData.pages
-            .filter(page => page.layout !== 'Special')
-            .map(page => {
-              return {
-                contentful_id: page.contentful_id,
-                slug: Slug.page(page.slug),
-                slugHtml: Slug.page(page.slug, 'html'),
-                template: templatePath('pages', page.layout),
-              }
-            })
-          
-          const posts = data.allContentfulPost.posts.map(({ next, post, prev }) => {
-            const dateStamp = moment(post.publishOn)
-            return {
-              contentful_id: post.contentful_id,
-              dateStamp: dateStamp,
-              path: Slug.post(post.slug, dateStamp),
-              slug: Slug.post(post.slug, dateStamp),
-              template: templatePath('posts', post.layout),
-              next_post_id: next && next.contentful_id,
-              prev_post_id: prev && prev.contentful_id,
-            }
-          })
-
-          return { pages, posts }
-        }) // extract data from
-        .then(result => {
-          result.pages.forEach(page => {
-            createPage({
-              path: page.slug,
-              component: page.template,
-              context: {
-                contentful_id: page.contentful_id,
-              },
-            })
-            createPage({
-              path: page.slugHtml,
-              component: page.template,
-              context: {
-                contentful_id: page.contentful_id,
-              },
-            })
-          })
-          return result
-        }) // generate pages
-        .then(result => {
-          result.posts.forEach(post => {
-            createPage({
-              path: post.path,
-              component: post.template,
-              context: {
-                contentful_id: post.contentful_id,
-                next_post_id: post.next_post_id,
-                prev_post_id: post.prev_post_id
-              },
-            })
-          })
-
-          return result
-        }) // generate posts
-        .then(result => {
-          const byDate = {
-            ..._groupBy(result.posts, p => p.dateStamp.year()),
-            ..._groupBy(result.posts, p => p.dateStamp.format('YYYY-MM')),
-          }
-          Object.entries(([group, posts]) => {
-            createPage({
-              path: Slug.post('index', moment(group)),
-              component: post.template,
-              context: {
-                contentful_id: post.contentful_id,
-              },
-            })
-          })
-
-          return result
-        }) // generate post indicies
-
-      //   //
-      //   // // TODO Write Blog indices for
-      //   // // blog/all.html  // Master List
-      //   // // blog/<year>/index.html // Whole Year
-      //   // // blog/<year>/<month>/<day>/index.html
-      //   // // index.rss
-      //   // // blog/index.rss
-      //   // posts/index.rss
-      //
-      //   return result
-      // })
-    )
+        })
+      })
+    })
   })
 }
+
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+
+  // convert frontmatter images
+  fmImagesToRelative(node)
+
+  // Create smart slugs
+  // https://github.com/Vagr9K/gatsby-advanced-starter/blob/master/gatsby-node.js
+  let slug
+  if (node.internal.type === 'MarkdownRemark') {
+    const fileNode = getNode(node.parent)
+    const parsedFilePath = path.parse(fileNode.relativePath)
+
+    if (_.get(node, 'frontmatter.slug')) {
+      slug = `/${node.frontmatter.slug.toLowerCase()}/`
+    } else if (
+      // home page gets root slug
+      parsedFilePath.name === 'home' &&
+      parsedFilePath.dir === 'pages'
+    ) {
+      slug = `/`
+    } else if (_.get(node, 'frontmatter.title')) {
+      slug = `/${_.kebabCase(parsedFilePath.dir)}/${_.kebabCase(
+        node.frontmatter.title
+      )}/`
+    } else if (parsedFilePath.dir === '') {
+      slug = `/${parsedFilePath.name}/`
+    } else {
+      slug = `/${parsedFilePath.dir}/`
+    }
+
+    createNodeField({
+      node,
+      name: 'slug',
+      value: slug
+    })
+
+    // Add contentType to node.fields
+    createNodeField({
+      node,
+      name: 'contentType',
+      value: parsedFilePath.dir
+    })
+  }
+}
+
+// Random fix for https://github.com/gatsbyjs/gatsby/issues/5700
+module.exports.resolvableExtensions = () => ['.json']

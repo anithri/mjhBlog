@@ -2,9 +2,9 @@
  /* @import './tachyons/_normalize.css'; */
 
  /* Modules */
- @import './tachyons/_box-sizing.css';
+ @import 'tachyons/_box-sizing.css';
  /* @import './tachyons/_aspect-ratios.css'; */
- @import './tachyons/_images.css';
+ @import 'tachyons/_images.css';
  /* @import './tachyons/_background-size.css'; */
  /* @import './tachyons/_background-position.css'; */
  /* @import './tachyons/_outlines.css'; */
@@ -57,11 +57,11 @@
 /* Variables */
 /* Importing here will allow you to override any variables in the modules */
 
-@import './tachyons/_variables.css';
+@import 'tachyons/_variables.css';
 
 /* Debugging */
-@import './tachyons/_debug-children.css';
-@import './tachyons/_debug-grid.css';
+@import 'tachyons/_debug-children.css';
+@import 'tachyons/_debug-grid.css';
 
 /* Uncomment out the line below to help debug layout issues */
 /* @import './tachyons/_debug.css'; */

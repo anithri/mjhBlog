@@ -1,19 +1,22 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import Link from 'gatsby-link'
+import InstagramFeed from './InstagramFeed'
+import './Footer.css'
 
-const Footer = ({ className }) => (
-  <footer className={className}>
-    <span>Copyright 2017,2018,2019 by M Jeanne Horvath</span>
-    <span>
-      Designed by Scott M Parrish
-      with open source software
-    </span>
-  </footer>
+export default () => (
+  <div>
+    <h2 className="taCenter">
+      Follow us{' '}
+      <a href="https://instagram.com/thrivegoldcoast/">@thrivegoldcoast</a>
+    </h2>
+    <br />
+    <InstagramFeed count="8" />
+    <footer className="footer">
+      <div className="container taCenter">
+        <span>
+          © Copyright {new Date().getFullYear()} All rights reserved. Crafted by{' '}
+          <a href="https://thriveweb.com.au/">Thrive</a>.
+        </span>
+      </div>
+    </footer>
+  </div>
 )
-
-Footer.propTypes = {
-  className: PropTypes.string
-}
-
-export default Footer
