@@ -49,12 +49,14 @@ exports.createPages = ({ actions, graphql }) => {
         return Promise.reject(errors)
       }
 
-      const pages = data.siteData.pages.map(page => ({
-        contentful_id: page.contentful_id,
-        slug: Slug.page(page.slug),
-        slugHtml: Slug.page(page.slug, 'html'),
-        template: templatePath('pages', page.layout)
-      }))
+      const pages = data.siteData.pages
+        .filter(page => page.layout !== 'Special')
+        .map(page => ({
+          contentful_id: page.contentful_id,
+          slug: Slug.page(page.slug),
+          slugHtml: Slug.page(page.slug, 'html'),
+          template: templatePath('pages', page.layout)
+        }))
 
       const posts = data.allPosts.posts.map(({ prev, post, next }) => {
         const dateStamp = moment(post.publishOn)
@@ -70,7 +72,7 @@ exports.createPages = ({ actions, graphql }) => {
       })
 
       return { pages, posts }
-    })
+    }) /* parse data */
     .then(result => {
       // create pages for siteData.pages
       result.pages.forEach(page => {
@@ -90,39 +92,39 @@ exports.createPages = ({ actions, graphql }) => {
         })
       })
       return result
-    })
-    .then(result => {
-      // generate posts
-      result.posts.forEach(post => {
-        createPage({
-          path: post.path,
-          component: post.template,
-          context: {
-            contentful_id: page.contentful_id,
-            next_post_id: post.next_post_id,
-            prev_post_id: post.prev_post_id
-          }
-        })
-      })
-      return result
-    })
+    }) /* create pages */
     // .then(result => {
-    //   const byDate = {
-    //     ..._groupBy(result.posts, p => p.dateStamp.year()),
-    //     ..._groupBy(result.posts, p => p.dateStamp.format('YYYY-MM')),
-    //   }
-    //   Object.entries(byDate).forEach(([group, posts]) => {
+    //   // generate posts
+    //   result.posts.forEach(post => {
     //     createPage({
-    //       path: Slug.post('index', moment(group)),
+    //       path: post.path,
     //       component: post.template,
     //       context: {
-    //         contentful_id: post.contentful_id,
-    //       },
+    //         contentful_id: page.contentful_id,
+    //         next_post_id: post.next_post_id,
+    //         prev_post_id: post.prev_post_id
+    //       }
     //     })
     //   })
-    //
     //   return result
-    // }) // generate post indicies
+    // }) /* create posts */
+  // .then(result => {
+  //   const byDate = {
+  //     ..._groupBy(result.posts, p => p.dateStamp.year()),
+  //     ..._groupBy(result.posts, p => p.dateStamp.format('YYYY-MM')),
+  //   }
+  //   Object.entries(byDate).forEach(([group, posts]) => {
+  //     createPage({
+  //       path: Slug.post('index', moment(group)),
+  //       component: post.template,
+  //       context: {
+  //         contentful_id: post.contentful_id,
+  //       },
+  //     })
+  //   })
+  //
+  //   return result
+  // }) // generate post indicies
 }
 // // Random fix for https://github.com/gatsbyjs/gatsby/issues/5700
 // exports.resolvableExtensions = () => ['.json']

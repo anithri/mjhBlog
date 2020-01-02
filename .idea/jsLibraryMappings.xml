@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{@types/classnames, @types/prop-types, @types/react}" />
+    <file url="file://$PROJECT_DIR$" libraries="{mjhBlog/node_modules}" />
+    <file url="PROJECT" libraries="{@types/accept, @types/classnames, @types/prop-types, @types/react, mjhBlog/node_modules}" />
     <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>

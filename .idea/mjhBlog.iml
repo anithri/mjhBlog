@@ -18,5 +18,6 @@
     <orderEntry type="library" name="@types/react" level="application" />
     <orderEntry type="library" name="@types/prop-types" level="application" />
     <orderEntry type="library" name="@types/classnames" level="application" />
+    <orderEntry type="library" name="@types/accept" level="application" />
   </component>
 </module>
