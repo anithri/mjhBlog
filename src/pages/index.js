@@ -1,6 +1,26 @@
-import React from "react"
+import React from 'react'
+import Quote from '../components/Quote'
+import { pageNormalizer, commonPageFragment } from '../queries/page'
+import Layout from '../components/Layout'
+import { graphql } from 'gatsby'
 
-export const IndexPage = props => {
+const Index = ({ data: { contentfulPage } }) => {
+  console.log('Index', contentfulPage)
+  const page = pageNormalizer(contentfulPage)
 
-  return <main><h1>Wooticus Prime</h1></main>
+  return (
+    <Layout pageTitle={page.title}>
+      <Quote className={`homePage ${page.theme}`} subject={page} />
+    </Layout>
+  )
 }
+
+export default Index
+
+export const query = graphql`
+  query homePageQuery {
+    contentfulPage(slug: { eq: "home" }) {
+      ...commonPageFragment
+    }
+  }
+`

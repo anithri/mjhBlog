@@ -5,6 +5,7 @@ import { pageShape } from '../../containers/page'
 import { postShape } from '../../containers/post'
 
 const PostHome = ({ children, className, page, posts }) => {
+
   return (
     <section className={`${className} postHome`}>
       <header>

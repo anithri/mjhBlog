@@ -1,0 +1,16 @@
+.yearSelector {
+  display: grid;
+  grid-template-row: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+
+  & > li {
+    background-color: var(--black-20, rgba(0, 0, 0, .2));
+
+    &.selectWide {
+      grid-column: 1 / span 3;
+    }
+
+  }
+
+
+}

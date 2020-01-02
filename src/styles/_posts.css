@@ -1,7 +1,6 @@
 .postSummary {
   padding: var(--spacing-small); /* .pa1 */
   border-radius: var(--border-radius-3); /* .br3 */
-  //background-color: var(--white-40); /* .bg-white-40 */
 
   & header {
     color: var(--dark-green);
@@ -34,7 +33,6 @@
     background-color: var(--paleturquoise-50); /* .bg-black-20 */
 
     border-radius: var(--border-radius-3); /* .br3 */
-    //border-style: solid; /* .ba */
     margin: var(--spacing-medium) 0; /* .mb2 */
     border-color: var(--dark-green); /* .b--dark-green */
     box-shadow: var(--spacing-extra-small) var(--spacing-extra-small)

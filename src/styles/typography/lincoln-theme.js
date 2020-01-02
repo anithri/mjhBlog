@@ -1,10 +1,9 @@
 // @flow
 import gray from 'gray-percentage'
-import type { OptionsType } from 'Types'
-import { MOBILE_MEDIA_QUERY } from 'typography-breakpoint-constants'
+// import { MOBILE_MEDIA_QUERY } from 'typography-breakpoint-constants'
 import verticalRhythm from 'compass-vertical-rhythm'
 
-const theme: OptionsType = {
+const theme = {
   title: 'Lincoln',
   baseFontSize: '19px',
   baseLineHeight: 1.58,
@@ -74,19 +73,19 @@ const theme: OptionsType = {
       'blockquote cite:before': {
         content: '"— "',
       },
-      [MOBILE_MEDIA_QUERY]: {
-        html: {
-          ...vr.establishBaseline(),
-        },
-        blockquote: {
-          borderLeft: `${rhythm(3 / 16)} solid ${linkColor}`,
-          color: gray(41),
-          paddingLeft: rhythm(9 / 16),
-          fontStyle: 'italic',
-          marginLeft: rhythm(-3 / 4),
-          marginRight: 0,
-        },
-      },
+      // [MOBILE_MEDIA_QUERY]: {
+      //   html: {
+      //     ...vr.establishBaseline(),
+      //   },
+      //   blockquote: {
+      //     borderLeft: `${rhythm(3 / 16)} solid ${linkColor}`,
+      //     color: gray(41),
+      //     paddingLeft: rhythm(9 / 16),
+      //     fontStyle: 'italic',
+      //     marginLeft: rhythm(-3 / 4),
+      //     marginRight: 0,
+      //   },
+      // },
     }
   },
 }

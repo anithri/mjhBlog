@@ -31,10 +31,9 @@ body {
   & > nav {
     height: 1.5rem;
     grid-row: 2;
-    //margin-bottom: var(--spacing-small); /* .mb1 */
   }
   & > .pageContent {
-    min-height: calc(100vh - 8rem);
+    min-height: calc(100vh - 7.5rem);
     grid-row: 3;
   }
   & > footer {
