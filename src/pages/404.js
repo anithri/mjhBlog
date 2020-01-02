@@ -7,15 +7,15 @@ import AlertTriangle from 'react-feather/dist/icons/alert-triangle'
 import Layout from '../components/Layout'
 
 export default ({ children }) => (
-  <StaticQuery
-    query={graphql`
-      query NotFoundPageQuery {
-        globalSettings: settingsYaml {
-          siteTitle
-        }
-      }
-    `}
-    render={data => (
+  // <StaticQuery
+  //   query={graphql`
+  //     query NotFoundPageQuery {
+  //       globalSettings: settingsYaml {
+  //         siteTitle
+  //       }
+  //     }
+  //   `}
+  //   render={data => (
       <Layout>
         <Helmet>
           <title>404 – Page Not Found</title>
@@ -30,11 +30,11 @@ export default ({ children }) => (
               We can't find the page you are looking for!
               <br />
               Head back to{' '}
-              <Link to="/">{_get(data, 'globalSettings.siteTitle')}</Link>
+              {/*<Link to="/">{_get(data, 'globalSettings.siteTitle')}</Link>*/}
             </p>
           </div>
         </section>
       </Layout>
-    )}
-  />
+  //   )}
+  // />
 )
