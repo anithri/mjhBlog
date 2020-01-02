@@ -35,8 +35,8 @@
  /* @import './tachyons/_position.css'; */
  /* @import './tachyons/_opacity.css'; */
  /* @import './tachyons/_rotations.css'; */
- /* @import './tachyons/_skins.css'; */
- /* @import './tachyons/_skins-pseudo.css'; */
+ @import './tachyons/_skins.css';
+ /* @import './tachyons/_skins-pseudo.css';*/
  /* @import './tachyons/_spacing.css'; */
  /* @import './tachyons/_negative-margins.css'; */
  /* @import './tachyons/_tables.css'; */

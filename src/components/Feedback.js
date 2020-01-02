@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import cx from 'classnames'
 
 const Feedback = ({toggle, toggledOn}) => {
-  const [setToggle, toggledOn] = useState(false)
   const classes = cx("feedbackForm", toggledOn || 'dn')
   return (
     <form className={classes} name="contact" method="POST" data-netlify="true">
@@ -15,7 +14,7 @@ const Feedback = ({toggle, toggledOn}) => {
       <textarea name="message" placeholder={'Message'} className="message" rows={6}/>
       <div data-netlify-recaptcha className="captcha" />
 
-      <a className="cancel" onClick={e => toggle(!toggledOn)}>
+      <a className="cancel" onClick={e => toggle()}>
         Cancel
       </a>
 

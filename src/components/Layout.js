@@ -1,62 +1,57 @@
 // import React, { Fragment } from 'react'
 import React from 'react'
-// import Helmet from 'react-helmet'
-// import PropTypes from 'prop-types'
-// import { StaticQuery, graphql } from 'gatsby'
+import Helmet from 'react-helmet'
+import { StaticQuery, graphql, useStaticQuery } from 'gatsby'
+import Header from './Header'
+import Nav from './Nav'
+import Footer from './Footer'
 
-export default ({children, meta, title}) => {
+import '../styles/site.css'
 
-  return (<h1>Hiya</h1>)
+const Layout = ({children, pageTitle}) => {
+  const { site, contentfulSiteData } = useStaticQuery( graphql`
+    query SiteLayoutQuery {
+      site {
+        siteMetadata {
+          homeUrl
+          host
+        }
+      }
+      contentfulSiteData(current: { eq: "CURRENT" }) {
+        title
+        keywords
+        description
+        pages {
+          linkName
+          slug
+        }
+      }
+    }
+  `)
+
+  const { homeUrl, host } = site.siteMetadata
+  const { title, keywords, description, pages } = contentfulSiteData
+  return (
+    <section className="pageGrid">
+      <Helmet
+        defaultTitle={title}
+        title={pageTitle}
+        titleTemplate={`${title} - %s`}
+        meta={[
+          { name: 'description', content: description },
+          { name: 'keywords', content: keywords.join(',') },
+        ]}
+      />
+      <Header className="pageHeader" {...{ title, homeUrl, host }} />
+      <Nav className="pageNav" {...{ pages }} />
+      <aisde className="birdInFlight"><p>Bird In Flight</p></aisde>
+      <main className="pageContent">{children}</main>
+      <Footer className="pageFooter" />
+    </section>
+  )
 }
 
-// import Meta from './Meta'
-// import Nav from './Nav'
-// import Footer from './Footer'
-
-// import 'modern-normalize/modern-normalize.css'
-// import './globalStyles.css'
-//
-// export default ({ children, meta, title }) => {
-//   return (
-//     <StaticQuery
-//       query={graphql`
-//         query IndexLayoutQuery {
-//           settingsYaml {
-//             siteTitle
-//             siteDescription
-//             googleTrackingId
-//             socialMediaCard {
-//               image
-//             }
-//           }
-//           allPosts: allMarkdownRemark(
-//             filter: { fields: { contentType: { eq: "postCategories" } } }
-//             sort: { order: DESC, fields: [frontmatter___date] }
-//           ) {
-//             edges {
-//               node {
-//                 fields {
-//                   slug
-//                 }
-//                 frontmatter {
-//                   title
-//                 }
-//               }
-//             }
-//           }
-//         }
-//       `}
-//       render={data => {
-//         // const { siteTitle, socialMediaCard, googleTrackingId } =
-//         //     data.settingsYaml || {},
-//         //   subNav = {
-//         //     posts: data.allPosts.hasOwnProperty('edges')
-//         //       ? data.allPosts.edges.map(post => {
-//         //           return { ...post.node.fields, ...post.node.frontmatter }
-//         //         })
-//         //       : false
-//         //   }
-//
+export default Layout
 //         return (
 //           <Fragment>
 //             <Helmet

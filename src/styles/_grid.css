@@ -12,6 +12,9 @@ body {
   min-height: 100%;
 }
 
+.h-100 {
+  height: 100%;
+}
 
 .pageGrid {
   min-height: 100%;

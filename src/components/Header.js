@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from 'gatsby-link'
-import PropTypes from 'prop-types'
+import { Link } from 'gatsby'
+
 const Header = ({ className, title }) => {
   return (
     <header className={className}>
@@ -9,11 +9,6 @@ const Header = ({ className, title }) => {
       </Link>
     </header>
   )
-}
-
-Header.propTypes = {
-  className: PropTypes.string,
-  title: PropTypes.string.isRequired,
 }
 
 export default Header
