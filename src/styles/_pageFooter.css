@@ -7,7 +7,6 @@
   align-content: stretch;
   align-items: center;
 
-  border: 1px solid;
   border-image: linear-gradient(
     to right,
     var(--transparent) 0%,
@@ -17,9 +16,8 @@
     var(--transparent) 100%
   );
   border-image-slice: 1;
-  border-bottom: 0;
-  border-right: 0;
-  border-left: 0;
+  border: 0 solid;
+  border-top-width: 1px;
 
   & > span {
     font-style: italic; /* .i */

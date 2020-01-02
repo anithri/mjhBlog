@@ -44,7 +44,7 @@ const Layout = ({children, pageTitle}) => {
       />
       <Header className="pageHeader" {...{ title, homeUrl, host }} />
       <Nav className="pageNav" {...{ pages }} />
-      <aisde className="birdInFlight"><p>Bird In Flight</p></aisde>
+      <aside className="birdInFlight"><p>Bird In Flight</p></aside>
       <main className="pageContent">{children}</main>
       <Footer className="pageFooter" />
     </section>

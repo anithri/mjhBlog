@@ -1,5 +1,8 @@
-import React from 'react'
-import {GatsbyContentfulFluid_noBase64} from 'gatsby-source-contentful/src/fragments'
+import { graphql } from 'gatsby'
+import Slug from '../utils/Slug'
+import {imageNormalizer} from './image'
+import { GatsbyContentfulFluid_noBase64 } from 'gatsby-source-contentful/src/fragments'
+const moment = require('moment')
 
 export const postLinkNormalizer = (post, overrideTitle = false) => {
   const dateStamp = moment(post.publishOn)
@@ -14,13 +17,13 @@ export const postLinkNormalizer = (post, overrideTitle = false) => {
     displayTitle,
     dateStamp,
     publishDate,
-    title,
+    title
   }
 }
 
 export const postNormalizer = post => {
   const dateStamp = moment(post.publishOn)
-  const images = post.images ? post.images.map(i => imageContainer(i)) : []
+  const images = post.images ? post.images.map(i => imageNormalizer(i)) : []
   return {
     ...post,
     body: post.body.childMarkdownRemark.html,

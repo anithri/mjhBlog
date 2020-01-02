@@ -1,10 +1,11 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import Quote from '../../components/Quote'
 import { graphql } from 'gatsby'
 import Layout from '../../components/Layout'
 
-const PageQuote = ({ data: { page } }) => {
+const PageQuote = ({ data}) => {
+  console.log('PageQuote', data)
+  const { page } = data
   return (
     <Layout pageTitle={page.title}>
       <Quote subject={page} className={`pageQuote ${theme}`} />

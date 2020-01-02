@@ -93,21 +93,21 @@ exports.createPages = ({ actions, graphql }) => {
       })
       return result
     }) /* create pages */
-    // .then(result => {
-    //   // generate posts
-    //   result.posts.forEach(post => {
-    //     createPage({
-    //       path: post.path,
-    //       component: post.template,
-    //       context: {
-    //         contentful_id: page.contentful_id,
-    //         next_post_id: post.next_post_id,
-    //         prev_post_id: post.prev_post_id
-    //       }
-    //     })
-    //   })
-    //   return result
-    // }) /* create posts */
+    .then(result => {
+      // generate posts
+      result.posts.forEach(post => {
+        createPage({
+          path: post.path,
+          component: post.template,
+          context: {
+            contentful_id: post.contentful_id,
+            next_post_id: post.next_post_id,
+            prev_post_id: post.prev_post_id
+          }
+        })
+      })
+      return result
+    }) /* create posts */
   // .then(result => {
   //   const byDate = {
   //     ..._groupBy(result.posts, p => p.dateStamp.year()),

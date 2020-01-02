@@ -9,7 +9,7 @@ const NotFound = ({ children, data }) => {
     siteData: { title }
   } = data
   return (
-    <Layout>
+    <Layout pageTitle="404 Not Found">
       <Helmet>
         <title>404 – Page Not Found</title>
       </Helmet>

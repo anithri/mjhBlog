@@ -1,43 +1,46 @@
-import React from 'react'
-import Helmet from 'react-helmet'
+import React, { useState } from 'react'
 import Article from '../../components/Article'
 import Link from 'gatsby-link'
-import { postNormalizer, postLinkNormalizer } from '../../queries/post'
 import Feedback from '../../components/Feedback'
-import { graphql } from 'gatsby'
 import Layout from '../../components/Layout'
+import { postNormalizer, postLinkNormalizer, commonPostFragment } from '../../queries/post'
+import { graphql } from 'gatsby'
 
-const PostsNavDisplay = ({ next, prev, toggledOn, toggle }) => (
-  <nav className="postNav">
-    <ul>
-      {(prev && (
+const PostsNavDisplay = ({ next, prev }) => {
+  const [toggledOn, setToggle] = useState(false)
+  const toggle = () => setToggle(!toggledOn)
+  return (
+    <nav className="postNav">
+      <ul>
+        {(prev && (
+          <li>
+            <Link to={prev.slugPath} title={prev.title}>
+              Previous
+            </Link>
+          </li>
+        )) ||
+          null}
         <li>
-          <Link to={prev.slugPath} title={prev.title}>
-            Previous
-          </Link>
+          <Link to="/writings">All Entries</Link>
         </li>
-      )) ||
-        null}
-      <li>
-        <Link to="/writings">All Entries</Link>
-      </li>
-      <li onClick={toggle} className="feedback">
-        Feedback
-      </li>
-      {(next && (
-        <li>
-          <Link to={next.slugPath} alt={next.title}>
-            Next
-          </Link>
+        <li onClick={toggle} toggledOn={toggledOn} className="feedback">
+          Feedback
         </li>
-      )) ||
-        null}
-    </ul>
-    <Feedback toggle={toggle} toggledOn={toggledOn} />
-  </nav>
-)
+        {(next && (
+          <li>
+            <Link to={next.slugPath} alt={next.title}>
+              Next
+            </Link>
+          </li>
+        )) ||
+          null}
+      </ul>
+      <Feedback toggle={toggle} toggledOn={toggledOn} />
+    </nav>
+  )
+}
 
-const PostsNav = withToggle(PostsNavDisplay)
+const PostsNav = PostsNavDisplay
 
 const PostArticle = ({ data: { nextPost, prevPost, currentPost } }) => {
   const next = (nextPost && postLinkNormalizer(nextPost, 'Next')) || null

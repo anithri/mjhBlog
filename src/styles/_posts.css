@@ -43,7 +43,8 @@
 }
 
 .postNav {
-  margin-top: var(--spacing-small);
+  padding-top: var(--spacing-small, .5rem);
+  padding-bottom: var(--spacing-small, .5rem);
 
   & > ul {
     display: flex;
