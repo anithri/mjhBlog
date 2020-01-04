@@ -51,42 +51,42 @@
   grid-row: 2;
 }
 
-.june {
+.may {
   grid-column: 3;
+  grid-row: 2;
+}
+
+.june {
+  grid-column: 4;
   grid-row: 2;
 }
 
 .july {
-  grid-column: 4;
-  grid-row: 2;
+  grid-column: 2;
+  grid-row: 3;
 }
 
 .august {
-  grid-column: 2;
+  grid-column: 3;
   grid-row: 3;
 }
 
 .september {
-  grid-column: 3;
-  grid-row: 3;
-}
-
-.october {
   grid-column: 4;
   grid-row: 3;
 }
 
-.november {
+.october {
   grid-column: 2;
   grid-row: 4;
 }
 
-.december {
+.november {
   grid-column: 3;
   grid-row: 4;
 }
 
-&:nth-child(12) {
+.december {
   grid-column: 4;
   grid-row: 4;
 }

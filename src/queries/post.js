@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby'
 import Slug from '../utils/Slug'
 import {imageNormalizer} from './image'
-import { GatsbyContentfulFluid_noBase64 } from 'gatsby-source-contentful/src/fragments'
+// import { GatsbyContentfulFluid_noBase64 } from 'gatsby-source-contentful/src/fragments'
 const moment = require('moment')
 
 export const postLinkNormalizer = (post, overrideTitle = false) => {
@@ -22,6 +22,7 @@ export const postLinkNormalizer = (post, overrideTitle = false) => {
 }
 
 export const postNormalizer = post => {
+  console.log('postNormalizer',post)
   const dateStamp = moment(post.publishOn)
   const images = post.images ? post.images.map(i => imageNormalizer(i)) : []
   return {
@@ -32,7 +33,9 @@ export const postNormalizer = post => {
     publishDate: dateStamp.format('MMM D, YYYY'),
     slugPath: Slug.post(post.slug, dateStamp),
     summary: post.body.childMarkdownRemark.excerpt,
-    displayTitle: `${dateStamp.format('LL')} - ${post.title}`
+    displayTitle: `${dateStamp.format('LL')} - ${post.title}`,
+    year: dateStamp.format('YYYY'),
+    category: dateStamp.format('YYYY - MMMM')
   }
 }
 

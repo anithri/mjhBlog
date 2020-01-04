@@ -15,9 +15,4 @@ export const SummaryHeader = props => {
   )
 }
 
-SummaryHeader.defaultProps = {
-  activeClassName: 'currentPage',
-  className: 'postLink',
-}
-
 export default SummaryHeader
