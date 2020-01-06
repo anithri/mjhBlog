@@ -22,7 +22,6 @@ export const postLinkNormalizer = (post, overrideTitle = false) => {
 }
 
 export const postNormalizer = post => {
-  console.log('postNormalizer',post)
   const dateStamp = moment(post.publishOn)
   const images = post.images ? post.images.map(i => imageNormalizer(i)) : []
   return {
@@ -35,7 +34,7 @@ export const postNormalizer = post => {
     summary: post.body.childMarkdownRemark.excerpt,
     displayTitle: `${dateStamp.format('LL')} - ${post.title}`,
     year: dateStamp.format('YYYY'),
-    category: dateStamp.format('YYYY - MMMM')
+    month: dateStamp.format('MMMM'),
   }
 }
 

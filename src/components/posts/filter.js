@@ -1,46 +1,45 @@
-import {categorizePosts} from './utils'
+import moment from 'moment'
 
-export const reducer = (state, action) => {
-  const {selected, categorized} = state
-  let category
-  switch (action.type) {
-  case 'updateYear':
-    if (!action.year) throw new Error()
-    category = action.year === 'All' ?
-      'All' :
-      (selected.month === 'All' ? action.year : `${action.year} - ${selected.month}`)
+const postsFor = (posts, year, month) => posts.filter(
+  post =>
+    year === 'All' ||
+    (year === post.year && ['All', post.month].includes(month))
+)
 
-    return {
-      ...state,
-      selected: {
-        ...selected,
-        year: action.year,
-        month: action.year === 'All' ? 'All' : selected.month,
-        posts: categorized[action.year][selected.month],
-        category,
-        all: action.year === 'All',
-        isSelected: year => (year === action.year) && 'selected'
+const hasPosts = (posts, year, month) => postsFor(posts,year,month).length
+
+export const initializeState = ({ posts, ...initialState }) => ({
+  ...initialState,
+  year: 'All',
+  month: 'All',
+  months: moment.months(),
+  years: Array.from(new Set(posts.map(({ year }) => year))).sort(),
+  posts: posts,
+  visiblePosts: postsFor(posts, 'All','All'),
+  isSelectedYear: (year) => year === 'All',
+  isSelectedMonth: (month) => month === 'All',
+  isEmptyYear: (year) => !hasPosts(posts, year, 'All'),
+  isEmptyMonth: (month) => !hasPosts(posts, 'All', month),
+
+})
+
+export const reducer = (state, { type, ...action }) => {
+  console.log('reducer', type, action)
+  switch (type) {
+    case 'updateFilter':
+      const newState = {
+        ...state,
+        ...action,
+        visiblePosts: postsFor(state.posts, state.year, state.month),
+        isSelectedYear: (year) => year === state.year,
+        isSelectedMonth: (month) => [state.month,'All'].includes(month),
+        isEmptyYear: (year) => !hasPosts(state.posts, year, 'All'),
+        isEmptyMonth: (month) => !hasPosts(state.posts, state.year, month),
+
       }
-    }
-  case 'updateMonth':
-    if (!action.month) throw new Error()
-    category = selected.year === 'All' ?
-      'All' :
-      (action.month === 'All' ? selected.year : `${action.year} - ${selected.month}`)
-
-    return {
-      ...state,
-      selected: {
-        ...selected,
-        month: action.month,
-        posts: categorized[selected.year][action.month],
-        all: selected.year === 'All',
-        category,
-      },
-        isSelected:
-          (month, forAll = false) => forAll ? [selected.month, 'All'].includes(action.month) : selected.month === action.month
-    }
-  default:
-    throw new Error()
+      if (action.year === 'All') newState.month = 'All'
+    default:
+      throw new Error()
   }
 }
+

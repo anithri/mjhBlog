@@ -90,3 +90,16 @@
   grid-column: 4;
   grid-row: 4;
 }
+
+.recent5 {
+  grid-column: 2;
+  grid-row: 1;
+}
+.recent10 {
+  grid-column: 3;
+  grid-row: 1;
+}
+.recent20 {
+  grid-column: 4;
+  grid-row: 1;
+}

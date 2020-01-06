@@ -45,7 +45,8 @@
     "react-markdown": "^4.2.2",
     "react-typography": "^0.16.19",
     "typography": "^0.16.19",
-    "typography-theme-lincoln": "^0.16.19"
+    "typography-theme-lincoln": "^0.16.19",
+    "use-array": "^1.0.0"
   },
   "keywords": [
     "gatsby"
