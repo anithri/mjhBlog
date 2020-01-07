@@ -35,10 +35,12 @@ const Nav = ({ pages, className }) => {
 
 Nav.propTypes = {
   className: PropTypes.string,
-  pages: PropTypes.arrayOf(PropTypes.shape({
-    linkName: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-  }))
+  pages: PropTypes.arrayOf(
+    PropTypes.shape({
+      linkName: PropTypes.string.isRequired,
+      slug: PropTypes.string.isRequired,
+    })
+  ),
 }
 
 Nav.defaultProps = {

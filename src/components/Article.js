@@ -7,11 +7,11 @@ const Article = ({ children, className = '', subject }) => {
   let timeHeader, imageTags
 
   if (images && images.length > 0) {
-    imageTags = (<Img fluid={images[0].fluid} alt={images[0].title} />)
+    imageTags = <Img fluid={images[0].fluid} alt={images[0].title} />
   }
 
   if (dateStamp) {
-    timeHeader = (<time dateTime={dateStamp.format()}>{publishDate}</time>)
+    timeHeader = <time dateTime={dateStamp.format()}>{publishDate}</time>
   }
   return (
     <article className={`${className} article`}>

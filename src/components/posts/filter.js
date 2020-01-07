@@ -1,45 +1,93 @@
 import moment from 'moment'
 
-const postsFor = (posts, year, month) => posts.filter(
-  post =>
-    year === 'All' ||
-    (year === post.year && ['All', post.month].includes(month))
-)
+const postsByMonth = posts =>
+  posts.reduce((byMonth, post) => {
+    byMonth[post.key] = byMonth[post.key] || []
+    byMonth[post.key].push(post)
 
-const hasPosts = (posts, year, month) => postsFor(posts,year,month).length
+    return byMonth
+  }, {})
 
-export const initializeState = ({ posts, ...initialState }) => ({
-  ...initialState,
-  year: 'All',
-  month: 'All',
+const postsByYear = posts =>
+  posts.reduce((byYear, post) => {
+    byYear[post.year] = byYear[post.year] || []
+    byYear[post.year].push(post)
+
+    return byYear
+  }, {})
+
+const checkVisMonth = (container, year, month ) => (
+  checkYear,
+  checkMonth
+) => {
+  const key = month && checkMonth ? `${checkYear} ${checkMonth}` : checkYear
+  if (!container[key]) return 'empty'
+  if (checkMonth === month) return 'selected'
+  return 'visible'
+}
+const checkVisYear = (container, year) => (checkYear) => {
+  if (!container[year]) return 'empty'
+  if (year === checkYear) return 'selected'
+  return 'visible'
+}
+
+const recentVis = (check = false) => check ? 'hidden' : 'visible'
+
+export const filterInit = ({ posts, ...initialState }) => ({
+  year: false,
+  month: false,
   months: moment.months(),
-  years: Array.from(new Set(posts.map(({ year }) => year))).sort(),
-  posts: posts,
-  visiblePosts: postsFor(posts, 'All','All'),
-  isSelectedYear: (year) => year === 'All',
-  isSelectedMonth: (month) => month === 'All',
-  isEmptyYear: (year) => !hasPosts(posts, year, 'All'),
-  isEmptyMonth: (month) => !hasPosts(posts, 'All', month),
-
+  years: Array.from(new Set([moment().year(),...posts.map(({ year }) => year)])).sort(),
+  ...initialState,
+  posts: posts.sort((a, b) => a.publishDate > b.publishDate),
+  recentCounts: [5, 10, 20],
+  recentCount: 5,
+  currentPosts: posts,
+  byMonth: postsByMonth(posts),
+  byYear: postsByYear(posts),
+  checkVis: recentVis,
+  title: 'Recent 5'
 })
 
-export const reducer = (state, { type, ...action }) => {
-  console.log('reducer', type, action)
+export const filterReducer = (state, { type, ...action }) => {
+  let key, count
   switch (type) {
-    case 'updateFilter':
-      const newState = {
+    case 'showRecent':
+      count = action.recentCount || state.recentCount || 5
+      return {
         ...state,
-        ...action,
-        visiblePosts: postsFor(state.posts, state.year, state.month),
-        isSelectedYear: (year) => year === state.year,
-        isSelectedMonth: (month) => [state.month,'All'].includes(month),
-        isEmptyYear: (year) => !hasPosts(state.posts, year, 'All'),
-        isEmptyMonth: (month) => !hasPosts(state.posts, state.year, month),
-
+        month: false,
+        year: false,
+        recentCount: count,
+        currentPosts: state.posts.slice(count),
+        checkVis: recentVis,
+        title: `Recent ${count}`
       }
-      if (action.year === 'All') newState.month = 'All'
+      break
+    case 'changeYear':
+      key = state.year
+      return {
+        ...state,
+        year: action.year,
+        month: false,
+        recentCount: false,
+        currentPosts: (state.byYear[key] || []).slice(0,5) || [],
+        checkVis: checkVisYear(state.byYear, action.year),
+        title: key,
+      }
+      break
+    case 'changeMonth':
+      key = `${state.year} ${action.month}`
+      return {
+        ...state,
+        month: action.month,
+        recentCount: false,
+        currentPosts: state.byMonth[key] || [],
+        checkVis: checkVisMonth(state.byMonth, state.year, action.month),
+        title: key
+      }
+      break
     default:
       throw new Error()
   }
 }
-

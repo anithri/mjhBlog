@@ -3,7 +3,7 @@ import Summary from './Summary'
 import SummaryHeader from './SummaryHeader'
 
 export const SummaryList = ({ posts = [], className, title }) => {
-  const postSummaries = (posts).map(post => (
+  const postSummaries = posts.map(post => (
     <li key={`postSummary-${post.slug}`}>
       <Summary post={post} title={title} />
     </li>

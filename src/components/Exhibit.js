@@ -15,11 +15,17 @@ const Exhibit = ({ className, images, limit, emptyExhibit = null }) => {
 
   const imageCount = limit < 0 || limit > images.length ? images.length : limit
 
-  const figures = images.slice(0, imageCount).map(image => (
-    <Image key={uuidv4()} image={image} className={`$className galleryImage`} />
-  ))
+  const figures = images
+    .slice(0, imageCount)
+    .map(image => (
+      <Image
+        key={uuidv4()}
+        image={image}
+        className={`$className galleryImage`}
+      />
+    ))
 
-  return (<ul className={className}>{figures}</ul>)
+  return <ul className={className}>{figures}</ul>
 }
 //
 // Exhibit.propTypes = {

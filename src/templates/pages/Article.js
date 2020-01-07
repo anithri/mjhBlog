@@ -6,7 +6,7 @@ import Layout from '../../components/Layout'
 
 const PageArticle = ({ data: { contentfulPage } }) => {
   console.log('PageArticle', contentfulPage)
-  const page = pageNormalizer((contentfulPage))
+  const page = pageNormalizer(contentfulPage)
   return (
     <Layout pageTitle={page.title}>
       <Article

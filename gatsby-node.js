@@ -55,7 +55,7 @@ exports.createPages = ({ actions, graphql }) => {
           contentful_id: page.contentful_id,
           slug: Slug.page(page.slug),
           slugHtml: Slug.page(page.slug, 'html'),
-          template: templatePath('pages', page.layout)
+          template: templatePath('pages', page.layout),
         }))
 
       const posts = data.allPosts.posts.map(({ prev, post, next }) => {
@@ -67,7 +67,7 @@ exports.createPages = ({ actions, graphql }) => {
           slug: Slug.post(post.slug, dateStamp),
           template: templatePath('posts', post.layout),
 
-          prev_post_id: next && next.contentful_id
+          prev_post_id: next && next.contentful_id,
         }
       })
 
@@ -81,14 +81,14 @@ exports.createPages = ({ actions, graphql }) => {
           path: page.slug,
           component: page.template,
           // additional data can be passed via context
-          context: { contentful_id: page.contentful_id }
+          context: { contentful_id: page.contentful_id },
         })
         createPage({
           // page slug set in md frontmatter
           path: page.slugHtml,
           component: page.template,
           // additional data can be passed via context
-          context: { contentful_id: page.contentful_id }
+          context: { contentful_id: page.contentful_id },
         })
       })
       return result
@@ -102,8 +102,8 @@ exports.createPages = ({ actions, graphql }) => {
           context: {
             contentful_id: post.contentful_id,
             next_post_id: post.next_post_id,
-            prev_post_id: post.prev_post_id
-          }
+            prev_post_id: post.prev_post_id,
+          },
         })
       })
       return result

@@ -6,7 +6,7 @@ import Layout from '../components/Layout'
 
 const NotFound = ({ children, data }) => {
   const {
-    siteData: { title }
+    siteData: { title },
   } = data
   return (
     <Layout pageTitle="404 Not Found">

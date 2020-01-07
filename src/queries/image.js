@@ -1,3 +1,3 @@
-export const imageNormalizer = (image) => {
-  return {...image}
+export const imageNormalizer = image => {
+  return { ...image }
 }

@@ -8,8 +8,8 @@ import Footer from './Footer'
 
 import '../styles/site.css'
 
-const Layout = ({children, pageTitle}) => {
-  const { site, contentfulSiteData } = useStaticQuery( graphql`
+const Layout = ({ children, pageTitle }) => {
+  const { site, contentfulSiteData } = useStaticQuery(graphql`
     query SiteLayoutQuery {
       site {
         siteMetadata {
@@ -44,7 +44,9 @@ const Layout = ({children, pageTitle}) => {
       />
       <Header className="pageHeader" {...{ title, homeUrl, host }} />
       <Nav className="pageNav" {...{ pages }} />
-      <aside className="birdInFlight"><p>Bird In Flight</p></aside>
+      <aside className="birdInFlight">
+        <p>Bird In Flight</p>
+      </aside>
       <main className="pageContent">{children}</main>
       <Footer className="pageFooter" />
     </section>

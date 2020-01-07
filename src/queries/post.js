@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby'
 import Slug from '../utils/Slug'
-import {imageNormalizer} from './image'
+import { imageNormalizer } from './image'
 // import { GatsbyContentfulFluid_noBase64 } from 'gatsby-source-contentful/src/fragments'
 const moment = require('moment')
 
@@ -17,7 +17,7 @@ export const postLinkNormalizer = (post, overrideTitle = false) => {
     displayTitle,
     dateStamp,
     publishDate,
-    title
+    title,
   }
 }
 
@@ -35,6 +35,7 @@ export const postNormalizer = post => {
     displayTitle: `${dateStamp.format('LL')} - ${post.title}`,
     year: dateStamp.format('YYYY'),
     month: dateStamp.format('MMMM'),
+    key: dateStamp.format('YYYY MMMM'),
   }
 }
 

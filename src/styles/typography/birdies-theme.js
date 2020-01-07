@@ -3,7 +3,7 @@ import { MOBILE_MEDIA_QUERY } from 'typography-breakpoint-constants'
 import verticalRhythm from 'compass-vertical-rhythm'
 
 const theme = {
-  title: 'Birdie\'s Theme',
+  title: "Birdie's Theme",
   baseFontSize: '19px',
   baseLineHeight: 1.45,
   googleFonts: [
@@ -88,7 +88,6 @@ const theme = {
       },
     }
   },
-
 }
 
-export default theme;
+export default theme

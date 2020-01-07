@@ -103,3 +103,22 @@
   grid-column: 4;
   grid-row: 1;
 }
+
+.y2020 {
+  grid-column: 1;
+  grid-row: 2;
+}
+.y2019 {
+  grid-column: 1;
+  grid-row: 3;
+}
+.y2018 {
+  grid-column: 1;
+  grid-row: 4;
+}
+.hidden {
+  display: none;
+}
+.selected {
+  transform: scale(1,1.1);
+}

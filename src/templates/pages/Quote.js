@@ -3,7 +3,7 @@ import Quote from '../../components/Quote'
 import { graphql } from 'gatsby'
 import Layout from '../../components/Layout'
 
-const PageQuote = ({ data}) => {
+const PageQuote = ({ data }) => {
   console.log('PageQuote', data)
   const { page } = data
   return (

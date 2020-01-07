@@ -13,8 +13,13 @@ export const usePostList = posts => {
   const [masterList, { filter }] = useArray(
     posts.sort((a, b) => b.publishDate - a.publishDate)
   )
-  const recent = (count = recentCount) => filter((post, idx) => idx < recentCount)
-  console.log('usePostList', masterList, filter((post, idx) => idx % 6 === 0))
+  const recent = (count = recentCount) =>
+    filter((post, idx) => idx < recentCount)
+  console.log(
+    'usePostList',
+    masterList,
+    filter((post, idx) => idx % 6 === 0)
+  )
   const [postState, setFilterParams] = useState({
     mode: 'Recent',
     month: 'All',
@@ -26,7 +31,7 @@ export const usePostList = posts => {
 
   console.log('Filter test', filter)
 
-  const postsFor = (filterWith) => {
+  const postsFor = filterWith => {
     console.log(filterWith)
     const filterYear = filterWith.year || year
     const filterMonth = filterWith.month || month
@@ -36,9 +41,13 @@ export const usePostList = posts => {
       case 'Recent':
         return recent(filterRecentCount)
       case 'Year':
-        return filter(post => (console.log(post) || post.year === filterYear))
+        return filter(post => console.log(post) || post.year === filterYear)
       case 'Month':
-        return filter(post => (console.log(post) || post.year === filterMonth && post.month === filterMonth))
+        return filter(
+          post =>
+            console.log(post) ||
+            (post.year === filterMonth && post.month === filterMonth)
+        )
       default:
         throw new Error()
     }
@@ -51,7 +60,8 @@ export const usePostList = posts => {
     setFilterParams(newFilter)
   }
 
-  const isEmptyYear = yearFor => console.log(yearFor, postsFor({ year: yearFor, mode: 'Year' })) ||
+  const isEmptyYear = yearFor =>
+    console.log(yearFor, postsFor({ year: yearFor, mode: 'Year' })) ||
     postsFor({ year: yearFor, mode: 'Year' }).length === 0
 
   const isEmptyMonth = (yearFor, monthFor) =>
@@ -68,7 +78,7 @@ export const usePostList = posts => {
       case 'Year':
         return postYear === year
       case 'Month':
-        return  postMonth === month
+        return postMonth === month
       default:
         throw new Error()
     }
@@ -95,7 +105,7 @@ export const usePostList = posts => {
       setFilter,
       isSelected,
       isEmptyYear,
-      isEmptyMonth
-    }
+      isEmptyMonth,
+    },
   ]
 }

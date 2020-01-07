@@ -3,7 +3,11 @@ import Article from '../../components/Article'
 import Link from 'gatsby-link'
 import Feedback from '../../components/Feedback'
 import Layout from '../../components/Layout'
-import { postNormalizer, postLinkNormalizer, commonPostFragment } from '../../queries/post'
+import {
+  postNormalizer,
+  postLinkNormalizer,
+  commonPostFragment,
+} from '../../queries/post'
 import { graphql } from 'gatsby'
 
 const PostsNavDisplay = ({ next, prev }) => {
