@@ -17,83 +17,58 @@ const postsByYear = posts =>
   }, {})
 
 const yearsFor = posts =>
-  Array(moment().year() - parseInt(posts[posts.length - 1].year))
+  Array(1 + moment().year() - parseInt(posts[posts.length - 1].year))
     .fill(0)
     .map((_, idx) => (idx + parseInt(posts[posts.length - 1].year)).toString())
 
+export const filterInit = ({ posts, ...initialState }) => {
+  const state = {
+    months: moment.months(),
+    years: yearsFor(posts),
+    key: posts[0].key,
+    ...initialState,
 
-export const filterInit = ({ posts, ...initialState }) => ({
-  year: false,
-  month: false,
-  months: moment.months(),
-  years: yearsFor(posts),
-  recentCounts: [5, 10, 20],
-  recentCount: 5,
-  title: 'Recent 5',
-  ...initialState,
+    posts: posts.sort((a, b) => a.publishDate > b.publishDate),
+    byMonth: postsByMonth(posts),
+    byYear: postsByYear(posts),
+  }
+  state.year = posts[0].year
+  state.month = posts[0].month
+  state.currentPosts = state.byMonth[state.key] || []
+  // [...] nil
+  // !([..])/true && ([..]).length > 0
+  state.monthVisibility = monthVisibility(state)
 
-  posts: posts.sort((a, b) => a.publishDate > b.publishDate),
-  currentPosts: posts.slice(0, 5),
-  byMonth: postsByMonth(posts),
-  byYear: postsByYear(posts),
-  monthVisibility: (month) => 'hidden'
-})
+  return state
+}
+const exists = (currentPosts) => currentPosts && Array.isArray(currentPosts) && currentPosts.length > 0
 
-export const monthVisibility = (state) => (filterMonth) => {
-  const {byMonth, month, year} = state
-  console.log(byMonth, month, year, filterMonth)
-
-  if (!year) return 'hidden'
-  if (!byMonth[`${year} ${month}`]) return 'dim'
-  if (!byMonth[`${year} ${month}`].length) return 'dim'
+export const monthVisibility = state => filterMonth => {
+  const { byMonth, month, year } = state
+  if (!byMonth[`${year} ${filterMonth}`]) return 'dim'
+  if (!byMonth[`${year} ${filterMonth}`].length) return 'dim'
   if (filterMonth === month) return 'selected'
   return 'visible'
 }
 
 export const filterReducer = (state, { type, ...action }) => {
-  let key, count, newState
   switch (type) {
-    case 'showRecent':
-      count = action.recentCount || state.recentCount || 5
-      newState =  {
+    case 'setFilter':
+      const newState = {
         ...state,
-        month: false,
-        year: false,
-        recentCount: count,
-        currentPosts: state.posts.slice(0, count),
-        title: `Recent ${count}`,
-        monthVisibility: () => 'hidden',
+        ...action
       }
-      return newState
-      break
-    case 'changeYear':
-      newState = {
-        ...state,
-        year: action.year,
-        month: state.month || 'January',
-        recentCount: false,
-        currentPosts: (state.byYear[state.year] || []).slice(0, 5) || [],
-        title: state.year,
-      }
-
+      newState.key = `${newState.year} ${newState.month}`
+      newState.title = newState.key
+      newState.currentPosts = newState.byMonth[newState.key] || []
       newState.monthVisibility = monthVisibility(newState)
       return newState
       break
-    case 'changeMonth':
-      key = `${state.year} ${action.month}`
-      newState = {
-        ...state,
-        month: action.month,
-        recentCount: false,
-        currentPosts: state.byMonth[key] || [],
-        title: key,
-        monthVisibility: monthVisibility(state),
-      }
-
-      newState.monthVisibility = monthVisibility(newState)
-      return newState
+    case 'shutUpEslint':
+      /* noop */
       break
     default:
       throw new Error()
   }
+  let key, newState
 }

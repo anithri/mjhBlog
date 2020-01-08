@@ -8,7 +8,7 @@ export const Summary = ({ post, className }) => {
   return (
     <Link to={slugPath} alt={title}>
       <article className={`${className} postSummary`}>
-        <SummaryHeader post={post} className="postSummaryLink" />
+        <SummaryHeader post={post} className="postSummaryHeader" />
         <p>{summary}</p>
       </article>
     </Link>

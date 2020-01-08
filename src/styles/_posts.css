@@ -29,7 +29,7 @@
   list-style: none;
   margin: 0; /* .ma0 */
 
-  & > li {
+  & > ul > li {
     background-color: var(--paleturquoise-50); /* .bg-black-20 */
 
     border-radius: var(--border-radius-3); /* .br3 */
@@ -38,7 +38,30 @@
     box-shadow: var(--spacing-extra-small) var(--spacing-extra-small)
       var(--spacing-extra-extra-small) 0px var(--dark-green);
   }
+
+  & > header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: var(--spacing-medium);
+    color: var(--dark-green);
+    padding-top: var(--spacing-medium, 1rem);
+
+    & h3 {
+      font-size: var(--font-size-5); /* .f5 */
+      margin: 0; /* .ma0 */
+    }
+    & img {
+      height: var(--spacing-medium);
+      background-position: center;
+      padding: var(--spacing-none, 0);
+      margin: var(--spacing-none, 0);
+
+    }
+  }
+
 }
+
+
 
 .postNav {
   padding-top: var(--spacing-small, .5rem);

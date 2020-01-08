@@ -6,7 +6,7 @@ const Quote = ({ children, className, subject }) => {
   console.table('PageQuote', subject)
   const { body, images } = subject
   let image
-  if (images) {
+  if (images && images.length) {
     image = <Img fluid={images[0].fluid} alt={images[0].title} />
   }
   return (

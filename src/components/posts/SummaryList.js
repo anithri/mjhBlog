@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Summary from './Summary'
-import SummaryHeader from './SummaryHeader'
+import faCalendarAlt from '../../images/calendar-alt.svg'
+import {Link} from 'gatsby'
 
 export const SummaryList = ({ posts = [], className, title }) => {
   const postSummaries = posts.map(post => (
@@ -10,8 +11,11 @@ export const SummaryList = ({ posts = [], className, title }) => {
   ))
 
   return (
-    <article className={`${className} postSummary`}>
-      <header className="postSummaryHeader">
+    <article className={`${className} postSummaryList`}>
+      <header className="postSummaryListHeader">
+        <Link to="/blogdex" alt="Posts By Date">
+          <img src={faCalendarAlt} alt="By Date" />
+        </Link>
         <h3>{title}</h3>
       </header>
       <ul>{postSummaries}</ul>
