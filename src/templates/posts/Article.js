@@ -6,6 +6,7 @@ import Layout from '../../components/Layout'
 import {
   postNormalizer,
   postLinkNormalizer,
+  // eslint-disable-next-line
   commonPostFragment,
 } from '../../queries/post'
 import { graphql } from 'gatsby'

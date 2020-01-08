@@ -1,26 +1,18 @@
 import React, { useReducer } from 'react'
 import SummaryList from './SummaryList'
-import moment from 'moment'
 import { PostButton } from './PostButton'
 import { filterInit, filterReducer } from './filter'
 
 const PostHome = ({ children, className, page, posts = [] }) => {
   const [filter, setFilter] = useReducer(filterReducer, { posts }, filterInit)
-  const { month, year, currentPosts, title, checkVis } = filter
-
-  console.log('Recent Counts', filter.recentCounts, filter.recentCount)
+  const { month, year, currentPosts, title, monthVisibility } = filter
 
   const recentButtons = filter.recentCounts.map(count => {
-    const visibility = !filter.recentCount ?
-      'hidden' :
-      (count === filter.recentCount)
-        ? 'selected' :
-        'visible'
-
+    const visibility = filter.recentCount ? 'visible' : 'hidden'
     return (
       <PostButton
         name={count}
-        visibility={ visibility}
+        visibility={visibility}
         className={`monthBtn recent${count}`}
         doClick={() => setFilter({ type: 'showRecent', recentCount: count })}
         key={`postButton-recent-${count}`}
@@ -28,38 +20,36 @@ const PostHome = ({ children, className, page, posts = [] }) => {
     )
   })
 
-  const monthButtons = filter.months.map(filterMonth => {
-    const key = `${year} ${filterMonth}`
+  const monthButtons = filter.months.map(filterMonth =>
+    <PostButton
+      name={filterMonth}
+      visibility={monthVisibility(filterMonth)}
+      className={`monthBtn ${filterMonth.toLowerCase()}`}
+      doClick={() => setFilter({ type: 'changeMonth', month: filterMonth })}
+      key={`postButton-${filterMonth}-btn`}
+    />,
+  )
 
-    return (
-      <PostButton
-        name={filterMonth}
-        visibility={checkVis(filterMonth)}
-        className={`monthBtn ${filterMonth.toLowerCase()}`}
-        doClick={() => setFilter({ type: 'changeMonth', month: filterMonth })}
-        key={`postButton-${key}`}
-      />
-    )
-  })
+  const yearButtons = filter.years.map(filterYear =>
+    <PostButton
+      name={filterYear}
+      visiblity={'visible'}
+      className={`monthBtn y${filterYear}`}
+      doClick={() => console.log('setFilter', filterYear) || setFilter({
+        type: 'changeYear',
+        year: filterYear,
+      })}
+      key={`postButton-${filterYear}`}
+    />,
+  )
 
-  const yearButtons = filter.years.map(filterYear => {
-    return (
-      <PostButton
-        name={filterYear}
-        visiblity={checkVis(filterYear)}
-        className={`monthBtn y${filterYear}`}
-        doClick={() => setFilter({ type: 'changeYear', year: filterYear })}
-        key={`postButton-${filterYear}`}
-      />
-    )
-  })
 
   return (
     <section className={`${className} postHome`}>
       <ul className="yearSelector">
         <PostButton
           name="Recent"
-          visibility={year ? 'visible' : 'selected'}
+          visibility={'visible'}
           className={`recent`}
           doClick={() => setFilter({ type: 'showRecent' })}
         />
@@ -74,7 +64,7 @@ const PostHome = ({ children, className, page, posts = [] }) => {
 }
 
 PostHome.defaultProps = {
-  className: ''
+  className: '',
 }
 
 export default PostHome

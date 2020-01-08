@@ -16,76 +16,82 @@ const postsByYear = posts =>
     return byYear
   }, {})
 
-const checkVisMonth = (container, year, month ) => (
-  checkYear,
-  checkMonth
-) => {
-  const key = month && checkMonth ? `${checkYear} ${checkMonth}` : checkYear
-  if (!container[key]) return 'empty'
-  if (checkMonth === month) return 'selected'
-  return 'visible'
-}
-const checkVisYear = (container, year) => (checkYear) => {
-  if (!container[year]) return 'empty'
-  if (year === checkYear) return 'selected'
-  return 'visible'
-}
+const yearsFor = posts =>
+  Array(moment().year() - parseInt(posts[posts.length - 1].year))
+    .fill(0)
+    .map((_, idx) => (idx + parseInt(posts[posts.length - 1].year)).toString())
 
-const recentVis = (check = false) => check ? 'hidden' : 'visible'
 
 export const filterInit = ({ posts, ...initialState }) => ({
   year: false,
   month: false,
   months: moment.months(),
-  years: Array.from(new Set([moment().year(),...posts.map(({ year }) => year)])).sort(),
-  ...initialState,
-  posts: posts.sort((a, b) => a.publishDate > b.publishDate),
+  years: yearsFor(posts),
   recentCounts: [5, 10, 20],
   recentCount: 5,
-  currentPosts: posts,
+  title: 'Recent 5',
+  ...initialState,
+
+  posts: posts.sort((a, b) => a.publishDate > b.publishDate),
+  currentPosts: posts.slice(0, 5),
   byMonth: postsByMonth(posts),
   byYear: postsByYear(posts),
-  checkVis: recentVis,
-  title: 'Recent 5'
+  monthVisibility: (month) => 'hidden'
 })
 
+export const monthVisibility = (state) => (filterMonth) => {
+  const {byMonth, month, year} = state
+  console.log(byMonth, month, year, filterMonth)
+
+  if (!year) return 'hidden'
+  if (!byMonth[`${year} ${month}`]) return 'dim'
+  if (!byMonth[`${year} ${month}`].length) return 'dim'
+  if (filterMonth === month) return 'selected'
+  return 'visible'
+}
+
 export const filterReducer = (state, { type, ...action }) => {
-  let key, count
+  let key, count, newState
   switch (type) {
     case 'showRecent':
       count = action.recentCount || state.recentCount || 5
-      return {
+      newState =  {
         ...state,
         month: false,
         year: false,
         recentCount: count,
-        currentPosts: state.posts.slice(count),
-        checkVis: recentVis,
-        title: `Recent ${count}`
+        currentPosts: state.posts.slice(0, count),
+        title: `Recent ${count}`,
+        monthVisibility: () => 'hidden',
       }
+      return newState
       break
     case 'changeYear':
-      key = state.year
-      return {
+      newState = {
         ...state,
         year: action.year,
-        month: false,
+        month: state.month || 'January',
         recentCount: false,
-        currentPosts: (state.byYear[key] || []).slice(0,5) || [],
-        checkVis: checkVisYear(state.byYear, action.year),
-        title: key,
+        currentPosts: (state.byYear[state.year] || []).slice(0, 5) || [],
+        title: state.year,
       }
+
+      newState.monthVisibility = monthVisibility(newState)
+      return newState
       break
     case 'changeMonth':
       key = `${state.year} ${action.month}`
-      return {
+      newState = {
         ...state,
         month: action.month,
         recentCount: false,
         currentPosts: state.byMonth[key] || [],
-        checkVis: checkVisMonth(state.byMonth, state.year, action.month),
-        title: key
+        title: key,
+        monthVisibility: monthVisibility(state),
       }
+
+      newState.monthVisibility = monthVisibility(newState)
+      return newState
       break
     default:
       throw new Error()
