@@ -4,7 +4,7 @@ import Link from 'gatsby-link'
 
 const Footer = ({ className }) => (
   <footer className={className}>
-    <span>Copyright 2017,2018,2019 by M Jeanne Horvath</span>
+    <span>Copyright 2017,2018,2019,2020 by M Jeanne Horvath</span>
     <span>
       Designed by Scott M Parrish
       with open source software
