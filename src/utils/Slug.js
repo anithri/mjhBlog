@@ -13,4 +13,8 @@ const post = (slug, date) => {
 }
 const page = (slug, extension = '') => deep([], slug, extension)
 
-module.exports = { clean, page, post }
+const art = (slug, date) => {
+  return deep(['/art', date.year(), date.format('mm')], slug, 'html')
+}
+
+module.exports = { clean, page, post, art }
