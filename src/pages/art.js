@@ -11,13 +11,13 @@ const ArtHomePage = props => {
     data: { allContentfulArt, contentfulPage },
   } = props
 
-  const works = allContentfulArt.artworks.map(({ workOfArt }) => {
+  const artworks = allContentfulArt.artworks.map(({ workOfArt }) => {
     return artNormalizer(workOfArt)
   })
   const page = pageNormalizer(contentfulPage)
   return (
     <Layout pageTitle={page.title}>
-      <ArtHome artworks={works} page={page}>
+      <ArtHome artworks={artworks} page={page}>
         <h1>Art Here!</h1>
       </ArtHome>
     </Layout>

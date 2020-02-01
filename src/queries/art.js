@@ -40,7 +40,7 @@ export const artNormalizer = art => {
 
 export const commonArtFragment = graphql`
   fragment commonArtFragment on ContentfulArt {
-    workOfArt {
+    art {
       title
       fluid(maxWidth: 1280) {
         ...GatsbyContentfulFluid_noBase64
