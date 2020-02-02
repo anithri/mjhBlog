@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Article from '../../components/Article'
+import ArtworkPage from '../../components/Artwork'
 import Link from 'gatsby-link'
 import Feedback from '../../components/Feedback'
 import Layout from '../../components/Layout'
@@ -13,11 +13,12 @@ import {
 } from '../../queries/artwork'
 import { graphql } from 'gatsby'
 
-const ArtworksNavDisplay = ({ next, prev }) => {
+const ArtworksNav = ({ next, prev }) => {
+  console.log('artworksNav', next, prev)
   const [toggledOn, setToggle] = useState(false)
   const toggle = () => setToggle(!toggledOn)
   return (
-    <nav className="artworkNav">
+    <nav className="postNav">
       <ul>
         {(prev && (
           <li>
@@ -28,7 +29,7 @@ const ArtworksNavDisplay = ({ next, prev }) => {
         )) ||
           null}
         <li>
-          <Link to="/writings">All Entries</Link>
+          <Link to="/art">All Artwork</Link>
         </li>
         <li onClick={toggle} toggledOn={toggledOn} className="feedback">
           Feedback
@@ -47,23 +48,21 @@ const ArtworksNavDisplay = ({ next, prev }) => {
   )
 }
 
-const ArtworksNav = ArtworksNavDisplay
-
-const Artwork = ({ data: { nextArtwork, prevArtwork, currentArtwork } }) => {
+export const Artwork = ({ data: { nextArtwork, prevArtwork, currentArtwork } }) => {
   const next = (nextArtwork && artworkLinkNormalizer(nextArtwork, 'Next')) || null
   const prev = (prevArtwork && artworkLinkNormalizer(prevArtwork, 'Prev')) || null
   const artwork = artworkNormalizer(currentArtwork)
+  console.log(next, prev)
 
   return (
     <Layout pageTitle={artwork.title}>
-      <Article
+      <ArtworkPage
         subject={artwork}
         next={next}
         prev={prev}
-        className={`${artwork.theme} artworkArticle`}
       >
         <ArtworksNav next={next} prev={prev} />
-      </Article>
+      </ArtworkPage>
     </Layout>
   )
 }

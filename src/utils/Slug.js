@@ -9,12 +9,12 @@ const deep = (before, slug, extension = '', after = []) => {
 }
 
 const post = (slug, date) => {
-  return deep(['/posts', date.year(), date.format('mm')], slug, 'html')
+  return deep(['/posts', date.year(), date.format('MM')], slug, 'html')
 }
 const page = (slug, extension = '') => deep([], slug, extension)
 
 const artwork = (slug, date) => {
-  return deep(['/art', date.year(), date.format('mm')], slug, 'html')
+  return deep(['/art', date.year(), date.format('MM')], slug, 'html')
 }
 
 module.exports = { clean, page, post, artwork }

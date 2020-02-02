@@ -1,30 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Img from 'gatsby-image'
 import Exhibit from './Exhibit'
+import cx from 'classnames'
 
 const Artwork = ({ children, className = '', subject, ...props }) => {
-  console.log('Artwork',props)
-  const { body, dateStamp, publishDate, title, images } = subject
-  let timeHeader, imageTags
-
-  // if (images && images.length > 0) {
-  //   imageTags = <Img fluid={images[0].fluid} alt={images[0].title} />
-  // }
-  //
-  // if (dateStamp) {
-  //   timeHeader = <time dateTime={dateStamp.format()}>{publishDate}</time>
-  // }
+  const { summary, dateStamp, publishDate, title, art } = subject
+  const [wide, setWide] = useState(false)
+  const mkWide = () => {
+    console.log('mkWide', !wide)
+    setWide(!wide)
+  }
   return (
-    <artwork className={`${className} artwork`}>
+    <article className={cx(className, 'artwork')}>
       <header>
-        <h2>{title}</h2>
-        {timeHeader}
+        <h3 className={'artTitle'}>{title}</h3>
       </header>
-      {/*<Exhibit images={images} className={'artworkExhibit'} />*/}
-      {/*<section dangerouslySetInnerHTML={{ __html: body }} />*/}
-      {/*<div>/!*<Img resolutions={node.featuredImage.resolutions}/>*!/</div>*/}
-      {/*{children}*/}
-    </artwork>
+      <div onClick={mkWide} className={cx(wide && 'fullWidth')} >
+        <Img fluid={art.fluid} alt={art.title} onClick={mkWide} />
+      </div>
+      <p>{summary}</p>
+      {children}
+    </article>
   )
 }
 

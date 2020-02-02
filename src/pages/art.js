@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { pageNormalizer, commonPageFragment } from '../queries/page'
-import { artNormalizer, commonArtworkFragment } from '../queries/artwork'
+import { artworkNormalizer, commonArtworkFragment } from '../queries/artwork'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import { ArtHome } from '../components/artworks'
@@ -12,14 +12,13 @@ const ArtHomePage = props => {
   } = props
 
   const artworks = allContentfulArtwork.artworks.map(({ workOfArt }) => {
-    return artNormalizer(workOfArt)
+    return artworkNormalizer(workOfArt)
   })
   const page = pageNormalizer(contentfulPage)
   return (
     <Layout pageTitle={page.title}>
-      <ArtHome artworks={artworks} page={page}>
-        <h1>Art Here!</h1>
-      </ArtHome>
+      <h1>{page.title}</h1>
+      <ArtHome artworks={artworks} page={page} />
     </Layout>
   )
 }

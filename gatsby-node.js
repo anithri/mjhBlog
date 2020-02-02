@@ -86,10 +86,10 @@ exports.createPages = ({ actions, graphql }) => {
         return {
           contentful_id: artwork.contentful_id,
           dateStamp: dateStamp,
-          next_post_id: next && next.contentful_id,
-          path: Slug.art(artwork.slug, dateStamp),
-          prev_post_id: prev && prev.contentful_id,
-          slug: Slug.art(artwork.slug, dateStamp),
+          next_artwork_id: next && next.contentful_id,
+          path: Slug.artwork(artwork.slug, dateStamp),
+          prev_artwork_id: prev && prev.contentful_id,
+          slug: Slug.artwork(artwork.slug, dateStamp),
         }
       })
 
@@ -152,8 +152,8 @@ exports.createPages = ({ actions, graphql }) => {
           component: templatePath('artworks',  'Artwork'),
           context: {
             contentful_id: artwork.contentful_id,
-            next_post_id: artwork.next_post_id,
-            prev_post_id: artwork.prev_post_id,
+            next_artwork_id: artwork.next_artwork_id,
+            prev_artwork_id: artwork.prev_artwork_id,
           },
         })
       })

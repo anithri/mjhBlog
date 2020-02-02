@@ -31,11 +31,14 @@
     object-fit: none !important;
   }
 }
+
 .artworkSummary.odd {
   grid-template-columns: 9rem 1fr;
+
   & > .gatsby-image-wrapper {
     grid-column: 1;
   }
+
   & > header {
     grid-column: 2;
   }
@@ -43,9 +46,11 @@
 
 .artworkSummary.even {
   grid-template-columns: 1fr 9rem;
+
   & > .gatsby-image-wrapper {
     grid-column: 2;
   }
+
   & > header {
     grid-column: 1;
   }
@@ -70,7 +75,7 @@
 
   &:nth-child(even) {
     & artworkSummary {
-      &  header {
+      & header {
         grid-column: 1;
       }
     }
@@ -85,4 +90,32 @@
     padding: var(--spacing-none, 0);
     margin: var(--spacing-none, 0);
   }
+}
+
+.artwork {
+  margin-top: var(--spacing-large);
+
+  & > header {
+    padding-bottom: var(--spacing-medium);
+
+    & > h3 {
+      font-size: var(--font-size-4) !important;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  & > p {
+    margin-top: var(--spacing-large, 1rem);
+    display: block;
+    padding: var(--spacing-extra-small, .25rem) var(--spacing-small, .5rem);
+    background-color: var(--white-30, rgba(255, 255, 255, .3));
+    border-radius: var(--border-radius-3, .5rem);
+
+  }
+}
+.fullWidth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
 }
