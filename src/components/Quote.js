@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Img from 'gatsby-image'
 
 const Quote = ({ children, className, subject }) => {
-  console.table('PageQuote', subject)
   const { body, images } = subject
   let image
   if (images && images.length) {
