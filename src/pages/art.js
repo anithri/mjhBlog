@@ -1,17 +1,17 @@
 import React from 'react'
+
 import { pageNormalizer, commonPageFragment } from '../queries/page'
-import { artNormalizer, commonArtFragment } from '../queries/art'
+import { artNormalizer, commonArtworkFragment } from '../queries/artwork'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import { ArtHome } from '../components/artworks'
 
 const ArtHomePage = props => {
-  console.log('Art Home Page', props)
   const {
-    data: { allContentfulArt, contentfulPage },
+    data: { allContentfulArtwork, contentfulPage },
   } = props
 
-  const artworks = allContentfulArt.artworks.map(({ workOfArt }) => {
+  const artworks = allContentfulArtwork.artworks.map(({ workOfArt }) => {
     return artNormalizer(workOfArt)
   })
   const page = pageNormalizer(contentfulPage)
@@ -34,17 +34,17 @@ export default ArtHomePage
 // }
 
 export const query = graphql`
-  query ArtHomePageQuery {
+  query ArtworkHomePageQuery {
     contentfulPage(slug: { eq: "art" }) {
       ...commonPageFragment
     }
-    allContentfulArt (
+    allContentfulArtwork (
       sort: { fields: [publishOn], order: DESC }
       filter: { publishOn: { ne: null } }
     ) {
       artworks: edges {
         workOfArt: node {
-          ...commonArtFragment
+          ...commonArtworkFragment
         }
       }
     }

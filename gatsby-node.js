@@ -18,6 +18,29 @@ exports.createPages = ({ actions, graphql }) => {
           slug
         }
       }
+      allArtwork: allContentfulArtwork(
+        filter: { publishOn: { ne: null } }
+        sort: { fields: [publishOn], order: DESC }
+        ) {
+        artworks: edges {
+          next {
+            contentful_id
+            slug
+            publishOn
+          }
+          prev: previous {
+            contentful_id
+            slug
+            publishOn
+          }
+          artwork: node {
+            contentful_id
+            publishOn
+            slug
+          }
+
+        }
+      }
       allPosts: allContentfulPost(
         filter: { publishOn: { ne: null } }
         sort: { fields: [publishOn], order: DESC }
@@ -58,6 +81,18 @@ exports.createPages = ({ actions, graphql }) => {
           template: templatePath('pages', page.layout),
         }))
 
+      const artworks = data.allArtwork.artworks.map(({ next, prev, artwork }) => {
+        const dateStamp = moment(artwork.publishOn)
+        return {
+          contentful_id: artwork.contentful_id,
+          dateStamp: dateStamp,
+          next_post_id: next && next.contentful_id,
+          path: Slug.art(artwork.slug, dateStamp),
+          prev_post_id: prev && prev.contentful_id,
+          slug: Slug.art(artwork.slug, dateStamp),
+        }
+      })
+
       const posts = data.allPosts.posts.map(({ prev, post, next }) => {
         const dateStamp = moment(post.publishOn)
         return {
@@ -67,11 +102,12 @@ exports.createPages = ({ actions, graphql }) => {
           slug: Slug.post(post.slug, dateStamp),
           template: templatePath('posts', post.layout),
 
-          prev_post_id: next && next.contentful_id,
+          next_post_id: next && next.contentful_id,
+          prev_post_id: prev && prev.contentful_id,
         }
       })
 
-      return { pages, posts }
+      return { artworks, pages, posts }
     }) /* parse data */
     .then(result => {
       // create pages for siteData.pages
@@ -103,6 +139,21 @@ exports.createPages = ({ actions, graphql }) => {
             contentful_id: post.contentful_id,
             next_post_id: post.next_post_id,
             prev_post_id: post.prev_post_id,
+          },
+        })
+      })
+      return result
+    }) /* create posts */
+    .then(result => {
+      // generate artworks
+      result.artworks.forEach(artwork => {
+        createPage({
+          path: artwork.path,
+          component: templatePath('artworks',  'Artwork'),
+          context: {
+            contentful_id: artwork.contentful_id,
+            next_post_id: artwork.next_post_id,
+            prev_post_id: artwork.prev_post_id,
           },
         })
       })

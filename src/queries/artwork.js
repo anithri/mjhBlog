@@ -4,15 +4,15 @@ import { imageNormalizer } from './image'
 // import { GatsbyContentfulFluid_noBase64 } from 'gatsby-source-contentful/src/fragments'
 const moment = require('moment')
 
-export const artLinkNormalizer = (art, overrideTitle = false) => {
-  const dateStamp = moment(art.publishOn)
+export const artworkLinkNormalizer = (artwork, overrideTitle = false) => {
+  const dateStamp = moment(artwork.publishOn)
   const publishDate = dateStamp.format('LL')
   const displayTitle =
-    overrideTitle || `${dateStamp.format('LL')} - ${art.title}`
-  const title = overrideTitle || art.title
+    overrideTitle || `${dateStamp.format('LL')} - ${artwork.title}`
+  const title = overrideTitle || artwork.title
 
   return {
-    slugPath: Slug.art(art.slug, dateStamp),
+    slugPath: Slug.artwork(artwork.slug, dateStamp),
     skipDate: !!title,
     displayTitle,
     dateStamp,
@@ -21,25 +21,25 @@ export const artLinkNormalizer = (art, overrideTitle = false) => {
   }
 }
 
-export const artNormalizer = art => {
-  const dateStamp = moment(art.publishOn)
-  const images = art.images ? art.images.map(i => imageNormalizer(i)) : []
+export const artworkNormalizer = artwork => {
+  const dateStamp = moment(artwork.publishOn)
+  const images = artwork.images ? artwork.images.map(i => imageNormalizer(i)) : []
   return {
-    ...art,
+    ...artwork,
     dateStamp,
     images,
     publishDate: dateStamp.format('MMM D, YYYY'),
-    slugPath: Slug.art(art.slug, dateStamp),
-    summary: art.summary,
-    displayTitle: `${dateStamp.format('LL')} - ${art.title}`,
+    slugPath: Slug.artwork(artwork.slug, dateStamp),
+    summary: artwork.summary,
+    displayTitle: `${dateStamp.format('LL')} - ${artwork.title}`,
     year: dateStamp.format('YYYY'),
     month: dateStamp.format('MMMM'),
     key: dateStamp.format('YYYY MMMM'),
   }
 }
 
-export const commonArtFragment = graphql`
-  fragment commonArtFragment on ContentfulArt {
+export const commonArtworkFragment = graphql`
+  fragment commonArtworkFragment on ContentfulArtwork {
     art {
       title
       fluid(maxWidth: 1280) {
@@ -52,7 +52,7 @@ export const commonArtFragment = graphql`
     title
   }
 
-  fragment commonArtLinkFragment on ContentfulArt {
+  fragment commonArtworkLinkFragment on ContentfulArtwork {
     contentful_id
     slug
     title

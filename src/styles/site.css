@@ -15,6 +15,7 @@
 @import '_postNavigation.css';
 @import '_typography.css';
 @import '_quote.css';
+@import '_artwork.css';
 /*@import './tachyons/_debug.css';*/
 
 html {
@@ -25,6 +26,11 @@ html {
     background: var(--color-body-bg);
   }
 }
+
+body {
+  overflow-x: auto;
+}
+
 
 time {
   font-weight: bold; /* .b */
