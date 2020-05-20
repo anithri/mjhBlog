@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Img from 'gatsby-image'
 
-const Quote = ({ children, className, subject }) => {
+const Quote = (props) => {
+  console.log('Quote props', props)
+  const { children, className, subject } = props
   const { body, images } = subject
   let image
   if (images && images.length) {
