@@ -1,9 +1,10 @@
 import React from 'react'
-import Img from 'gatsby-image'
+import {GatsbyImage} from 'gatsby-plugin-image'
+
 const Image = ({ className, image }) => {
   return (
     <figure className={`${className} imageFigure`}>
-      <Img fluid={image.fluid} alt={image.title} />
+      <GatsbyImage alt={image.title} image={image} />
       <figcaption className="legend">{image.title}</figcaption>
     </figure>
   )

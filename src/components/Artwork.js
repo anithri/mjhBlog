@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import Img from 'gatsby-image'
-import Exhibit from './Exhibit'
 import cx from 'classnames'
+import {GatsbyImage} from 'gatsby-plugin-image'
 
 const Artwork = ({ children, className = '', subject, ...props }) => {
   const { summary, dateStamp, publishDate, title, art } = subject
@@ -16,7 +15,7 @@ const Artwork = ({ children, className = '', subject, ...props }) => {
         <h3 className={'artTitle'}>{title}</h3>
       </header>
       <div onClick={mkWide} className={cx(wide && 'fullWidth')} >
-        <Img fluid={art.fluid} alt={art.title} onClick={mkWide} />
+        <GatsbyImage alt={art.title} onClick={mkWide} image={art.image}/>
       </div>
       <p>{summary}</p>
       {children}

@@ -22,9 +22,11 @@ export const commonPageFragment = graphql`
     }
     images {
       title
-      fluid(maxWidth: 1280) {
-        ...GatsbyContentfulFluid_noBase64
-      }
+      gatsbyImageData(
+        layout: CONSTRAINED
+        placeholder: BLURRED
+        width: 640
+      )
     }
     slug
     theme

@@ -6,7 +6,7 @@ import Header from './Header'
 import Nav from './Nav'
 import Footer from './Footer'
 
-import '../styles/site.css'
+import * as _styles from '../styles/site.css'
 
 const Layout = ({ children, pageTitle }) => {
   const { site, contentfulSiteData } = useStaticQuery(graphql`
