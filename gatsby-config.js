@@ -2,7 +2,9 @@ module.exports = {
   siteMetadata: {
     title: 'Believing the Bird',
     description: 'Birdies Blog',
-    author: 'Scott M Parrish & M Jeanne Horvath',
+    author: 'M Jeanne Horvath',
+    designer: 'Designed by Scott M Parrish with open source software',
+    established: 2017
   },
   plugins: [
     'gatsby-transformer-sharp',
@@ -10,7 +12,7 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-plugin-react-helmet',
     {
-      resolve: 'gatsby-plugin-typescript',
+      resolve: 'gatsby-plugin-typescript'
     },
     {
       resolve: 'gatsby-plugin-module-resolver',
@@ -18,7 +20,7 @@ module.exports = {
         root: './src',
         aliases: {
           'components': './components',
-          'containers': './containers',
+          'data': './data',
           'images': './images',
           'styles': './styles',
           'utils': './utils',
@@ -33,8 +35,8 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
     },
     {
       resolve: 'gatsby-plugin-manifest',
@@ -45,22 +47,22 @@ module.exports = {
         background_color: 'black',
         theme_color: 'black',
         display: 'minimal-ui',
-        icon: 'src/images/favicon.png',
-      },
+        icon: 'src/images/favicon.png'
+      }
     },
     {
       resolve: 'gatsby-plugin-postcss',
       options: {
-        postCssPlugins: [require('postcss-preset-env')({ stage: 0 })],
-      },
+        postCssPlugins: [require('postcss-preset-env')({ stage: 0 })]
+      }
     },
     {
       resolve: 'gatsby-source-contentful',
       options: {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
-        accessToken:process.env.CONTENTFUL_ACCESS_TOKEN,
-        environment: process.env.CONTENTFUL_ENV,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        environment: process.env.CONTENTFUL_ENV
       }
-    },
-  ],
+    }
+  ]
 }

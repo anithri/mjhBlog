@@ -1,20 +1,35 @@
 .pageContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   margin: 0 auto;
   min-height: 100%;
   padding: var(--spacing-medium);
   transition: opacity .5s;
   box-sizing: border-box;
+  display: grid;
+  grid-template-rows: var(--height-1) var(--height-1) 1fr var(--height-2);
+  grid-template-columns: 1fr;
+  gap: var(--spacing-small);
+  max-width: var(--page-width, 60rem);
 }
 
 .content {
   margin: auto;
   max-width: var(--page-width, 60rem);
   width: 100%;
+  height: 100%;
+  grid-row: 3;
+  background-color: var(--white-20, rgba(255, 255, 255, .2));
+  overflow-y: auto;
 }
 
+.navigation {
+  grid-row: 2;
+}
+.header {
+  grid-row: 1;
+}
+.footer {
+  grid-row: 4;
+}
 .container {
   min-height: 100vh;
 }

@@ -1,0 +1,11 @@
+.navigation {
+  & > ul {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-medium);
+    & > li {
+      flex: 0 1 auto;
+    }
+  }
+}

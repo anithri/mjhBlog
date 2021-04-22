@@ -1,0 +1,14 @@
+.footer {
+  color: var(--purple);
+  & > ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > li {
+      font-size: var(--font-size-6, .875rem);
+
+      flex: 0 1 auto;
+    }
+  }
+}
