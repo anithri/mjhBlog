@@ -1,0 +1,28 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  min-height: 100%;
+  padding: var(--spacing-medium);
+  transition: opacity .5s;
+  box-sizing: border-box;
+}
+
+.content {
+  margin: auto;
+  max-width: var(--page-width, 60rem);
+  width: 100%;
+}
+
+.container {
+  min-height: 100vh;
+}
+.scrollFix {
+  margin-right: -17px !important;
+  margin-bottom: -17px !important;
+}
+
+.background {
+  background-size: cover;
+}

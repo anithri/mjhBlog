@@ -1,0 +1,30 @@
+.pageFooter {
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+
+  border-image: linear-gradient(
+    to right,
+    var(--transparent) 0%,
+    var(--transparent) 30%,
+    var(--color-footer-border) 50%,
+    var(--transparent) 70%,
+    var(--transparent) 100%
+  );
+  border-image-slice: 1;
+  border: 0 solid;
+  border-top-width: 1px;
+
+  & > span {
+    font-style: italic; /* .i */
+    font-size: var(--font-size-6); /* .f6 */
+
+    display: inline-block;
+    flex: 0 1 auto;
+    align-self: auto;
+  }
+}

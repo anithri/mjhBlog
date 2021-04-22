@@ -1,0 +1,6 @@
+.header {
+  color: var(--purple);
+  & > h1 {
+    font-size: var(--font-size-7)
+  }
+}

@@ -1,64 +1,89 @@
-# Contentful Gatsby Starter Blog
+<p align="center">
+  <img alt="Gatsby" src="https://raw.githubusercontent.com/chronisp/gatsby-starter/master/src/images/website-icon.png" width="60" />
+</p>
+<h1 align="center">
+  Gatsby Starter
+</h1>
 
-Create a [Gatsby](http://gatsbyjs.com/) blog powered by [Contentful](https://www.contentful.com).
+<p align="center">
+  Gatsby Starter for creating portfolio & blog.
+</p>
 
-![The index page of the starter blog](https://rawgit.com/contentful/starter-gatsby-blog/master/screenshot.jpg "The index page of the starter blog")
+<p align="center">
+  <a href="https://app.netlify.com/sites/gatsby-starter-dot/deploys">
+    <img alt="Netlify" src="https://img.shields.io/netlify/a37c0ad8-deae-4bd3-8c8e-cbac8d2f05c3">
+  </a>
+  <a href="https://www.codacy.com/app/chronisp/gatsby-starter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chronisp/gatsby-starter&amp;utm_campaign=Badge_Grade">
+    <img alt="Codacy grade" src="https://img.shields.io/codacy/grade/c23975ea23e3459283f6c76ad338fcb1">
+  </a>
+  <a href="https://github.com/chronisp/gatsby-starter/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/chronisp/gatsby-starter"></a>
+</p>
 
-Static sites are scalable, secure and have very little required maintenance. They come with a drawback though. Not everybody feels good editing files, building a project and uploading it somewhere. This is where Contentful comes into play.
+## Key Features
+These are the key features of the project:
+*  [Gatsby](https://www.gatsbyjs.org/) (GraphQL for queries)
+*  [React](https://reactjs.org/) (everything in React Hooks)
+*  [TypeScript](https://www.typescriptlang.org/) (in progress...)
+*  [Redux](https://redux.js.org/) (custom HOF to connect actions & props)
+*  [Material UI](https://material-ui.com/) (palette, typography & breakpoints configuration)
+*  [Contentful CMS](https://www.contentful.com/) (blog integration)
+*  [Netlify Deployment Support](https://www.netlify.com)
+*  [React Helmet](https://github.com/nfl/react-helmet)
+*  [Prettier](https://prettier.io/)
+*  [Gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/)
+*  Config files for each environment
 
-With Contentful and Gatsby you can connect your favorite static site generator with an API that provides an easy to use interface for people writing content and automate the publishing using services like [Travis CI](https://travis-ci.org/) or [Netlify](https://www.netlify.com/).
+## Get Started
+Make sure that you have Node.js (>=12.13.0) and yarn v.1 or above installed.
 
-## Features
-
-- Simple content model and structure. Easy to adjust to your needs.
-- Use the [synchronization feature](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization) of our [Delivery API](https://www.contentful.com/developers/docs/references/content-delivery-api/).
-- Responsive/adaptive images via [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and our [Images API](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/synchronization/initial-synchronization-of-entries-of-a-specific-content-type).
-
-## Getting started
-
-See our [official Contentful getting started guide](https://www.contentful.com/developers/docs/tutorials/general/get-started/).
-
-### Get the source code and install dependencies.
-
+Install Gatsby CLI
+```sh
+npm install -g gatsby-cli
 ```
-$ git clone https://github.com/contentful/starter-gatsby-blog.git
-$ npm install
+Clone repository
+```sh
+git clone https://github.com/chronisp/gatsby-starter.git <YOUR_PROJECT_NAME>
+```
+Move to project directory
+```sh
+cd <YOUR_PROJECT_NAME>
+```
+Install all dependencies
+```sh
+yarn install
 ```
 
-Or use the [Gatsby CLI](https://www.npmjs.com/package/gatsby-cli).
-
+### Contentful blog
+Setup Contentful settings
+```sh
+yarn setup
 ```
-$ gatsby new contentful-starter-blog https://github.com/contentful/starter-gatsby-blog/
+Follow the instructions in order to setup ```CONTENTFUL_SPACE_ID``` and ```CONTENTFUL_ACCESS_TOKEN```. Required settings will be defined in both ```.env.development``` and ```.env.production``` files.
+
+For more info on how to setup Contentful follow this [link](https://www.contentful.com/r/knowledgebase/gatsbyjs-and-contentful-in-five-minutes/).
+
+### Development mode
+Start development server
+```sh
+yarn develop
+```
+Your site is now running at ```http://localhost:8000```.
+
+### Production mode
+Create a production build
+```sh
+yarn build
+```
+Serve the production build locally
+```sh
+yarn serve
+```
+Your site is running at ```http://localhost:9000```.
+
+### Linting
+Format all JS files
+```sh
+yarn format
 ```
 
-### Set up of the needed content model and create a configuration file
-
-This project comes with a Contentful setup command `npm run setup`.
-
-This command will ask you for a space ID, and access tokens for the Contentful Management and Delivery API and then import the needed content model into the space you define and write a config file (`./.contentful.json`).
-
-`npm run setup` automates that for you but if you want to do it yourself rename `.contentful.json.sample` to `.contentful.json` and add your configuration in this file.
-
-## Crucial Commands
-
-### `npm run dev`
-
-Run the project locally with live reload in development mode.
-
-### `npm run build`
-
-Run a production build into `./public`. The result is ready to be put on any static hosting you prefer.
-
-### `npm run serve`
-
-Spin up a production-ready server with your blog. Don't forget to build your page beforehand.
-
-## Deployment
-
-See the [official Contentful getting started guide](https://www.contentful.com/developers/docs/tutorials/general/get-started/).
-
-## Contribution
-
-Feel free to open pull requests to fix bugs. If you want to add features, please have a look at the [original version](https://github.com/contentful-userland/gatsby-contentful-starter). It is always open to contributions and pull requests.
-
-You can learn more about how Contentful userland is organized by visiting [our about repository](https://github.com/contentful-userland/about).
+For any building or deployment issues, ensure you have setup your environment according to [Gatsby guide](https://www.gatsbyjs.org/docs/preparing-your-environment/) for [Windows](https://www.gatsbyjs.org/docs/gatsby-on-windows/) or [Linux](https://www.gatsbyjs.org/docs/gatsby-on-linux/).
