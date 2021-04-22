@@ -2,8 +2,8 @@ const contentfulConfig = {
   spaceId: process.env.CONTENTFUL_SPACE_ID,
   accessToken:
     process.env.CONTENTFUL_ACCESS_TOKEN ||
-    process.env.CONTENTFUL_DELIVERY_TOKEN,
-};
+    process.env.CONTENTFUL_DELIVERY_TOKEN
+}
 
 // If you want to use the preview API please define
 // CONTENTFUL_HOST and CONTENTFUL_PREVIEW_ACCESS_TOKEN in your
@@ -18,31 +18,37 @@ const contentfulConfig = {
 //
 // To change back to the normal CDA, remove the CONTENTFUL_HOST variable from your environment.
 if (process.env.CONTENTFUL_HOST) {
-  contentfulConfig.host = process.env.CONTENTFUL_HOST;
-  contentfulConfig.accessToken = process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN;
+  contentfulConfig.host = process.env.CONTENTFUL_HOST
+  contentfulConfig.accessToken = process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
 }
 
-const { spaceId, accessToken } = contentfulConfig;
+const { spaceId, accessToken } = contentfulConfig
 
 if (!spaceId || !accessToken) {
   throw new Error(
-    "Contentful spaceId and the access token need to be provided."
-  );
+    'Contentful spaceId and the access token need to be provided.'
+  )
 }
 
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Contentful starter",
+    title: 'Gatsby Contentful starter'
   },
-  pathPrefix: "/gatsby-contentful-starter",
+  pathPrefix: '/gatsby-contentful-starter',
   plugins: [
-    "gatsby-transformer-remark",
-    "gatsby-transformer-sharp",
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sharp",
+    'gatsby-transformer-remark',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sharp',
     {
-      resolve: "gatsby-source-contentful",
-      options: contentfulConfig,
+      resolve: 'gatsby-source-contentful',
+      options: contentfulConfig
     },
-  ],
-};
+    {
+      resolve: 'gatsby-plugin-postcss',
+      options: {
+        postCssPlugins: [require('postcss-preset-env')({ stage: 0 })],
+      },
+    }
+  ]
+}
