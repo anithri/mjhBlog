@@ -1,9 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Layout } from 'components'
-import {GatsbyImage} from 'gatsby-plugin-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
 
-export const IndexPage = ({ data }) => {
+export const AboutPage = ({ data }) => {
   console.log(data)
   const { title, slug, body, images } = data.page
   const html = body.childMarkdownRemark.html
@@ -18,11 +18,11 @@ export const IndexPage = ({ data }) => {
   )
 }
 
-export default IndexPage
+export default AboutPage
 
 export const query = graphql`
-  query GetIndexPage {
-    page: contentfulPage(slug: {eq: "home"}) {
+  query GetAboutPage{
+    page: contentfulPage(slug: {eq: "about"}) {
       id
       title
       slug

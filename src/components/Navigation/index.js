@@ -1,18 +1,19 @@
 import React from 'react'
 import cx from 'classnames'
 import * as styles from './styles.module.css'
+import { Link } from 'gatsby'
 // import {useSiteMetadata} from 'data'
 
-export const Navigation = ({className}) => {
+export const Navigation = ({ className }) => {
   // const metadata = useSiteMetadata()
   const year = (new Date()).getFullYear()
   return (
     <navigation className={cx(className, styles.navigation)}>
       <ul>
-        <li>Art</li>
-        <li>Project Dandelion</li>
-        <li>Birdies Blog</li>
-        <li>About the Author</li>
+        <li><Link to={'/art'}>Art</Link></li>
+        <li><Link to={'/project-dandelion'}>Project Dandelion</Link></li>
+        <li><Link to={'/blog'}>Birdies Blog</Link></li>
+        <li><Link to={'/about'}>About the Author</Link></li>
       </ul>
     </navigation>
   )
