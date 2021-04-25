@@ -8,13 +8,13 @@ export const Navigation = ({ className }) => {
   // const metadata = useSiteMetadata()
   const year = (new Date()).getFullYear()
   return (
-    <navigation className={cx(className, styles.navigation)}>
+    <nav className={cx(className, styles.navigation)}>
       <ul>
         <li><Link to={'/art'}>Art</Link></li>
         <li><Link to={'/project-dandelion'}>Project Dandelion</Link></li>
         <li><Link to={'/blog'}>Birdies Blog</Link></li>
         <li><Link to={'/about'}>About the Author</Link></li>
       </ul>
-    </navigation>
+    </nav>
   )
 }

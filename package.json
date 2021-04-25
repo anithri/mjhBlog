@@ -47,12 +47,12 @@
   ],
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf node_modules",
     "build": "gatsby build",
     "dev": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "serve": "gatsby serve",
-    "setup": "node ./bin/setup.js"
+    "setup": "node ./bin/setup.js",
+    "clean": "gatsby clean"
   },
   "repository": {
     "type": "git",

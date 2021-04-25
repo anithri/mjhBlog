@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Layout } from 'components'
-import {GatsbyImage} from 'gatsby-plugin-image'
+// import {GatsbyImage} from 'gatsby-plugin-image'
 
 export const DandelionPage = ({ data }) => {
   const { title, body } = data.page
