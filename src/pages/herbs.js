@@ -2,13 +2,10 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { Layout, PagedList } from 'components'
 import { ArtworkSummary } from 'components'
-import { useArrayPagination } from '../data'
-import cx from 'classnames'
 
 // import {GatsbyImage} from 'gatsby-plugin-image'
 
-export const DandelionPage = ({ data }) => {
-  console.log('DandelionPage', data)
+export const HerbPage = ({ data }) => {
   const { title, body } = data.page
   const html = body.childMarkdownRemark.html
   const artwork = data.artwork.edges.map(({node}) => node)
@@ -21,11 +18,11 @@ export const DandelionPage = ({ data }) => {
   )
 }
 
-export default DandelionPage
+export default HerbPage
 
 export const query = graphql`
-  query GetDandelionPage {
-    page: contentfulPage(slug: {eq: "project-dandelion"}) {
+  query GetHerbPage {
+    page: contentfulPage(slug: {eq: "herbs"}) {
       title
       body {
         childMarkdownRemark {
@@ -35,7 +32,7 @@ export const query = graphql`
     }
     artwork: allContentfulArtwork(
       sort: {fields: publishOn, order: DESC}
-      filter: {collection: {eq: "Project Dandelion"}}
+      filter: {collection: {eq: "Herbs"}}
     ) {
       edges {
         node {

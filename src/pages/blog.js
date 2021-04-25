@@ -1,30 +1,17 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
-import { Layout } from 'components'
-// import { GatsbyImage } from 'gatsby-plugin-image'
-import { useArrayPagination } from 'data'
+import { Layout, PagedList } from 'components'
 import { BlogSummary } from 'components'
 
 export const BlogPage = ({ data }) => {
   const { title, body } = data.blogPage
   const html = body.childMarkdownRemark.html
   const posts = data.posts.edges.map(({ node }) => node)
-  const [shownPosts, nextPage, prevPage, info] = useArrayPagination(posts)
-  const summaries = shownPosts.map(post => (
-    <li key={`post-summary-${post.id}`}>
-      <BlogSummary post={post} />
-    </li>
-  ))
+
   return (
     <Layout title={title}>
       <section dangerouslySetInnerHTML={{ __html: html }} />
-      <ul>
-        {summaries}
-      </ul>
-      <nav>
-        <a onClick={() => prevPage()}>Prev</a>
-        <a onClick={() => nextPage()}>Next</a>
-      </nav>
+      <PagedList list={posts} mkElement={post => <BlogSummary post={post} />} />
     </Layout>
   )
 }
