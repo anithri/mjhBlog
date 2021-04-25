@@ -1,8 +1,9 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { useSiteMetadata } from 'data'
-
-export const SEO = ({ description, lang, meta, title}) => {
+import typographyTheme from 'react-helmet'
+import { TypographyStyle } from 'react-typography'
+export const HtmlHead = ({ description, lang, meta, title}) => {
   const siteMetadata = useSiteMetadata()
 
   const metaDescription = description || siteMetadata.description
@@ -32,14 +33,16 @@ export const SEO = ({ description, lang, meta, title}) => {
           content: `website`
         }
       ].concat(meta)}
-    />
+    >
+      <TypographyStyle typography={typographyTheme} />
+    </Helmet>
   )
 }
 
-SEO.defaultProps = {
+HtmlHead.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``
 }
 
-export default SEO
+export default HtmlHead
