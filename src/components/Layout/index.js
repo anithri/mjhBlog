@@ -5,35 +5,33 @@ import FadeIn from 'react-fade-in'
 import { Footer, Header, Navigation, HtmlHead } from 'components'
 import * as styles from './styles.module.css'
 import '../../styles/site.css'
-import { Helmet } from 'react-helmet'
+import {BirdInFlight} from './BirdInFlight'
 
 export const Layout = ({ className, children, noBackground, pageTitle }) => {
   return (
     <React.Fragment>
-      <Helmet>
-
-      </Helmet>
       <Scrollbars
         autoHide
         autoHideTimeout={1000}
         autoHideDuration={200}
         renderView={props => <div {...props} className={cx(className, styles.scrollFix)} />}
         className={styles.container}>
-        <div
+        <HtmlHead pageTitle={pageTitle} />
+        <section
           className={cx(
-            styles.pageContainer,
+            styles.page,
             !noBackground && styles.background
           )}>
           <Header className={styles.header} />
-          <HtmlHead pageTitle={pageTitle} />
-          <Navigation className={styles.navigation} />
+          <Navigation className={styles.navigation}  />
+          <BirdInFlight className={styles.birdInFlight} />
           <FadeIn>
             <main className={styles.content}>
               {children}
             </main>
           </FadeIn>
           <Footer className={styles.footer} />
-        </div>
+        </section>
       </Scrollbars>
     </React.Fragment>
   )

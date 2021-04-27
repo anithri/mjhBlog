@@ -1,8 +1,27 @@
 .header {
-  color: var(--purple);
-  & > h1 {
+  padding-top: var(--spacing-small, 0.5rem);
+
+  & h1 {
+    font-size: var(--font-size-2);
     text-align: center;
-    width: 100%;
-    font-size: var(--font-size-3);
+    font-weight: 500;
+
+    @media (--breakpoint-not-small) {
+      font-size: var(--font-size-2); /* .f2 */
+      width: 100%; /* .w-100 */
+    }
+
+    @media (--breakpoint-medium) {
+      width: 100%; /* .w-100 */
+    }
+
+    @media (--breakpoint-large) {
+      width: auto;
+      text-align: left; /* .tl */
+    }
+
+    &:first-letter {
+
+    }
   }
 }

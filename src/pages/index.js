@@ -13,7 +13,7 @@ export const IndexPage = ({ data }) => {
   return (
     <Layout title='Home'>
       <GatsbyImage image={image} alt={imageTitle} />
-      <section dangerouslySetInnerHTML={{ __html: html }} />
+      <section className={'quote'} dangerouslySetInnerHTML={{ __html: html }} />
     </Layout>
   )
 }
@@ -32,7 +32,7 @@ export const query = graphql`
         }
       }
       images {
-        gatsbyImageData(layout: FIXED, width: 800)
+        gatsbyImageData(layout: CONSTRAINED, width: 768)
       }
     }
   }

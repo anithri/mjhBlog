@@ -2,10 +2,31 @@
   & > ul {
     width: 100%;
     display: flex;
-    justify-content: center;
-    gap: var(--spacing-medium);
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-content: flex-start;
+    align-items: baseline;
+    list-style: none;
+    margin: var(--spacing-none);
+    gap: 35px;
+    grid-gap: var(--spacing-small);
+    padding-left: var(--spacing-small);
+    padding-right: var(--spacing-small);
+
+    & > li.spacer {
+      display: inline-block;
+      height: var(--font-size-6);
+      width: var(--font-size-6);
+      background-image: url('../../images/feather.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
     & > li {
       flex: 0 1 auto;
+      font-size: var(--font-size-6);
+
     }
   }
 }

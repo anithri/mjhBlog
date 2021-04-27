@@ -12,6 +12,12 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-plugin-react-helmet',
     {
+      resolve: 'gatsby-plugin-typography',
+      options: {
+        pathToConfigModule: 'src/styles/typography',
+      },
+    },
+    {
       resolve: 'gatsby-plugin-typescript'
     },
     {

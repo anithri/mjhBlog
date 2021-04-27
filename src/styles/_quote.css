@@ -1,5 +1,4 @@
 .quote {
-
   & blockquote {
     padding: var(--spacing-medium) var(--spacing-small); /* .pv3 */
     margin: 0; /* .ma0 */
