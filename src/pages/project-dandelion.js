@@ -2,13 +2,8 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { Layout, PagedList } from 'components'
 import { ArtworkSummary } from 'components'
-import { useArrayPagination } from '../data'
-import cx from 'classnames'
 
-// import {GatsbyImage} from 'gatsby-plugin-image'
-
-export const DandelionPage = ({ data }) => {
-  console.log('DandelionPage', data)
+const DandelionPage = ({ data }) => {
   const { title, body } = data.page
   const html = body.childMarkdownRemark.html
   const artwork = data.artwork.edges.map(({node}) => node)
@@ -16,7 +11,7 @@ export const DandelionPage = ({ data }) => {
   return (
     <Layout title={title}>
       <section dangerouslySetInnerHTML={{ __html: html }} />
-      <PagedList list={artwork} mkElement={artwork => <ArtworkSummary artwork={artwork} /> } />
+      <PagedList list={artwork} mkElement={(artwork, idx) => <ArtworkSummary artwork={artwork} idx={idx} /> } />
     </Layout>
   )
 }
@@ -46,7 +41,7 @@ export const query = graphql`
           title
           summary
           art {
-            gatsbyImageData(layout: FIXED, width: 800)
+            gatsbyImageData(layout: FIXED, width: 90)
           }
         }
       }

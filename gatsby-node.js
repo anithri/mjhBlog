@@ -1,3 +1,14 @@
+const { templatePath, byDate, blogIndexPath } = require('./src/utils/paths')
+const path = require('path')
+
+const PER_PAGE = 5
+
+const templates = {
+  blog: path.resolve(templatePath('BlogEntry')),
+  herbs: path.resolve(templatePath('Herbs')),
+  blogIndex: path.resolve(templatePath('BlogIndex'))
+}
+
 exports.onCreateWebpackConfig = ({ getConfig, stage }) => {
   const config = getConfig()
   if (stage.startsWith('develop') && config.resolve) {
@@ -12,14 +23,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const path = require('path')
   const { mkBlogEntry } = require('./src/utils/mkBlogEntry')
   const { createPage } = actions
-  const blogTemplate = path.resolve('./src/templates/BlogEntry.js')
 
-  const result = await graphql(
+  return graphql(
     `
       query allPostSlugsQuery {
-        allContentfulPost {
+        posts: allContentfulPost {
           edges {
-            node {
+            prev: previous {
+              id
+            }
+            next {
+              id
+            }
+            post: node {
               id
               slug
               year: publishOn(formatString: "YYYY")
@@ -28,26 +44,62 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
           }
         }
+        herbs: allContentfulArtwork(
+              sort: {fields: publishOn, order: DESC}
+              filter: {collection: {eq: "Herbs"}}
+            ) {
+              edges {
+                prev: previous {
+                  slug
+                }
+                next {
+                  slug 
+                }
+                node {
+                  slug
+                }
+              }
+            }
       }
     `
-  )
-  console.log(result)
-
-  if (result.errors) {
-    reporter.panicOnBuild('There was an error loading blog posts', result.errors)
-    return
-  }
-
-  const posts = result.data.allContentfulPost.edges.map(({ node }) => node)
-  console.log('Posts', posts)
-
-  posts.forEach((post, idx) => {
-
-    const prevId = idx === 0 ? null : posts[idx - 1].id
-    const nextId = (idx === posts.length - 1) ? null : posts[idx + 1].id
-    const blogPath = mkBlogEntry(post)
-    createPage({
-      path: blogPath, component: blogTemplate, context: { id: post.id, prevId, nextId }
+  ).then(({ data }) => ({
+    posts: data.posts.edges,
+    herbs: data.herbs.edges,
+    errors: data.errors
+  })).then(data => {
+    if (data.errors) {
+      reporter.panicOnBuild('There was an error loading blog posts', data.errors)
+      throw new Error(data.errors)
+    }
+    return data
+  }).then(data => {
+    const lastPage = Math.floor(data.posts.length / PER_PAGE) + 1
+    for (let i = 1; i <= lastPage; i++) {
+      createPage({
+        path: blogIndexPath(i),
+        component: templates.blogIndex,
+        context: {
+          prevPage: i == 1 ? null : blogIndexPath(i - 1),
+          nextPage: i == lastPage ? null : blogIndexPath(i + 1),
+          currentPage: i,
+          skip: (i - 1) * PER_PAGE,
+          limit: PER_PAGE
+        }
+      })
+    }
+    return data
+  }).then(data => {
+    data.posts.forEach((post, idx) => {
+      createPage({
+        path: byDate(post.post),
+        component: templates.blog,
+        context: {
+          id: post.post.id,
+          prevId: post.prev && post.prev.id,
+          nextId: post.next && post.next.id
+        }
+      })
     })
+    return data
   })
 }

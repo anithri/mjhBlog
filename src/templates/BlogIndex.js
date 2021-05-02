@@ -1,17 +1,21 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
-import { Layout, PagedList } from 'components'
+import { graphql} from 'gatsby'
+import { Layout, FixedList } from 'components'
 import { BlogSummary } from 'components'
 
-export const BlogPage = ({ data }) => {
+const BlogPage = ({ data, pageContext }) => {
   const { title, body } = data.blogPage
   const html = body.childMarkdownRemark.html
   const posts = data.posts.edges.map(({ node }) => node)
-
+  const {prevPage, nextPage, currentPage} = pageContext
   return (
     <Layout title={title}>
       <section dangerouslySetInnerHTML={{ __html: html }} />
-      <PagedList list={posts} mkElement={post => <BlogSummary post={post} />} />
+      <FixedList list={posts}
+                 prevPage={prevPage}
+                 nextPage={nextPage}
+                 currentPage={currentPage}
+                 mkElement={post => <BlogSummary post={post} />} />
     </Layout>
   )
 }
@@ -19,7 +23,7 @@ export const BlogPage = ({ data }) => {
 export default BlogPage
 
 export const query = graphql`
-  query GetContentfulPage {
+  query GetContentfulPage($skip: Int!, $limit: Int!) {
     blogPage: contentfulPage(slug: {eq: "blog"}) {
       id
       title
@@ -33,7 +37,10 @@ export const query = graphql`
         gatsbyImageData
       }
     }
-    posts: allContentfulPost(   sort: { fields: [publishOn], order: DESC }) {
+    posts: allContentfulPost(   
+      sort: { fields: [publishOn], order: DESC },
+      skip: $skip, limit: $limit
+    ) {
       edges {
         node {
           id

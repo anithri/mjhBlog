@@ -5,8 +5,8 @@ ul {
   list-style: none;
   margin-left: 0; /* .mh0 */
   margin-right: 0;
-  & > li {
-    margin: 0; /* .ma0 */
-    margin-bottom: var(--spacing-medium); /* .mb3 */
-  }
+}
+
+li {
+  margin: 0; /* .ma0 */
 }

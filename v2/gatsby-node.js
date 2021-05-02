@@ -1,6 +1,8 @@
 const Slug = require('./src/utils/Slug')
 const path = require('path')
 const moment = require('moment')
+const { paginate }  = require('gatsby-awesome-pagination');
+
 // const _groupBy = require('lodash/groupBy')
 const templatePath = (dir, template) => {
   return path.resolve('src', 'templates', dir, template + '.js')

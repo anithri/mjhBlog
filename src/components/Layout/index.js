@@ -1,11 +1,10 @@
 import React from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import cx from 'classnames'
-import FadeIn from 'react-fade-in'
 import { Footer, Header, Navigation, HtmlHead } from 'components'
 import * as styles from './styles.module.css'
 import '../../styles/site.css'
-import {BirdInFlight} from './BirdInFlight'
+import { BirdInFlight } from './BirdInFlight'
 
 export const Layout = ({ className, children, noBackground, pageTitle }) => {
   return (
@@ -23,13 +22,11 @@ export const Layout = ({ className, children, noBackground, pageTitle }) => {
             !noBackground && styles.background
           )}>
           <Header className={styles.header} />
-          <Navigation className={styles.navigation}  />
+          <Navigation className={styles.navigation} />
           <BirdInFlight className={styles.birdInFlight} />
-          <FadeIn>
-            <main className={styles.content}>
-              {children}
-            </main>
-          </FadeIn>
+          <main className={styles.content}>
+            {children}
+          </main>
           <Footer className={styles.footer} />
         </section>
       </Scrollbars>

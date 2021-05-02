@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import { Layout, PagedList } from 'components'
 import { ArtworkSummary } from 'components'
 
-export const ArtPage = ({ data }) => {
+const ArtPage = ({ data }) => {
   const { title, body } = data.page
   const html = body.childMarkdownRemark.html
   const artwork = data.artwork.edges.map(({node}) => node)
@@ -11,7 +11,7 @@ export const ArtPage = ({ data }) => {
   return (
     <Layout title={title}>
       <section dangerouslySetInnerHTML={{ __html: html }} />
-      <PagedList list={artwork} mkElement={artwork => <ArtworkSummary artwork={artwork} /> } />
+      <PagedList list={artwork} mkElement={(artwork, idx) => <ArtworkSummary artwork={artwork} idx={idx}/> } />
     </Layout>
   )
 }
@@ -41,7 +41,7 @@ export const query = graphql`
           title
           summary
           art {
-            gatsbyImageData(layout: FIXED, width: 800)
+            gatsbyImageData(layout: FIXED, width: 90)
           }
         }
       }

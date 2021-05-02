@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import { Layout } from 'components'
 import { GatsbyImage } from 'gatsby-plugin-image'
 
-export const AboutPage = ({ data }) => {
+const AboutPage = ({ data }) => {
   console.log(data)
   const { title, slug, body, images } = data.page
   const html = body.childMarkdownRemark.html

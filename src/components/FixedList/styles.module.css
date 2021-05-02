@@ -1,0 +1,31 @@
+.fixedList {
+  & > .ul {
+    & > .li {
+      margin-bottom: var(--spacing-medium, 1rem);
+
+    }
+  }
+}
+
+.btn {
+  background: var(--gray-300);
+  border-radius: var(--border-radius-3, .5rem);
+  color: white;
+  padding: var(--spacing-small, 0.5rem);
+
+}
+
+.prev {
+
+}
+
+.navigation > nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.info {
+  background: var(--gray-700);
+  color: var(--near-black);
+}
