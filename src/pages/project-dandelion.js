@@ -1,22 +1,8 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { Layout, PagedList } from 'components'
-import { ArtworkSummary } from 'components'
+import { ArtworkPage } from 'components'
 
-const DandelionPage = ({ data }) => {
-  const { title, body } = data.page
-  const html = body.childMarkdownRemark.html
-  const artwork = data.artwork.edges.map(({node}) => node)
-
-  return (
-    <Layout title={title}>
-      <section dangerouslySetInnerHTML={{ __html: html }} />
-      <PagedList list={artwork} mkElement={(artwork, idx) => <ArtworkSummary artwork={artwork} idx={idx} /> } />
-    </Layout>
-  )
-}
-
-export default DandelionPage
+export default ArtworkPage
 
 export const query = graphql`
   query GetDandelionPage {
@@ -41,7 +27,7 @@ export const query = graphql`
           title
           summary
           art {
-            gatsbyImageData(layout: FIXED, width: 90)
+            gatsbyImageData(layout: CONSTRAINED, width: 120, height: 120)
           }
         }
       }

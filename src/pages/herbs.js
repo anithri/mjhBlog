@@ -1,12 +1,12 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { ArtworkPage } from 'components'
+import {ArtworkPage } from 'components'
 
 export default ArtworkPage
 
 export const query = graphql`
-  query GetArtPage {
-    page: contentfulPage(slug: {eq: "art"}) {
+  query GetHerbPage {
+    page: contentfulPage(slug: {eq: "herbs"}) {
       title
       body {
         childMarkdownRemark {
@@ -16,7 +16,7 @@ export const query = graphql`
     }
     artwork: allContentfulArtwork(
       sort: {fields: publishOn, order: DESC}
-      filter: {collection: {eq: "Art"}}
+      filter: {collection: {eq: "Herbs"}}
     ) {
       edges {
         node {
@@ -27,7 +27,7 @@ export const query = graphql`
           title
           summary
           art {
-            gatsbyImageData(layout: FIXED, width: 90)
+            gatsbyImageData(layout: CONSTRAINED, width: 120)
           }
         }
       }
