@@ -1,4 +1,4 @@
-const { templatePath, byDate, blogIndexPath } = require('./src/utils/paths')
+const { templatePath, byDate, blogIndexPath, allBlogIndex } = require('./src/utils/paths')
 const path = require('path')
 
 const PER_PAGE = 5
@@ -73,15 +73,20 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
     return data
   }).then(data => {
-    const lastPage = Math.floor(data.posts.length / PER_PAGE) + 1
-    for (let i = 1; i <= lastPage; i++) {
+    const maxPage = Math.floor(data.posts.length / PER_PAGE) + 1
+
+    for (let i = 1; i <= maxPage; i++) {
       createPage({
         path: blogIndexPath(i),
         component: templates.blogIndex,
         context: {
           prevPage: i == 1 ? null : blogIndexPath(i - 1),
-          nextPage: i == lastPage ? null : blogIndexPath(i + 1),
-          currentPage: i,
+          nextPage: i == maxPage ? null : blogIndexPath(i + 1),
+          initialPage: i,
+          firstPage: i == 1 ? null : blogIndexPath(1),
+          lastPage: i == maxPage ? null : blogIndexPath(maxPage),
+          allPages: allBlogIndex(maxPage),
+          maxPage,
           skip: (i - 1) * PER_PAGE,
           limit: PER_PAGE
         }
@@ -89,7 +94,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
     return data
   }).then(data => {
-    data.posts.forEach((post, idx) => {
+    data.posts.forEach(post => {
       createPage({
         path: byDate(post.post),
         component: templates.blog,
