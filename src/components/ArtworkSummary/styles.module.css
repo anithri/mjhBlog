@@ -33,6 +33,7 @@
   grid-template-columns: var(--artwork-summary-width) 1fr var(--artwork-summary-width);
   background: linear-gradient(270deg, var(--teal-700), var(--transparent));
   height: 135px;
+
   & > header {
     text-align: right;
 
@@ -45,8 +46,8 @@
 
   & > .gatsby-image-wrapper {
     justify-self: right;
-    padding-left: var(--artwork-summary-width);
     grid-column: 3;
+    height: 135px;
   }
 }
 
@@ -59,14 +60,14 @@
     grid-column: 2 / span 2;
 
     & > h3 {
-      padding-left: var(--artwork-summary-width);
-
+      padding-left: var(--spacing-large);
     }
   }
 
   & > .gatsby-image-wrapper {
     justify-self: left;
     grid-column: 1;
-  }
+    height: 135px;
 
+  }
 }
