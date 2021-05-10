@@ -8,11 +8,10 @@
 }
 
 .btn {
-  background: var(--gray-300);
+  background: var(--color-footer-link);
   border-radius: var(--border-radius-3, .5rem);
-  color: white;
+  color: var(--color-link);
   padding: var(--spacing-small, 0.5rem);
-
 }
 
 .prev {
@@ -26,7 +25,7 @@
 }
 
 .info {
-  background: var(--gray-700);
+  background: var(--teal-700);
   color: var(--near-black);
 }
 .pagination {
