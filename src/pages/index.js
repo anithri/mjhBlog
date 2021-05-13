@@ -2,6 +2,11 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { Layout } from 'components'
 import {GatsbyImage} from 'gatsby-plugin-image'
+import { Blockquote } from '../components/Blockquote'
+const quote = `When the bird and the book disagree,<br />
+ always believe the bird.`
+
+const caption = "John James Audubon"
 
 const IndexPage = ({ data }) => {
   console.log(data)
@@ -13,7 +18,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout title='Home'>
       <GatsbyImage image={image} alt={imageTitle} />
-      <section className={'quote'} dangerouslySetInnerHTML={{ __html: html }} />
+      <Blockquote quote={quote} caption={caption} />
     </Layout>
   )
 }
