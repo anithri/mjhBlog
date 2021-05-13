@@ -3,14 +3,13 @@ import { Layout, FixedList } from 'components'
 import { ArtworkSummary } from 'components'
 
 export const ArtworkPage = ({ data, ...props }) => {
-  console.log(data, props)
-  const { title, body } = data.page
-  const html = body.childMarkdownRemark.html
-  const artwork = data.artwork.edges.map(({node}) => node)
+  console.log('ArtworkPage',data, props)
+  const { title, body, pageQuote, images } = data.page
+  const html = body && body.childMarkdownRemark.html
+  const artwork = data.artwork.all.map(({node}) => node)
 
   return (
-    <Layout title={title}>
-      <section dangerouslySetInnerHTML={{ __html: html }} />
+    <Layout title={title} pageQuote={pageQuote} featuredImage={images[0]} contentfulBody={body}>
       <FixedList list={artwork} mkElement={(artwork, idx) => <ArtworkSummary artwork={artwork} idx={idx} /> } />
     </Layout>
   )

@@ -1,25 +1,13 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Layout } from 'components'
-import {GatsbyImage} from 'gatsby-plugin-image'
-import { Blockquote } from '../components/Blockquote'
-const quote = `When the bird and the book disagree,<br />
- always believe the bird.`
-
-const caption = "John James Audubon"
 
 const IndexPage = ({ data }) => {
-  console.log(data)
-  const { title, slug, body, images } = data.page
-  const html = body.childMarkdownRemark.html
-  const imageTitle = images[0].title
-  const image = images[0].gatsbyImageData
-  console.log('IndexPage.query', title, slug, html, images)
+  const { title, body, images, pageQuote } = data.page
   return (
-    <Layout title='Home'>
-      <GatsbyImage image={image} alt={imageTitle} />
-      <Blockquote quote={quote} caption={caption} />
-    </Layout>
+    <Layout title={title}
+            featuredImage={images[0]}
+            pageQuote={pageQuote} />
   )
 }
 
@@ -31,12 +19,17 @@ export const query = graphql`
       id
       title
       slug
+      pageQuote {
+        lines
+        caption
+      }
       body {
         childMarkdownRemark {
           html
         }
       }
       images {
+        title
         gatsbyImageData(layout: CONSTRAINED, width: 768)
       }
     }

@@ -17,7 +17,7 @@ export const query = graphql`
       sort: {fields: publishOn, order: DESC}
       filter: {collection: {eq: "Project Dandelion"}}
     ) {
-      edges {
+      all: edges {
         node {
           collection
           id
