@@ -6,7 +6,7 @@ const IndexPage = ({ data }) => {
   const { title, body, images, pageQuote } = data.page
   return (
     <Layout title={title}
-            featuredImage={images[0]}
+            featuredImage={images && images[0]}
             pageQuote={pageQuote} />
   )
 }
