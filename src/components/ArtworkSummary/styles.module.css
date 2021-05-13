@@ -1,9 +1,11 @@
 .summary {
   display: grid;
-  grid-template-rows: auto;
+  grid-template-columns: var(--artwork-summary-width) 1fr var(--artwork-summary-width);
+  grid-template-rows: 135px;
   grid-gap: 1rem;
   align-content: center;
   border-radius: var(--border-radius-3, .5rem);
+  height: 135px;
 
   & > .gatsby-image-wrapper {
     grid-row: 1;
@@ -16,9 +18,9 @@
     align-items: center;
 
     & > h3 {
-      flex: 0 1 auto;
       font-size: var(--font-size-4);
       width: 100%;
+      margin: var(--spacing-none, 0);
 
     }
   }
@@ -30,16 +32,11 @@
 }
 
 .odd {
-  grid-template-columns: var(--artwork-summary-width) 1fr var(--artwork-summary-width);
   background: linear-gradient(270deg, var(--teal-700), var(--transparent));
-  height: 135px;
 
   & > header {
     text-align: right;
-
-    & > h3 {
-      padding-right: var(--artwork-summary-width);
-    }
+    padding-right: var(--spacing-large);
 
     grid-column: 1 / span 2;
   }
@@ -47,14 +44,11 @@
   & > .gatsby-image-wrapper {
     justify-self: right;
     grid-column: 3;
-    height: 135px;
   }
 }
 
 .even {
-  grid-template-columns: var(--artwork-summary-width) 1fr var(--artwork-summary-width);
   background: linear-gradient(90deg, var(--white-50), var(--transparent));
-  height: 135px;
 
   & > header {
     grid-column: 2 / span 2;
@@ -67,7 +61,5 @@
   & > .gatsby-image-wrapper {
     justify-self: left;
     grid-column: 1;
-    height: 135px;
-
   }
 }

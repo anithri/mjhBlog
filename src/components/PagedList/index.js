@@ -2,9 +2,11 @@ import React from 'react'
 import { useArrayPagination } from 'data'
 import * as styles from './styles.module.css'
 import cx from 'classnames'
+import {NavControls} from './NavControls'
 
 export const PagedList = ({ list, mkElement, pageSize = 5, startPage = 1, className }) => {
-  const [shownElements, nextPage, prevPage, info] = useArrayPagination(list, startPage, pageSize)
+  const pagination = useArrayPagination(list, startPage, pageSize)
+  const [shownElements] = pagination
 
   const elements = shownElements.map((elem, idx) => (
     <li key={`paged-list-${elem.id}`} className={styles.li}>{mkElement(elem, idx)}</li>
@@ -16,11 +18,7 @@ export const PagedList = ({ list, mkElement, pageSize = 5, startPage = 1, classN
         {elements}
       </ul>
       <footer className={styles.navigation}>
-        <nav>
-          {info.hasPrevPage() ? <a className={cx(styles.btn,styles.prev)} onClick={() => prevPage()}>Prev</a> : <span></span>}
-          <span className={cx(styles.btn, styles.info)}>Page {info.currentPage} of {info.maxPage}</span>
-          {info.hasNextPage() ? <a className={cx(styles.btn,styles.next)} onClick={() => nextPage()}>Next</a> : <span></span>}
-        </nav>
+        <NavControls pagination={pagination} />
       </footer>
     </section>
   )

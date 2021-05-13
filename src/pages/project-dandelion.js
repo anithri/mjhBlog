@@ -1,4 +1,3 @@
-import React from 'react'
 import { graphql } from 'gatsby'
 import { ArtworkPage } from 'components'
 
@@ -27,7 +26,7 @@ export const query = graphql`
           title
           summary
           art {
-            gatsbyImageData(layout: CONSTRAINED, width: 120, height: 120)
+            gatsbyImageData(layout: FULL_WIDTH, width: 900)
           }
         }
       }

@@ -5,10 +5,9 @@ export const useArrayPagination = (arr, idx = 1, pageSize = 5) => {
   const maxPage = Math.ceil(arr.length / pageSize)
   const nextPage = () => setCurrentPage(pn => Math.min(pn + 1, maxPage))
   const prevPage = () => setCurrentPage(pn => Math.max(pn - 1, 1))
-
-  const hasNextPage = () => currentPage < maxPage
+  const pageJump = (page) => setCurrentPage(() => page)
+  const hasNextPage = () => currentPage + 1 < maxPage
   const hasPrevPage = () => currentPage > 1
-
   const info = {
     currentPage,
     maxPage,
@@ -19,5 +18,5 @@ export const useArrayPagination = (arr, idx = 1, pageSize = 5) => {
   const finish = (currentPage * pageSize)
   const shownPosts = arr.slice(start, finish)
 
-  return [shownPosts, nextPage, prevPage, info]
+  return [shownPosts, nextPage, prevPage, pageJump, info]
 }

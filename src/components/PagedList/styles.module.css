@@ -14,7 +14,14 @@
   padding: var(--spacing-small, 0.5rem);
 
 }
+.padLeft {
+  padding-left: var(--spacing-small, 0.5rem);
+  padding-left: var(--spacing-small, 0.5rem);
+}
 
+.padRight {
+  padding-right: var(--spacing-small, .5rem);
+}
 .prev {
 
 }
@@ -23,6 +30,13 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
+
+  & input {
+    text-align: center;
+    font-size: var(--font-size-5, 1rem);
+
+    width: var(--spacing-large);
+  }
 }
 
 .info {

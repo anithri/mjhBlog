@@ -18,10 +18,14 @@
 
 }
 
-.navigation > nav {
+.nav {
   width: 100%;
   display: flex;
   justify-content: space-around;
+
+  & input {
+    width: var(--spacing-medium);
+  }
 }
 
 .info {
