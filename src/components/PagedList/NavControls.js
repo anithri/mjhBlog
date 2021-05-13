@@ -1,14 +1,15 @@
 import React from 'react'
 import cx from 'classnames'
 import * as styles from './styles.module.css'
+import {Link} from 'gatsby'
 
-export const NavControls = ({ className, pagination }) => {
-  console.log('NavControls', pagination)
+export const NavControls = ({ className, pagination, ...props }) => {
+  console.log('NavControls', props)
   const {nextPage, prevPage, firstPage, lastPage, info} = pagination
   return (
     <nav className={cx(className, styles.nav)}>
       {info.hasFirstPage() ?
-        <a className={cx(styles.btn, styles.prev)} onClick={() => firstPage()}>First</a> :
+      <a className={cx(styles.btn, styles.prev)} onClick={() => firstPage()}>First</a> :
         <span className={cx(styles.btn, styles.prev, styles.disabled)}>First</span> }
       {info.hasPrevPage() ?
         <a className={cx(styles.btn, styles.prev)} onClick={() => prevPage()}>Prev</a> :

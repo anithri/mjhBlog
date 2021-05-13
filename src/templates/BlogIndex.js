@@ -1,22 +1,43 @@
-import React from 'react'
+import { BlogPage } from 'components'
 import { graphql } from 'gatsby'
-import { Layout, FixedList } from 'components'
-import { BlogSummary } from 'components'
-export {query} from '../pages/'
 
-const BlogPage = ({ data, pageContext }) => {
-  const { title, body } = data.blogPage
-  const html = body.childMarkdownRemark.html
-  const posts = data.posts.all.map(({ node }) => node)
-  return (
-    <Layout title={title}>
-      <section dangerouslySetInnerHTML={{ __html: html }} />
-      <FixedList list={posts}
-                 {...pageContext}
-                 mkElement={post => <BlogSummary post={post} />} />
-    </Layout>
-  )
-}
 
 export default BlogPage
+export const query = graphql`
+  query GetBlogIndex {
+    page: contentfulPage(slug: {eq: "blog"}) {
+      id
+      title
+      slug
+      pageQuote {
+        lines
+        caption
+      }
+      body {
+        childMarkdownRemark {
+          html
+        }
+      }
+      images {
+        title
+        gatsbyImageData
+      }
+    }
+    posts: allContentfulPost(
+      sort: { fields: [publishOn], order: DESC }
+    ) {
+      all: edges {
+        node {
+          id
+          title
+          summary
+          slug
+          year: publishOn(formatString: "YYYY")
+          month: publishOn(formatString: "MM")
+          day: publishOn(formatString: "DD")
+        }
+      }
+    }
+  }
+`
 

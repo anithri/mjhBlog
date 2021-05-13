@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useArrayPagination = (arr, idx = 1, pageSize = 5) => {
+export const useArrayPagination = (arr,  idx = 1, pageSize = 5) => {
   const [currentPage, setCurrentPage] = useState(idx)
   const maxPage = Math.ceil(arr.length / pageSize)
   const nextPage = () => setCurrentPage(pn => Math.min(pn + 1, maxPage))
