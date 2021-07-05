@@ -30,7 +30,9 @@
     width: var(--artwork-summary-width);
   }
 }
+.img {
 
+}
 .odd {
   background: linear-gradient(270deg, var(--teal-700), var(--transparent));
 

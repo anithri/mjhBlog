@@ -1,4 +1,4 @@
-const { templatePath, byDate, blogIndexPath, allBlogIndex } = require('./src/utils/paths')
+const { templatePath, byDate, calendarGroups } = require('./src/utils/paths')
 const path = require('path')
 
 const PER_PAGE = 5
@@ -73,25 +73,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
     return data
   }).then(data => {
-    const maxPage = Math.floor(data.posts.length / PER_PAGE) + 1
-
-    for (let i = 1; i <= maxPage; i++) {
+    const grouped = calendarGroups(data.posts.map(({post}) => post))
+    Object.entries(grouped).forEach(([path, group]) => {
       createPage({
-        path: blogIndexPath(i),
+        path: path,
         component: templates.blogIndex,
         context: {
-          prevPage: i == 1 ? null : blogIndexPath(i - 1),
-          nextPage: i == maxPage ? null : blogIndexPath(i + 1),
-          initialPage: i,
-          firstPage: i == 1 ? null : blogIndexPath(1),
-          lastPage: i == maxPage ? null : blogIndexPath(maxPage),
-          allPages: allBlogIndex(maxPage),
-          maxPage,
-          skip: (i - 1) * PER_PAGE,
-          limit: PER_PAGE
+          title: group.title,
+          postIds: group.list.map(({id}) => id)
         }
       })
-    }
+    })
     return data
   }).then(data => {
     data.posts.forEach(post => {

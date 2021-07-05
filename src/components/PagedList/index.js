@@ -8,7 +8,7 @@ export const PagedList = ({ list, mkElement, pageSize = 5, startPage = 1, classN
   const pagination = useArrayPagination(list, startPage, pageSize)
   const { shownElements } = pagination
 
-  if (list.length == 0) {
+  if (list.length === 0) {
     return (<section className={styles.empty}><h3>Nothing to see (yet).</h3></section>)
   }
 

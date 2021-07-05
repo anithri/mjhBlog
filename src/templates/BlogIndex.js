@@ -1,10 +1,9 @@
-import { BlogPage } from 'components'
 import { graphql } from 'gatsby'
-
+import { BlogPage } from 'components'
 
 export default BlogPage
 export const query = graphql`
-  query GetBlogIndex {
+  query GetBlogIndex($postIds: [String!]) {
     page: contentfulPage(slug: {eq: "blog"}) {
       id
       title
@@ -24,7 +23,8 @@ export const query = graphql`
       }
     }
     posts: allContentfulPost(
-      sort: { fields: [publishOn], order: DESC }
+      sort: { fields: [publishOn], order: DESC },
+      filter: {id: {in: $postIds}}
     ) {
       all: edges {
         node {
