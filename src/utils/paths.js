@@ -42,7 +42,7 @@ const calendarGroups = (all) => all.reduce((group, elem) => {
 }, {})
 
 const artworkPath = artwork => {
-  const prefix = artwork.collection.toLowerCase().replace(' ', '-')
+  const prefix = (artwork.collection || '').toLowerCase().replace(' ', '-')
   return `/${prefix}/${artwork.slug}.html`
 }
 

@@ -25,7 +25,7 @@ const MiniNav = ({ prev, next, all, className }) => {
 export const ArtworkPage = ({ data, location, pageContext, className, ...props }) => {
   const { title, summary, slug, publishOn, art, fullscreen } = data.herb
   const { next, prev, all } = pageContext
-  const formattedSummary = linkifyHtml(summary)
+  const formattedSummary = linkifyHtml(summary || '')
   const [isMax, toggleMax] = useState(false)
 
   return (
