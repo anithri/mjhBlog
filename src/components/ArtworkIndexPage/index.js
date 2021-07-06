@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, PagedList, ArtworkSummary } from 'components'
 
 export const ArtworkIndexPage = ({ data, ...props }) => {
-  console.log('ArtworkPage',data, props)
+  // console.log('ArtworkPage',data, props)
   const { title, body, pageQuote, images } = data.page
   const artwork = data.artwork.all.map(({node}) => node)
   return (

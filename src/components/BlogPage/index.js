@@ -5,7 +5,7 @@ const locPage = ({ search }) => (
 )
 
 export const BlogPage = ({ data, location, pageContext, ...props }) => {
-  console.log('BlogPage', props)
+  // console.log('BlogPage', props)
 
   const startPage = locPage(location)
   const { body, pageQuote, images } = data.page

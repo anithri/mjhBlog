@@ -4,9 +4,9 @@ import * as styles from './styles.module.css'
 import {Link} from 'gatsby'
 
 export const NavControls = ({ className, pagination, ...props }) => {
-  console.log('NavControls', pagination)
+  // console.log('NavControls', pagination)
   const {nextPage, prevPage, firstPage, lastPage, info} = pagination
-  console.log('info.needsPagination()',info.needsPagination(),)
+  // console.log('info.needsPagination()',info.needsPagination(),)
   if (! info.needsPagination()) return null
   return (
     <nav className={cx(className, styles.nav)}>

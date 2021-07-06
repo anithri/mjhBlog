@@ -5,7 +5,7 @@ import { mkBlogEntry } from 'utils'
 import { Link } from 'gatsby'
 
 export const BlogSummary = ({ post, className }) => {
-  console.log('BlogSummary', post)
+  // console.log('BlogSummary', post)
   const path = mkBlogEntry(post)
   const { title, summary, publishOn } = post
   return (

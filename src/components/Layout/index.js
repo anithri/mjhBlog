@@ -7,7 +7,7 @@ import '../../styles/site.css'
 import { BirdInFlight } from './BirdInFlight'
 
 export const Layout = ({ className, children, noBackground, pageTitle, pageQuote, featuredImage, contentfulBody }) => {
-  console.log('Layoute pageQuote', pageQuote)
+  // console.log('Layoute pageQuote', pageQuote)
   return (
     <React.Fragment>
       <Scrollbars
