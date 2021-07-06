@@ -4,6 +4,6 @@ import cx from 'classnames'
 
 export const BirdInFlight = ({className}) => (
   <aside className={cx(className, styles.birdInFlight)}>
-    <p>Bird In Fligh</p>
+    <p>Bird In Flight</p>
   </aside>
 )

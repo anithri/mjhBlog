@@ -3,7 +3,8 @@ import Helmet from 'react-helmet'
 import { useSiteMetadata } from 'data'
 import typographyTheme from 'react-helmet'
 import { TypographyStyle } from 'react-typography'
-export const HtmlHead = ({ description, lang, meta, title}) => {
+
+export const HtmlHead = ({ description, lang, meta, title }) => {
   const siteMetadata = useSiteMetadata()
 
   const metaDescription = description || siteMetadata.description

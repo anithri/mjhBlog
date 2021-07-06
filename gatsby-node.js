@@ -1,4 +1,4 @@
-const { templatePath, byDate, calendarGroups } = require('./src/utils/paths')
+const { templatePath, byDate, calendarGroups, artworkPath } = require('./src/utils/paths')
 const path = require('path')
 
 const PER_PAGE = 5
@@ -51,11 +51,61 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               edges {
                 prev: previous {
                   slug
+                  collection
+                  title
                 }
                 next {
-                  slug 
+                  slug
+                  collection
+                  title 
                 }
-                node {
+                herb: node {
+                  id
+                  collection
+                  slug
+                }
+              }
+            }
+        dandelions: allContentfulArtwork(
+              sort: {fields: publishOn, order: DESC}
+              filter: {collection: {eq: "Project Dandelion"}}
+            ) {
+              edges {
+                prev: previous {
+                  collection
+                  slug
+                  title
+                }
+                next {
+                  collection
+                  slug
+                  title 
+                }
+                dandelion: node {
+                  id
+                  collection
+                  slug
+                }
+              }
+            }
+        artworks: allContentfulArtwork(
+              sort: {fields: publishOn, order: DESC}
+              filter: {collection: {eq: "Art"}}
+            ) {
+              edges {
+                prev: previous {
+                  slug
+                  collection
+                  title
+                }
+                next {
+                  slug
+                  collection
+                  title 
+                }
+                art: node {
+                  id
+                  collection
                   slug
                 }
               }
@@ -65,6 +115,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   ).then(({ data }) => ({
     posts: data.posts.edges,
     herbs: data.herbs.edges,
+    dandelions: data.dandelions.edges,
+    artworks: data.artworks.edges,
     errors: data.errors
   })).then(data => {
     if (data.errors) {
@@ -72,31 +124,88 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       throw new Error(data.errors)
     }
     return data
-  }).then(data => {
-    const grouped = calendarGroups(data.posts.map(({post}) => post))
+  }).then(data => { // create blog index pages
+    const grouped = calendarGroups(data.posts.map(({ post }) => post))
     Object.entries(grouped).forEach(([path, group]) => {
       createPage({
         path: path,
         component: templates.blogIndex,
         context: {
           title: group.title,
-          postIds: group.list.map(({id}) => id)
-        }
-      })
-    })
-    return data
-  }).then(data => {
-    data.posts.forEach(post => {
-      createPage({
-        path: byDate(post.post),
-        component: templates.blog,
-        context: {
-          id: post.post.id,
-          prevId: post.prev && post.prev.id,
-          nextId: post.next && post.next.id
+          postIds: group.list.map(({ id }) => id)
         }
       })
     })
     return data
   })
+    .then(data => {  // create blog entries
+      data.posts.forEach(post => {
+        createPage({
+          path: byDate(post.post),
+          component: templates.blog,
+          context: {
+            id: post.post.id,
+            prevId: post.prev && post.prev.id,
+            nextId: post.next && post.next.id
+          }
+        })
+      })
+      return data
+    })
+    .then(data => { // generate herb pages
+      data.herbs.forEach(({ herb, next, prev }) => {
+        if (next) next.path = artworkPath(next)
+        if (prev) prev.path = artworkPath(prev)
+        herb.path = artworkPath(herb)
+        createPage({
+          path: herb.path,
+          component: templates.herbs,
+          context: {
+            id: herb.id,
+            all: { path: '/herbs' },
+            next,
+            prev
+          }
+        })
+      })
+
+      return data
+    })
+    .then(data => { // generate dandelion pages
+      data.dandelions.forEach(({ dandelion, next, prev }) => {
+        if (next) next.path = artworkPath(next)
+        if (prev) prev.path = artworkPath(prev)
+        dandelion.path = artworkPath(dandelion)
+        createPage({
+          path: dandelion.path,
+          component: templates.herbs,
+          context: {
+            id: dandelion.id,
+            all: { path: '/project-dandelion' },
+            next,
+            prev
+          }
+        })
+      })
+
+      return data
+    })
+    .then(data => { // generate art pages
+      data.artworks.forEach(({ art, next, prev }) => {
+        if (next) next.path = artworkPath(next)
+        if (prev) prev.path = artworkPath(prev)
+        art.path = artworkPath(art)
+        createPage({
+          path: art.path,
+          component: templates.herbs,
+          context: {
+            id: art.id,
+            all: { path: '/art' },
+            next,
+            prev
+          }
+        })
+      })
+      return data
+    })
 }

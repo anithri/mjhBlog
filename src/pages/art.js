@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby'
-import { ArtworkPage } from 'components'
+import { ArtworkIndexPage } from 'components'
 
-export default ArtworkPage
+export default ArtworkIndexPage
 
 export const query = graphql`
   query GetArtPage {

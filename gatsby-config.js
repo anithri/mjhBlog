@@ -7,6 +7,7 @@ module.exports = {
     established: 2017
   },
   plugins: [
+    'gatsby-plugin-image',
     'gatsby-transformer-sharp',
     'gatsby-transformer-remark',
     'gatsby-plugin-sharp',

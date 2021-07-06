@@ -1,3 +1,4 @@
+export * from './ArtworkIndexPage'
 export * from './ArtworkPage'
 export * from './ArtworkSummary'
 export * from './Blockquote'

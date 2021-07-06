@@ -5,8 +5,8 @@ export {query} from '../pages/herbs'
 const PAGE_WIDTH = 768
 export default ArtworkPage
 export const pageQuery = graphql`
-  query GetHerbArtPage($id: String) {
-    herb: contentfulArtwork(id: {eq: $id}) {
+  query GetDandelionArtPage($id: String) {
+    dandelion: contentfulArtwork(id: {eq: $id}) {
       collection
       id
       publishOn

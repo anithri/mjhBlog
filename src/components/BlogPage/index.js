@@ -1,6 +1,5 @@
 import React from 'react'
 import { Layout, PagedList, BlogSummary } from 'components'
-
 const locPage = ({ search }) => (
   parseInt(search.split('page=').reverse()[0].split('&')[0]) || 1
 )

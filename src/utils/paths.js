@@ -19,7 +19,6 @@ const getMonth = (idx) => {
 }
 
 const calendarGroups = (all) => all.reduce((group, elem) => {
-  console.log(elem)
   let path = `${elem.year}/index.html`
   group[path] = group[path] || {
     title: elem.year,
@@ -42,11 +41,17 @@ const calendarGroups = (all) => all.reduce((group, elem) => {
   return group
 }, {})
 
+const artworkPath = artwork => {
+  const prefix = artwork.collection.toLowerCase().replace(' ', '-')
+  return `/${prefix}/${artwork.slug}.html`
+}
+
 module.exports = {
-  templatePath,
-  byDate,
-  blogIndexPath,
   allBlogIndex,
-  calendarGroups
+  blogIndexPath,
+  byDate,
+  calendarGroups,
+  artworkPath,
+  templatePath,
 }
 
