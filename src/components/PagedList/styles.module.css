@@ -1,0 +1,53 @@
+.pagedList {
+  & > .ul {
+    & > .li {
+      margin-bottom: var(--spacing-medium, 1rem);
+
+    }
+  }
+}
+
+.btn {
+  background: var(--gray-300);
+  border-radius: var(--border-radius-3, .5rem);
+  color: white;
+  padding: var(--spacing-small, 0.5rem);
+
+}
+.padLeft {
+  padding-left: var(--spacing-small, 0.5rem);
+  padding-left: var(--spacing-small, 0.5rem);
+}
+
+.padRight {
+  padding-right: var(--spacing-small, .5rem);
+}
+.prev {
+
+}
+.empty {
+  padding-top: var(--spacing-large, 2rem);
+
+  text-align: center;
+}
+.navigation > nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  & input {
+    text-align: center;
+    font-size: var(--font-size-5, 1rem);
+
+    width: var(--spacing-large);
+  }
+}
+
+.info {
+  background: var(--gray-700);
+  color: var(--near-black);
+}
+.disabled {
+  border-radius: var(--border-radius-3, .5rem);
+  color: var(--gray-700);
+}

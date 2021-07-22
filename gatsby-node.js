@@ -1,181 +1,211 @@
-const Slug = require('./src/utils/Slug')
+const { templatePath, byDate, calendarGroups, artworkPath } = require('./src/utils/paths')
 const path = require('path')
-const moment = require('moment')
-// const _groupBy = require('lodash/groupBy')
-const templatePath = (dir, template) => {
-  return path.resolve('src', 'templates', dir, template + '.js')
+
+const PER_PAGE = 5
+
+const templates = {
+  blog: path.resolve(templatePath('BlogEntry')),
+  herbs: path.resolve(templatePath('Herbs')),
+  blogIndex: path.resolve(templatePath('BlogIndex'))
 }
 
-exports.createPages = ({ actions, graphql }) => {
+exports.onCreateWebpackConfig = ({ getConfig, stage }) => {
+  const config = getConfig()
+  if (stage.startsWith('develop') && config.resolve) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'react-dom': '@hot-loader/react-dom'
+    }
+  }
+}
+
+exports.createPages = async ({ graphql, actions, reporter }) => {
+  const path = require('path')
+  const { mkBlogEntry } = require('./src/utils/mkBlogEntry')
   const { createPage } = actions
 
-  return graphql(`
-    {
-      siteData: contentfulSiteData(current: { eq: "CURRENT" }) {
-        pages {
-          contentful_id
-          layout
-          slug
-        }
-      }
-      allArtwork: allContentfulArtwork(
-        filter: { publishOn: { ne: null } }
-        sort: { fields: [publishOn], order: DESC }
-        ) {
-        artworks: edges {
-          next {
-            contentful_id
-            slug
-            publishOn
-          }
-          prev: previous {
-            contentful_id
-            slug
-            publishOn
-          }
-          artwork: node {
-            contentful_id
-            publishOn
-            slug
-          }
-
-        }
-      }
-      allPosts: allContentfulPost(
-        filter: { publishOn: { ne: null } }
-        sort: { fields: [publishOn], order: DESC }
-      ) {
-        posts: edges {
-          next {
-            contentful_id
-            slug
-            publishOn
-          }
-          prev: previous {
-            contentful_id
-            slug
-            publishOn
-          }
-          post: node {
-            contentful_id
-            layout
-            publishOn
-            slug
+  return graphql(
+    `
+      query allPostSlugsQuery {
+        posts: allContentfulPost {
+          edges {
+            prev: previous {
+              id
+            }
+            next {
+              id
+            }
+            post: node {
+              id
+              slug
+              year: publishOn(formatString: "YYYY")
+              month: publishOn(formatString: "MM")
+              day: publishOn(formatString: "DD")
+            }
           }
         }
+        herbs: allContentfulArtwork(
+              sort: {fields: publishOn, order: DESC}
+              filter: {collection: {eq: "Herbs"}}
+            ) {
+              edges {
+                prev: previous {
+                  slug
+                  collection
+                  title
+                }
+                next {
+                  slug
+                  collection
+                  title 
+                }
+                herb: node {
+                  id
+                  collection
+                  slug
+                }
+              }
+            }
+        dandelions: allContentfulArtwork(
+              sort: {fields: publishOn, order: DESC}
+              filter: {collection: {eq: "Project Dandelion"}}
+            ) {
+              edges {
+                prev: previous {
+                  collection
+                  slug
+                  title
+                }
+                next {
+                  collection
+                  slug
+                  title 
+                }
+                dandelion: node {
+                  id
+                  collection
+                  slug
+                }
+              }
+            }
+        artworks: allContentfulArtwork(
+              sort: {fields: publishOn, order: DESC}
+              filter: {collection: {eq: "Art"}}
+            ) {
+              edges {
+                prev: previous {
+                  slug
+                  collection
+                  title
+                }
+                next {
+                  slug
+                  collection
+                  title 
+                }
+                art: node {
+                  id
+                  collection
+                  slug
+                }
+              }
+            }
       }
+    `
+  ).then(({ data }) => ({
+    posts: data.posts.edges,
+    herbs: data.herbs.edges,
+    dandelions: data.dandelions.edges,
+    artworks: data.artworks.edges,
+    errors: data.errors
+  })).then(data => {
+    if (data.errors) {
+      reporter.panicOnBuild('There was an error loading blog posts', data.errors)
+      throw new Error(data.errors)
     }
-  `)
-    .then(({ errors, data }) => {
-      if (errors) {
-        errors.forEach(e => console.error(e.toString()))
-        return Promise.reject(errors)
-      }
-
-      const pages = data.siteData.pages
-        .filter(page => page.layout !== 'Special')
-        .map(page => ({
-          contentful_id: page.contentful_id,
-          slug: Slug.page(page.slug),
-          slugHtml: Slug.page(page.slug, 'html'),
-          template: templatePath('pages', page.layout),
-        }))
-
-      const artworks = data.allArtwork.artworks.map(({ next, prev, artwork }) => {
-        const dateStamp = moment(artwork.publishOn)
-        return {
-          contentful_id: artwork.contentful_id,
-          dateStamp: dateStamp,
-          next_artwork_id: next && next.contentful_id,
-          path: Slug.artwork(artwork.slug, dateStamp),
-          prev_artwork_id: prev && prev.contentful_id,
-          slug: Slug.artwork(artwork.slug, dateStamp),
+    return data
+  }).then(data => { // create blog index pages
+    const grouped = calendarGroups(data.posts.map(({ post }) => post))
+    Object.entries(grouped).forEach(([path, group]) => {
+      createPage({
+        path: path,
+        component: templates.blogIndex,
+        context: {
+          title: group.title,
+          postIds: group.list.map(({ id }) => id)
         }
       })
-
-      const posts = data.allPosts.posts.map(({ prev, post, next }) => {
-        const dateStamp = moment(post.publishOn)
-        return {
-          contentful_id: post.contentful_id,
-          dateStamp: dateStamp,
-          path: Slug.post(post.slug, dateStamp),
-          slug: Slug.post(post.slug, dateStamp),
-          template: templatePath('posts', post.layout),
-
-          next_post_id: next && next.contentful_id,
-          prev_post_id: prev && prev.contentful_id,
-        }
-      })
-
-      return { artworks, pages, posts }
-    }) /* parse data */
-    .then(result => {
-      // create pages for siteData.pages
-      result.pages.forEach(page => {
+    })
+    return data
+  })
+    .then(data => {  // create blog entries
+      data.posts.forEach(post => {
         createPage({
-          // page slug set in md frontmatter
-          path: page.slug,
-          component: page.template,
-          // additional data can be passed via context
-          context: { contentful_id: page.contentful_id },
-        })
-        createPage({
-          // page slug set in md frontmatter
-          path: page.slugHtml,
-          component: page.template,
-          // additional data can be passed via context
-          context: { contentful_id: page.contentful_id },
-        })
-      })
-      return result
-    }) /* create pages */
-    .then(result => {
-      // generate posts
-      result.posts.forEach(post => {
-        createPage({
-          path: post.path,
-          component: post.template,
+          path: byDate(post.post),
+          component: templates.blog,
           context: {
-            contentful_id: post.contentful_id,
-            next_post_id: post.next_post_id,
-            prev_post_id: post.prev_post_id,
-          },
+            id: post.post.id,
+            prevId: post.prev && post.prev.id,
+            nextId: post.next && post.next.id
+          }
         })
       })
-      return result
-    }) /* create posts */
-    .then(result => {
-      // generate artworks
-      result.artworks.forEach(artwork => {
+      return data
+    })
+    .then(data => { // generate herb pages
+      data.herbs.forEach(({ herb, next, prev }) => {
+        if (next) next.path = artworkPath(next)
+        if (prev) prev.path = artworkPath(prev)
+        herb.path = artworkPath(herb)
         createPage({
-          path: artwork.path,
-          component: templatePath('artworks',  'Artwork'),
+          path: herb.path,
+          component: templates.herbs,
           context: {
-            contentful_id: artwork.contentful_id,
-            next_artwork_id: artwork.next_artwork_id,
-            prev_artwork_id: artwork.prev_artwork_id,
-          },
+            id: herb.id,
+            all: { path: '/herbs' },
+            next,
+            prev
+          }
         })
       })
-      return result
-    }) /* create posts */
-  // .then(result => {
-  //   const byDate = {
-  //     ..._groupBy(result.posts, p => p.dateStamp.year()),
-  //     ..._groupBy(result.posts, p => p.dateStamp.format('YYYY-MM')),
-  //   }
-  //   Object.entries(byDate).forEach(([group, posts]) => {
-  //     createPage({
-  //       path: Slug.post('index', moment(group)),
-  //       component: post.template,
-  //       context: {
-  //         contentful_id: post.contentful_id,
-  //       },
-  //     })
-  //   })
-  //
-  //   return result
-  // }) // generate post indicies
+
+      return data
+    })
+    .then(data => { // generate dandelion pages
+      data.dandelions.forEach(({ dandelion, next, prev }) => {
+        if (next) next.path = artworkPath(next)
+        if (prev) prev.path = artworkPath(prev)
+        dandelion.path = artworkPath(dandelion)
+        createPage({
+          path: dandelion.path,
+          component: templates.herbs,
+          context: {
+            id: dandelion.id,
+            all: { path: '/project-dandelion' },
+            next,
+            prev
+          }
+        })
+      })
+
+      return data
+    })
+    .then(data => { // generate art pages
+      data.artworks.forEach(({ art, next, prev }) => {
+        if (next) next.path = artworkPath(next)
+        if (prev) prev.path = artworkPath(prev)
+        art.path = artworkPath(art)
+        createPage({
+          path: art.path,
+          component: templates.herbs,
+          context: {
+            id: art.id,
+            all: { path: '/art' },
+            next,
+            prev
+          }
+        })
+      })
+      return data
+    })
 }
-// // Random fix for https://github.com/gatsbyjs/gatsby/issues/5700
-// exports.resolvableExtensions = () => ['.json']

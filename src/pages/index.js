@@ -1,26 +1,38 @@
 import React from 'react'
-import Quote from '../components/Quote'
-import { pageNormalizer, commonPageFragment } from '../queries/page'
-import Layout from '../components/Layout'
 import { graphql } from 'gatsby'
+import { Layout } from 'components'
 
-const Index = ({ data: { contentfulPage } }) => {
-  console.log('Index', contentfulPage)
-  const page = pageNormalizer(contentfulPage)
-
+const IndexPage = ({ data }) => {
+  const { title, body, images, pageQuote } = data.page
   return (
-    <Layout pageTitle={page.title}>
-      <Quote className={`homePage ${page.theme}`} subject={page} />
-    </Layout>
+    <Layout title={title}
+            contentfulBody={body}
+            featuredImage={images && images[0]}
+            pageQuote={pageQuote} />
   )
 }
 
-export default Index
+export default IndexPage
 
 export const query = graphql`
-  query homePageQuery {
-    contentfulPage(slug: { eq: "home" }) {
-      ...commonPageFragment
+  query GetIndexPage {
+    page: contentfulPage(slug: {eq: "home"}) {
+      id
+      title
+      slug
+      pageQuote {
+        lines
+        caption
+      }
+      body {
+        childMarkdownRemark {
+          html
+        }
+      }
+      images {
+        title
+        gatsbyImageData(layout: CONSTRAINED, width: 768)
+      }
     }
   }
 `

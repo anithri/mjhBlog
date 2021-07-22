@@ -1,0 +1,44 @@
+html {
+  font-size: var(--font-size-base);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: var(--spacing-none, 0);
+}
+
+p:last-child {
+  margin: var(--spacing-none, 0);
+}
+
+#___gatsby {
+  & a, & a:visited, & a:hover, & a:active {
+    color: inherit;
+    outline: none;
+    text-decoration: none;
+    border: none;
+  }
+  & a.currentPage {
+    color: var(--color-link-current-page);
+  }
+}
+
+blockquote {
+  font-style: italic;
+  border: none;
+}
+
+h2 {
+  font-style: italic; /* .i */
+  font-size: var(--article-title-size); /* .f3 */
+  font-weight: 500; /* .fw6 */
+  color: var(--dark-green); /* .dark-green */
+}
+
+section > p:first-child:first-letter {
+  font-size: 3rem;
+  line-height: 60px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  color: var(--dark-green); /* .dark-green */
+}

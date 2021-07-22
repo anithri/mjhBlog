@@ -1,142 +1,75 @@
-const postcssPresetEnv = require('postcss-preset-env')
-
 module.exports = {
   siteMetadata: {
     title: 'Believing the Bird',
-    homeUrl: '/',
-    host: 'localhost:8000',
-    siteUrl: 'https://believingthebird.com',
-    description: 'Writings of Jeanne Horvath',
+    description: 'Birdies Blog',
+    author: 'M Jeanne Horvath',
+    designer: 'Designed by Scott M Parrish with open source software',
+    established: 2017
   },
   plugins: [
+    'gatsby-plugin-image',
+    'gatsby-transformer-sharp',
+    'gatsby-transformer-remark',
+    'gatsby-plugin-sharp',
     'gatsby-plugin-react-helmet',
-    'gatsby-transformer-yaml',
-    {
-      resolve: `gatsby-source-contentful`,
-      options: {
-        spaceId: process.env.MOM_SPACE_ID,
-        accessToken: process.env.MOM_ACCESS_TOKEN,
-      },
-    },
     {
       resolve: 'gatsby-plugin-typography',
       options: {
         pathToConfigModule: 'src/styles/typography',
       },
     },
-
     {
-      resolve: 'gatsby-plugin-offline',
-      options: {
-        runtimeCaching: [
-          {
-            // Use cacheFirst since these don't need to be revalidated (same RegExp
-            // and same reason as above)
-            urlPattern: /(\.js$|\.css$|static\/)/,
-            handler: `cacheFirst`,
-          },
-          {
-            // Add runtime caching of various other page resources
-            urlPattern: /^https?:.*\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/,
-            handler: `staleWhileRevalidate`,
-          },
-          {
-            // uploadcare
-            urlPattern: /^https:\/\/ucarecdn.com\/[-a-zA-Z0-9@:%_\+.~#?&//=]*?\/10x\//,
-            handler: `staleWhileRevalidate`,
-          },
-        ],
-        skipWaiting: true,
-        clientsClaim: true,
-      },
+      resolve: 'gatsby-plugin-typescript'
     },
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: 'gatsby-plugin-module-resolver',
       options: {
-        name: 'yellowcake',
-        short_name: 'yellowcake',
-        start_url: '/',
-        background_color: '#00C2BD',
-        theme_color: '#00C2BD',
-        // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
-        // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
-        display: 'standalone',
-        icon: `${__dirname}/static/images/logo.svg`, // This path is relative to the root of the site.
-      },
+        root: './src',
+        aliases: {
+          'components': './components',
+          'data': './data',
+          'images': './images',
+          'styles': './styles',
+          'utils': './utils',
+          static: {
+            root: './public',
+            alias: './static'
+          }
+        }
+      }
     },
-
-    // Add static assets before markdown files
     {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/static/images`,
         name: 'images',
-      },
+        path: `${__dirname}/src/images`
+      }
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        path: `${__dirname}/content`,
-        name: 'pages',
-      },
-    },
-
-    // images
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
-
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          // gatsby-remark-relative-images must
-          // go before gatsby-remark-images
-          'gatsby-remark-relative-images',
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 800,
-              linkImagesToOriginal: false,
-            },
-          },
-          `gatsby-remark-responsive-iframe`,
-        ],
-      },
-    },
-
-    // css (replace with gatsby-plugin-sass for v2)
-    {
-      resolve: `gatsby-plugin-sass`,
-      options: {
-        postCssPlugins: [
-          postcssPresetEnv({
-            stage: 0,
-            browsers: '> 0.5%, last 2 versions, ie 11',
-          }),
-        ],
-      },
+        name: 'Gatsby Starter',
+        short_name: 'Gatsby Starter',
+        start_url: '/',
+        background_color: 'black',
+        theme_color: 'black',
+        display: 'minimal-ui',
+        icon: 'src/images/favicon.png'
+      }
     },
     {
-      resolve: `gatsby-plugin-postcss`,
+      resolve: 'gatsby-plugin-postcss',
       options: {
-        postCssPlugins: [
-          require(`postcss-preset-env`)({
-            stage: 0,
-            browsers: '> 0.5%, last 2 versions, ie 11',
-          }),
-        ],
-      },
+        postCssPlugins: [require('postcss-preset-env')({ stage: 0 })]
+      }
     },
     {
-      resolve: 'gatsby-plugin-nprogress',
+      resolve: 'gatsby-source-contentful',
       options: {
-        // Setting a color is optional.
-        color: 'white',
-        // Disable the loading spinner.
-        showSpinner: false,
-      },
-    },
-    'gatsby-plugin-sitemap',
-    'gatsby-plugin-netlify', // make sure to keep it last in the array
-  ],
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        environment: process.env.CONTENTFUL_ENV
+      }
+    }
+  ]
 }

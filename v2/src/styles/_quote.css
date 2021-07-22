@@ -1,0 +1,20 @@
+.quote {
+
+  & blockquote {
+    padding: var(--spacing-medium) var(--spacing-small); /* .pv3 */
+    margin: 0; /* .ma0 */
+    color: var(--near-black); /* .near-black */
+    border: 0;
+  }
+  & p {
+    margin-bottom: var(--spacing-small); /* .mb2 */
+  }
+
+  & ul {
+    list-style: none;
+    & li {
+      text-align: right; /* .tr */
+
+    }
+  }
+}
