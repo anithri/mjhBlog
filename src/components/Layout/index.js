@@ -6,7 +6,7 @@ import * as styles from './styles.module.css'
 import '../../styles/site.css'
 import { BirdInFlight } from './BirdInFlight'
 
-export const Layout = ({ className, children, noBackground, pageTitle, pageQuote, featuredImage, contentfulBody }) => {
+export const Layout = ({ className, children, noBackground, pageTitle, pageQuote, featuredImage, contentfulBody, banner }) => {
   // console.log('Layoute pageQuote', pageQuote)
   return (
     <React.Fragment>
@@ -26,6 +26,7 @@ export const Layout = ({ className, children, noBackground, pageTitle, pageQuote
           <Navigation className={styles.navigation} />
           <BirdInFlight className={styles.birdInFlight} />
           <main className={styles.content}>
+            {banner}
             {featuredImage && <FeaturedImage image={featuredImage}/> }
             {pageQuote && <Blockquote quote={pageQuote} />}
             {contentfulBody && <ContentfulBody body={contentfulBody.childMarkdownRemark.html} />}

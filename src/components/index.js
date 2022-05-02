@@ -1,3 +1,4 @@
+export * from './ArtWalkBanner'
 export * from './ArtworkIndexPage'
 export * from './ArtworkPage'
 export * from './ArtworkSummary'
