@@ -16,6 +16,8 @@ export const Navigation = ({ className }) => {
         <li className={styles.spacer} />
         <li><Link to={'/project-dandelion'}>Project Dandelion</Link></li>
         <li className={styles.spacer} />
+        <li><Link to={'/blog/2022/05/01/monte-vista-art-walk-2022.html'}>Art Walk 2022</Link></li>
+        <li className={styles.spacer} />
         <li><Link to={'/blog'}>Birdies Blog</Link></li>
         <li className={styles.spacer} />
         <li><Link to={'/about'}>About the Author</Link></li>
