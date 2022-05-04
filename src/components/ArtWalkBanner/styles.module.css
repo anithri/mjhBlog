@@ -13,8 +13,8 @@
 
   grid-gap: var(--spacing-extra-small);
   border-radius: var(--border-radius-3);
-  border: thin solid var(--purple);
-  background-color: #C390BC;
+  border: thin solid var(--gold);
+  background-color: var(--light-yellow);
 
   box-shadow: 0 0 0 0;
   transition: all 0.3s ease-in-out;
