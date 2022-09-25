@@ -38,7 +38,7 @@ export const query = graphql`
           }
         }
         art {
-          gatsbyImageData(layout: FIXED, width: 300)
+          gatsbyImageData(layout: FIXED, width: 480)
         }
       }
     }

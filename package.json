@@ -60,8 +60,7 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "serve": "gatsby serve",
     "setup": "node ./bin/setup.js",
-    "clean": "gatsby clean",
-    "predev": "gatsby clean"
+    "clean": "gatsby clean"
   },
   "repository": {
     "type": "git",

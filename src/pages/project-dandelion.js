@@ -26,7 +26,7 @@ export const query = graphql`
           title
           summary
           art {
-            gatsbyImageData(layout: FULL_WIDTH, width: 900)
+            gatsbyImageData(layout: FULL_WIDTH, width: 90)
           }
         }
       }
