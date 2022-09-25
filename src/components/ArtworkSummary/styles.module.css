@@ -4,6 +4,7 @@
   grid-template-rows: 135px;
   grid-gap: 1rem;
   align-content: center;
+  align-items: center;
   border-radius: var(--border-radius-3, .5rem);
   height: 135px;
 

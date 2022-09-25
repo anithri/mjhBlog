@@ -2,7 +2,7 @@ import { ArtworkPage } from 'components'
 import { graphql } from 'gatsby'
 export { query } from '../pages/herbs'
 // import {GatsbyImage} from 'gatsby-plugin-image'
-const PAGE_WIDTH = 768
+// const PAGE_WIDTH = 768
 export default ArtworkPage
 export const pageQuery = graphql`
   query GetHerbArtPage($id: String) {

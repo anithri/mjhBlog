@@ -1,13 +1,12 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { ArtWalkBanner, Layout } from 'components'
+import { Layout } from 'components'
 
 const IndexPage = ({ data }) => {
   const { title, body, images, pageQuote } = data.page
   return (
     <Layout
       title={title}
-      banner={<ArtWalkBanner />}
       contentfulBody={body}
       featuredImage={images && images[0]}
       pageQuote={pageQuote}

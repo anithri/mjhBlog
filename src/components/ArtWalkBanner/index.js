@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as styles from './styles.module.css'
 import { Link } from 'gatsby'
 
-export const ArtWalkBanner = (props) => {
+export const ArtWalkBanner = (_props) => {
   return (
     <div className={styles.banner}>
       <h1>Monte Vista Art Walk</h1>
