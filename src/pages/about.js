@@ -21,8 +21,8 @@ const AboutPage = ({ data }) => {
 export default AboutPage
 
 export const query = graphql`
-  query GetAboutPage{
-    page: contentfulPage(slug: {eq: "about"}) {
+  query GetAboutPage {
+    page: contentfulPage(slug: { eq: "about" }) {
       id
       title
       slug

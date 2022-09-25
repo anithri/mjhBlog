@@ -4,7 +4,7 @@ import { BlogPage } from 'components'
 export default BlogPage
 export const query = graphql`
   query GetBlogIndex($postIds: [String!]) {
-    page: contentfulPage(slug: {eq: "blog"}) {
+    page: contentfulPage(slug: { eq: "blog" }) {
       id
       title
       slug
@@ -23,8 +23,8 @@ export const query = graphql`
       }
     }
     posts: allContentfulPost(
-      sort: { fields: [publishOn], order: DESC },
-      filter: {id: {in: $postIds}}
+      sort: { fields: [publishOn], order: DESC }
+      filter: { id: { in: $postIds } }
     ) {
       all: edges {
         node {
@@ -40,4 +40,3 @@ export const query = graphql`
     }
   }
 `
-

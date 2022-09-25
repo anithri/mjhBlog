@@ -5,7 +5,7 @@ export default ArtworkIndexPage
 
 export const query = graphql`
   query GetArtPage {
-    page: contentfulPage(slug: {eq: "art"}) {
+    page: contentfulPage(slug: { eq: "art" }) {
       title
       pageQuote {
         lines
@@ -22,8 +22,8 @@ export const query = graphql`
       }
     }
     artwork: allContentfulArtwork(
-      sort: {fields: publishOn, order: DESC}
-      filter: {collection: {eq: "Art"}}
+      sort: { fields: publishOn, order: DESC }
+      filter: { collection: { eq: "Art" } }
     ) {
       all: edges {
         node {

@@ -5,7 +5,7 @@ export default ArtworkIndexPage
 
 export const query = graphql`
   query GetDandelionPage {
-    page: contentfulPage(slug: {eq: "project-dandelion"}) {
+    page: contentfulPage(slug: { eq: "project-dandelion" }) {
       title
       body {
         childMarkdownRemark {
@@ -14,8 +14,8 @@ export const query = graphql`
       }
     }
     artwork: allContentfulArtwork(
-      sort: {fields: publishOn, order: DESC}
-      filter: {collection: {eq: "Project Dandelion"}}
+      sort: { fields: publishOn, order: DESC }
+      filter: { collection: { eq: "Project Dandelion" } }
     ) {
       all: edges {
         node {

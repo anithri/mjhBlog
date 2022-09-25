@@ -4,10 +4,9 @@ import * as styles from './styles.module.css'
 import { useSiteMetadata } from 'data'
 
 const copyrightStr = (established) => {
-  const current = (new Date()).getFullYear()
+  const current = new Date().getFullYear()
   const start = parseInt(established)
-  const years = [...Array(current + 1 - start).keys()]
-    .map(y => y + start)
+  const years = [...Array(current + 1 - start).keys()].map((y) => y + start)
   return years.join(',')
 }
 
@@ -16,7 +15,9 @@ export const Footer = ({ className, title }) => {
   return (
     <footer className={cx(className, styles.footer)}>
       <ul>
-        <li>Copyright {copyrightStr(established)} by {author}</li>
+        <li>
+          Copyright {copyrightStr(established)} by {author}
+        </li>
         <li>{designer}</li>
       </ul>
     </footer>

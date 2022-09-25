@@ -10,7 +10,9 @@ export const BlogSummary = ({ post, className }) => {
   const { title, summary, publishOn } = post
   return (
     <article className={cx(className, styles.summary)}>
-      <Link to={path}><h3>{title}</h3></Link>
+      <Link to={path}>
+        <h3>{title}</h3>
+      </Link>
       <p>{summary}</p>
     </article>
   )

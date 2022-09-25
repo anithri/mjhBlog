@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 export default BlogPage
 export const query = graphql`
   query GetContentfulBlogPage {
-    page: contentfulPage(slug: {eq: "blog"}) {
+    page: contentfulPage(slug: { eq: "blog" }) {
       id
       title
       slug
@@ -17,9 +17,7 @@ export const query = graphql`
         gatsbyImageData
       }
     }
-    posts: allContentfulPost(
-      sort: { fields: [publishOn], order: DESC }
-    ) {
+    posts: allContentfulPost(sort: { fields: [publishOn], order: DESC }) {
       all: edges {
         node {
           id

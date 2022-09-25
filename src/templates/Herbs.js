@@ -1,12 +1,12 @@
 import { ArtworkPage } from 'components'
 import { graphql } from 'gatsby'
-export {query} from '../pages/herbs'
+export { query } from '../pages/herbs'
 // import {GatsbyImage} from 'gatsby-plugin-image'
 const PAGE_WIDTH = 768
 export default ArtworkPage
 export const pageQuery = graphql`
   query GetHerbArtPage($id: String) {
-    page: contentfulPage(slug: {eq: "herbs"}) {
+    page: contentfulPage(slug: { eq: "herbs" }) {
       title
       body {
         childMarkdownRemark {
@@ -14,7 +14,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    herb: contentfulArtwork(id: {eq: $id}) {
+    herb: contentfulArtwork(id: { eq: $id }) {
       collection
       id
       publishOn

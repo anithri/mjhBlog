@@ -1,11 +1,11 @@
 import { graphql } from 'gatsby'
-import {ArtworkIndexPage } from 'components'
+import { ArtworkIndexPage } from 'components'
 
 export default ArtworkIndexPage
 
 export const query = graphql`
   query GetHerbPage {
-    page: contentfulPage(slug: {eq: "herbs"}) {
+    page: contentfulPage(slug: { eq: "herbs" }) {
       title
       body {
         childMarkdownRemark {
@@ -14,8 +14,8 @@ export const query = graphql`
       }
     }
     artwork: allContentfulArtwork(
-      sort: {fields: publishOn, order: DESC}
-      filter: {collection: {eq: "Herbs"}}
+      sort: { fields: publishOn, order: DESC }
+      filter: { collection: { eq: "Herbs" } }
     ) {
       all: edges {
         node {

@@ -1,12 +1,12 @@
 import { ArtworkPage } from 'components'
 import { graphql } from 'gatsby'
-export {query} from '../pages/herbs'
+export { query } from '../pages/herbs'
 // import {GatsbyImage} from 'gatsby-plugin-image'
 const PAGE_WIDTH = 768
 export default ArtworkPage
 export const pageQuery = graphql`
   query GetDandelionArtPage($id: String) {
-    page: contentfulPage(slug: {eq: "project-dandelion"}) {
+    page: contentfulPage(slug: { eq: "project-dandelion" }) {
       title
       body {
         childMarkdownRemark {
@@ -14,7 +14,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    dandelion: contentfulArtwork(id: {eq: $id}) {
+    dandelion: contentfulArtwork(id: { eq: $id }) {
       collection
       id
       publishOn
