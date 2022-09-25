@@ -24,7 +24,7 @@
     "linkifyjs": "^3.0.0-beta.3",
     "lodash": "^4.17.21",
     "postcss": "^8.2.10",
-    "postcss-preset-env": "^6.7.0",
+    "postcss-preset-env": "^7.8.2",
     "react": "^17.0.2",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^17.0.2",
@@ -45,7 +45,7 @@
     "@hot-loader/react-dom": "^17.0.1",
     "@netlify/plugin-gatsby": "^1.0.3",
     "babel-preset-gatsby": "^1.0.0",
-    "chalk": "^4.1.0",
+    "chalk": "^5.0.1",
     "inquirer": "^8.0.0",
     "prettier": "^2.3.0",
     "yargs-parser": "^20.2.7"
