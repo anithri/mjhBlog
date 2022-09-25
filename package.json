@@ -2,7 +2,7 @@
   "name": "mjhBlog",
   "private": true,
   "description": "believingthebird.com",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "author": "Scott M Parrish <anithri@gmail.com>, Jeanne Horvath <mandaladay@gmail.com>",
   "dependencies": {
     "classnames": "^2.2.6",
