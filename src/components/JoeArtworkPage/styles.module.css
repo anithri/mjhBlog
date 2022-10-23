@@ -1,0 +1,34 @@
+.herbPage {
+  & h2 {
+    text-align: center;
+    color: var(--color-title);
+    font-style: normal;
+  }
+}
+
+.summary {
+  text-align: center;
+}
+.miniNav {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+}
+.prev {
+  grid-column: 1;
+  text-align: left;
+
+}
+.all {
+  text-align: center;
+  grid-column: 2;
+}
+.next {
+  text-align: right;
+  grid-column: 3;
+}
+.arrow {
+  font-size: var(--font-size-4, 1.25rem);
+
+
+}

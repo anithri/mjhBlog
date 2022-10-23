@@ -26,7 +26,7 @@ export const query = graphql`
           title
           summary
           art {
-            gatsbyImageData(layout: CONSTRAINED, width: 120)
+            gatsbyImageData(layout: CONSTRAINED, width: 90)
           }
         }
       }

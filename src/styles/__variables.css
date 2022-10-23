@@ -34,6 +34,6 @@ page background 193,226,247
 
   --body-background: url('../images/lace-background.png') no-repeat bottom right fixed;
   --body-texture: url('../images/scribble-light.png') repeat;
-  --artwork-summary-width: 16rem;
+  --artwork-summary-width: 10rem;
 }
 
