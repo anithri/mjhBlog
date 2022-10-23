@@ -41,3 +41,13 @@ body {
 time {
   font-weight: bold; /* .b */
 }
+
+.floatLeft {
+  float: left;
+  margin-right: var(--spacing-small);
+}
+
+.pageTitle {
+  text-align: center;
+  padding-bottom: var(--spacing-small);
+}

@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: 'Believing the Bird',
     description: 'Birdies Blog',
-    author: 'M Jeanne Horvath',
+    author: 'Birdie',
     designer: 'Designed by Scott M Parrish with open source software',
     established: 2017
   },
@@ -68,7 +68,7 @@ module.exports = {
       options: {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        environment: process.env.CONTENTFUL_ENV,
+        host: process.env.CONTENTFUL_HOST,
         pageLimit: 50
       }
     }

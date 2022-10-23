@@ -3,15 +3,15 @@ import { graphql } from 'gatsby'
 import { Layout } from 'components'
 import { GatsbyImage } from 'gatsby-plugin-image'
 
-const AboutPage = ({ data }) => {
+const AboutJoePage = ({ data }) => {
   // console.log(data)
-  const { body, images, title } = data.page
+  const { title, body, images } = data.page
   const html = body.childMarkdownRemark.html
   const imageTitle = images[0].title
   const image = images[0].gatsbyImageData
   // console.log('IndexPage.query', title, slug, html, images)
   return (
-    <Layout title='Home'>
+    <Layout title={title}>
       <h2 className="pageTitle">{title}</h2>
       <GatsbyImage image={image} alt={imageTitle} className="floatLeft" />
       <section dangerouslySetInnerHTML={{ __html: html }} />
@@ -19,11 +19,11 @@ const AboutPage = ({ data }) => {
   )
 }
 
-export default AboutPage
+export default AboutJoePage
 
 export const query = graphql`
-  query GetAboutPage {
-    page: contentfulPage(slug: { eq: "about" }) {
+  query GetAboutJoePage {
+    page: contentfulPage(slug: { eq: "about-joe" }) {
       id
       title
       slug
