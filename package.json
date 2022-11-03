@@ -6,6 +6,7 @@
   "author": "Scott M Parrish <anithri@gmail.com>, Jeanne Horvath <mandaladay@gmail.com>",
   "dependencies": {
     "classnames": "^2.2.6",
+    "compass-vertical-rhythm": "^1.4.5",
     "gatsby": "^3.0.4",
     "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-image": "^3.5.0",
